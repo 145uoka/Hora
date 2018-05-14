@@ -1,0 +1,528 @@
+map:{
+    ; 2018/05/14 19:23:43 = map:{
+        ; diffDate = 2018/05/14 19:23:43
+        ; tableDiff = map:{
+            ; m_code = map:{
+                ; tableName = m_code
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_company = map:{
+                ; tableName = m_company
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_course = map:{
+                ; tableName = m_course
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_course_fk0 = map:{
+                        ; constraintName = idx_m_course_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; m_course_group = map:{
+                ; tableName = m_course_group
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_course_group_fk0 = map:{
+                        ; constraintName = idx_m_course_group_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; m_shop = map:{
+                ; tableName = m_shop
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_shop_fk0 = map:{
+                        ; constraintName = idx_m_shop_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; m_staff = map:{
+                ; tableName = m_staff
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_user = map:{
+                ; tableName = m_user
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_working_day = map:{
+                ; tableName = m_working_day
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_day_fk0 = map:{
+                        ; constraintName = idx_m_working_day_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; m_working_day_deff = map:{
+                ; tableName = m_working_day_deff
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; shop_id = map:{
+                        ; columnName = shop_id
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = int4
+                            ; previous = serial
+                        }
+                        ; defaultValueDiff = map:{
+                            ; next = null
+                            ; previous = "nextval('m_working_day_deff_shop_id_seq'::regclass)"
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_day_deff_fk0 = map:{
+                        ; constraintName = idx_m_working_day_deff_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; m_working_day_detail_deff = map:{
+                ; tableName = m_working_day_detail_deff
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; m_working_day_deff_id = map:{
+                        ; columnName = m_working_day_deff_id
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = int4
+                            ; previous = serial
+                        }
+                        ; defaultValueDiff = map:{
+                            ; next = null
+                            ; previous = "nextval('m_working_day_detail_deff_m_working_day_deff_id_seq'::regclass)"
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_day_detail_deff_fk1 = map:{
+                        ; constraintName = idx_m_working_day_detail_deff_fk1
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; m_working_staff = map:{
+                ; tableName = m_working_staff
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_staff_fk0 = map:{
+                        ; constraintName = idx_m_working_staff_fk0
+                        ; diffType = DELETE
+                    }
+                    ; idx_m_working_staff_fk1 = map:{
+                        ; constraintName = idx_m_working_staff_fk1
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; t_reservation = map:{
+                ; tableName = t_reservation
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; staff_id = map:{
+                        ; columnName = staff_id
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = int4
+                            ; previous = serial
+                        }
+                        ; defaultValueDiff = map:{
+                            ; next = null
+                            ; previous = "nextval('t_reservation_staff_id_seq'::regclass)"
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_t_reservation_fk1 = map:{
+                        ; constraintName = idx_t_reservation_fk1
+                        ; diffType = DELETE
+                    }
+                    ; idx_t_reservation_fk2 = map:{
+                        ; constraintName = idx_t_reservation_fk2
+                        ; diffType = DELETE
+                    }
+                    ; idx_t_reservation_fk0 = map:{
+                        ; constraintName = idx_t_reservation_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; t_reservation_detail = map:{
+                ; tableName = t_reservation_detail
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_t_reservation_detail_fk2 = map:{
+                        ; constraintName = idx_t_reservation_detail_fk2
+                        ; diffType = DELETE
+                    }
+                    ; idx_t_reservation_detail_fk0 = map:{
+                        ; constraintName = idx_t_reservation_detail_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; t_shift = map:{
+                ; tableName = t_shift
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; idx_t_shift_fk1 = map:{
+                        ; constraintName = idx_t_shift_fk1
+                        ; diffType = DELETE
+                    }
+                    ; idx_t_shift_fk0 = map:{
+                        ; constraintName = idx_t_shift_fk0
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.hora.t_reservation_staff_id_seq = map:{
+                ; sequenceName = postgres.hora.t_reservation_staff_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.hora.m_working_day_deff_shop_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_deff_shop_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.hora.m_working_day_detail_deff_m_working_day_deff_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_detail_deff_m_working_day_deff_id_seq
+                ; diffType = DELETE
+            }
+        }
+    }
+    ; 2018/05/14 18:53:49 = map:{
+        ; diffDate = 2018/05/14 18:53:49
+        ; tableCount = map:{
+            ; next = 14
+            ; previous = 1
+        }
+        ; tableDiff = map:{
+            ; m_code = map:{
+                ; tableName = m_code
+                ; diffType = ADD
+            }
+            ; m_company = map:{
+                ; tableName = m_company
+                ; diffType = ADD
+            }
+            ; m_course = map:{
+                ; tableName = m_course
+                ; diffType = ADD
+            }
+            ; m_course_group = map:{
+                ; tableName = m_course_group
+                ; diffType = ADD
+            }
+            ; m_shop = map:{
+                ; tableName = m_shop
+                ; diffType = ADD
+            }
+            ; m_staff = map:{
+                ; tableName = m_staff
+                ; diffType = ADD
+            }
+            ; m_user = map:{
+                ; tableName = m_user
+                ; diffType = ADD
+            }
+            ; m_working_day = map:{
+                ; tableName = m_working_day
+                ; diffType = ADD
+            }
+            ; m_working_day_deff = map:{
+                ; tableName = m_working_day_deff
+                ; diffType = ADD
+            }
+            ; m_working_day_detail_deff = map:{
+                ; tableName = m_working_day_detail_deff
+                ; diffType = ADD
+            }
+            ; m_working_staff = map:{
+                ; tableName = m_working_staff
+                ; diffType = ADD
+            }
+            ; t_reservation = map:{
+                ; tableName = t_reservation
+                ; diffType = ADD
+            }
+            ; t_reservation_detail = map:{
+                ; tableName = t_reservation_detail
+                ; diffType = ADD
+            }
+            ; t_shift = map:{
+                ; tableName = t_shift
+                ; diffType = ADD
+            }
+            ; new_table = map:{
+                ; tableName = new_table
+                ; diffType = DELETE
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.hora.m_user_user_id_seq = map:{
+                ; sequenceName = postgres.hora.m_user_user_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_company_company_id_seq = map:{
+                ; sequenceName = postgres.hora.m_company_company_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_shop_shop_id_seq = map:{
+                ; sequenceName = postgres.hora.m_shop_shop_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_staff_staff_id_seq = map:{
+                ; sequenceName = postgres.hora.m_staff_staff_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.t_reservation_reservation_id_seq = map:{
+                ; sequenceName = postgres.hora.t_reservation_reservation_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.t_reservation_staff_id_seq = map:{
+                ; sequenceName = postgres.hora.t_reservation_staff_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_course_group_course_group_id_seq = map:{
+                ; sequenceName = postgres.hora.m_course_group_course_group_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.t_reservation_detail_reservation_detail_id_seq = map:{
+                ; sequenceName = postgres.hora.t_reservation_detail_reservation_detail_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_working_staff_working_staff_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_staff_working_staff_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_working_day_working_day_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_working_day_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.t_shift_shift_id_seq = map:{
+                ; sequenceName = postgres.hora.t_shift_shift_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_code_code_id_seq = map:{
+                ; sequenceName = postgres.hora.m_code_code_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_working_day_deff_m_working_day_deff_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_deff_m_working_day_deff_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_working_day_deff_shop_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_deff_shop_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_working_day_detail_deff_working_day_detail_deff_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_detail_deff_working_day_detail_deff_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.m_working_day_detail_deff_m_working_day_deff_id_seq = map:{
+                ; sequenceName = postgres.hora.m_working_day_detail_deff_m_working_day_deff_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.hora.new_table_id_seq = map:{
+                ; sequenceName = postgres.hora.new_table_id_seq
+                ; diffType = DELETE
+            }
+        }
+    }
+}
