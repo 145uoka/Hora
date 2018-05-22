@@ -3,6 +3,7 @@ package com.olympus.hora.constants;
 /**
  * メッセージKeyの定数クラス
  *
+ * @author ishigouoka_k
  * $Id$
  */
 public class MessageKeyConstants {
@@ -71,8 +72,20 @@ public class MessageKeyConstants {
         public static final String NOTINPUTINSURANCENUMBER = "{glue-net.validator.NotInputInsuranceNumber}";
         /** 未来日は設定できません。 */
         public static final String NOTFUTURE = "{glue-net.validator.NotFuture}";
-        /** 日付は {0} の形式で入力してください。 */
-        public static final String DATEFORMAT_MESSAGE = "{glue-net.validator.DateFormat.message}";
+        /** 正しい日付ではありません。 */
+        public static final String NOTDATE = "{glue-net.validator.NotDate}";
+        /** No{0}の{1}は正しい日付ではありません。 */
+        public static final String NOTDATEPATTERN = "{glue-net.validator.NotDatePattern}";
+        /** No{0}の{1}は正しい時刻ではありません。 */
+        public static final String NOTTIMEPATTERN = "{glue-net.validator.NotTimePattern}";
+        /** No{0}の時刻の前後が正しくありません。 */
+        public static final String NOTTIMETERM = "{glue-net.validator.NotTimeTerm}";
+        /** No{0}の曜日・毎月指定日・指定日のいずれかを入力してください。 */
+        public static final String NOTEMPTY_WORKDAY = "{glue-net.validator.NotEmpty.workday}";
+        /** No{0}の{1}を入力してください。 */
+        public static final String NOTEMPTY_WITH_ITEM = "{glue-net.validator.NotEmpty.with.item}";
+        /** No{0}の{1}の入力は無効です。 */
+        public static final String NOTINPUT = "{glue-net.validator.NotInput}";
     }
 
     /**
@@ -281,13 +294,5 @@ public class MessageKeyConstants {
         public static final String NOT_SET_UP_PARENT_CODE = "{error.not.set.up.parent.code}";
         /** メインに設定されている入力フォームは削除できません。 */
         public static final String NOT_DELETE_MAINFORM = "{error.not.delete.mainform}";
-        /** {0}と{1}が一致していません。 */
-        public static final String DIFFERENT_NEWPASSWORD = "{error.different.newpassword}";
-        /** {0}、{1}、{2}のいずれかが未入力です。 */
-        public static final String EXISTS_NOT_SET_PASSWORD = "{error.exists.not.set.password}";
-        /** {0}と{1}が同じです。 */
-        public static final String SAME_NEWPASSWORD = "{error.same.newpassword}";
-        /** {0}が登録している設定値と異なります。 */
-        public static final String DIFFERENT_PASSWORD = "{error.different.password}";
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.olympus.hora.Exception.RecordNotFoundException;
 import com.olympus.hora.common.util.MonthUtil;
+import com.olympus.hora.constants.LogMessageKeyConstants;
 import com.olympus.hora.constants.SystemCodeConstants;
 import com.olympus.hora.dbflute.exbhv.MHolidayBhv;
 import com.olympus.hora.dbflute.exbhv.MShopBhv;
@@ -100,7 +101,7 @@ public class WorkshopEditService {
 
         if(!mShopEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
-            loggerService.outLog("W_99_0001", new Object[]{"店舗マスタ", dto.getShopId()});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"店舗マスタ", dto.getShopId()});
             throw new RecordNotFoundException("MShop", dto.getShopId());
         }
 
@@ -127,7 +128,7 @@ public class WorkshopEditService {
         mWorkingDayDeffEntity.setMWorkingDayDeffId(mWorkingDayDeffId);
 
         mWorkingDayDeffBhv.insert(mWorkingDayDeffEntity);
-        loggerService.outLog("I_99_0004", new Object[]{"営業日定義マスタ", mWorkingDayDeffId});
+        loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"営業日定義マスタ", mWorkingDayDeffId});
 
 
         return mWorkingDayDeffEntity;
@@ -151,7 +152,7 @@ public class WorkshopEditService {
 
         if(!mWorkingDayDeffEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
-            loggerService.outLog("W_99_0001", new Object[]{"営業日定義マスタ", mWorkingDayDeffId});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"営業日定義マスタ", mWorkingDayDeffId});
             throw new RecordNotFoundException("MWorkingDayDeff", mWorkingDayDeffId);
         }
 
@@ -171,7 +172,7 @@ public class WorkshopEditService {
 
         // 入力情報をDBに挿入する。
         mWorkingDayDetailDeffBhv.batchInsert(entityList);
-        loggerService.outLog("I_99_0005", new Object[]{"営業日詳細定義マスタ", dtoList.size()});
+        loggerService.outLog(LogMessageKeyConstants.Info.I_99_0005, new Object[]{"営業日詳細定義マスタ", dtoList.size()});
 
         return entityList;
     }
@@ -195,7 +196,7 @@ public class WorkshopEditService {
 
         if(!mShopEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
-            loggerService.outLog("W_99_0001", new Object[]{"店舗マスタ", dto.getShopId()});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"店舗マスタ", dto.getShopId()});
             throw new RecordNotFoundException("MShop", dto.getShopId());
         }
 
@@ -207,7 +208,7 @@ public class WorkshopEditService {
 
         if(!mWorkingDayDeffPreEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
-            loggerService.outLog("W_99_0002", new Object[]{"営業日定義マスタ", "MWorkingDayDeffId", dto.getmWorkingDayDeffId()});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"営業日定義マスタ", dto.getmWorkingDayDeffId()});
             throw new RecordNotFoundException("MWorkingDayDeff", dto.getmWorkingDayDeffId());
         }
 
@@ -225,7 +226,7 @@ public class WorkshopEditService {
 
         if(mWorkingDayDetailDeffSelectList.size() == 0 || mWorkingDayDetailDeffSelectList == null){
             // 該当するテーブル情報がなければ、レコード取得エラー。
-            loggerService.outLog("W_99_0002", new Object[]{"営業日詳細定義マスタ", "MWorkingDayDeffId", mWorkingDayDeffEntity.getMWorkingDayDeffId()});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0002, new Object[]{"営業日詳細定義マスタ"});
             throw new RecordNotFoundException("MWorkingDayDetailDeff", dto.getShopId());
         }
 
@@ -421,7 +422,7 @@ public class WorkshopEditService {
         if(mWorkingDayStoreList.size() > 0){
             // entityリストに情報があれば、営業日情報をDBに一括挿入する。
             mWorkingDayBhv.batchInsert(mWorkingDayStoreList);
-            loggerService.outLog("I_99_0005", new Object[]{"営業日マスタ", mWorkingDayStoreList.size()});
+            loggerService.outLog(LogMessageKeyConstants.Info.I_99_0005, new Object[]{"営業日マスタ", mWorkingDayStoreList.size()});
         }
 
         return mWorkingDayStoreList;

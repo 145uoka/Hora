@@ -91,7 +91,7 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 										</tr>
 									</thead>
 									<tbody>
-									  <c:forEach begin="1" end="10" varStatus="status">
+									  <c:forEach begin="0" end="10" varStatus="status">
 									  <tr>
 									    <td><c:out value="${status.index}"/></td>
 									    <td><form:checkbox path="effectiveFlag[${status.index}]" class="form-control th-checkbox-s-size" value="1" /></td>
