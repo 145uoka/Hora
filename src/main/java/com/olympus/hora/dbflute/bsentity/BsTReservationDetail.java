@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,13 +31,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_course, t_reservation
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mCourse, tReservation
  *
  * [referrer property]
  *     
@@ -74,10 +76,10 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
     /** reservation_detail_id: {PK, ID, NotNull, bigserial(19)} */
     protected Long _reservationDetailId;
 
-    /** reservation_id: {int8(19)} */
+    /** reservation_id: {int8(19), FK to t_reservation} */
     protected Long _reservationId;
 
-    /** course_id: {int4(10)} */
+    /** course_id: {int4(10), FK to m_course} */
     protected Integer _courseId;
 
     /** hist_course_name: {text(2147483647)} */
@@ -117,6 +119,48 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_course by my course_id, named 'MCourse'. */
+    protected OptionalEntity<MCourse> _mCourse;
+
+    /**
+     * [get] m_course by my course_id, named 'MCourse'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MCourse'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MCourse> getMCourse() {
+        if (_mCourse == null) { _mCourse = OptionalEntity.relationEmpty(this, "MCourse"); }
+        return _mCourse;
+    }
+
+    /**
+     * [set] m_course by my course_id, named 'MCourse'.
+     * @param mCourse The entity of foreign property 'MCourse'. (NullAllowed)
+     */
+    public void setMCourse(OptionalEntity<MCourse> mCourse) {
+        _mCourse = mCourse;
+    }
+
+    /** t_reservation by my reservation_id, named 'TReservation'. */
+    protected OptionalEntity<TReservation> _tReservation;
+
+    /**
+     * [get] t_reservation by my reservation_id, named 'TReservation'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'TReservation'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<TReservation> getTReservation() {
+        if (_tReservation == null) { _tReservation = OptionalEntity.relationEmpty(this, "TReservation"); }
+        return _tReservation;
+    }
+
+    /**
+     * [set] t_reservation by my reservation_id, named 'TReservation'.
+     * @param tReservation The entity of foreign property 'TReservation'. (NullAllowed)
+     */
+    public void setTReservation(OptionalEntity<TReservation> tReservation) {
+        _tReservation = tReservation;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -148,7 +192,15 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mCourse != null && _mCourse.isPresent())
+        { sb.append(li).append(xbRDS(_mCourse, "mCourse")); }
+        if (_tReservation != null && _tReservation.isPresent())
+        { sb.append(li).append(xbRDS(_tReservation, "tReservation")); }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -170,7 +222,15 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mCourse != null && _mCourse.isPresent())
+        { sb.append(dm).append("mCourse"); }
+        if (_tReservation != null && _tReservation.isPresent())
+        { sb.append(dm).append("tReservation"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -200,7 +260,7 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
     }
 
     /**
-     * [get] reservation_id: {int8(19)} <br>
+     * [get] reservation_id: {int8(19), FK to t_reservation} <br>
      * @return The value of the column 'reservation_id'. (NullAllowed even if selected: for no constraint)
      */
     public Long getReservationId() {
@@ -209,7 +269,7 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
     }
 
     /**
-     * [set] reservation_id: {int8(19)} <br>
+     * [set] reservation_id: {int8(19), FK to t_reservation} <br>
      * @param reservationId The value of the column 'reservation_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setReservationId(Long reservationId) {
@@ -218,7 +278,7 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
     }
 
     /**
-     * [get] course_id: {int4(10)} <br>
+     * [get] course_id: {int4(10), FK to m_course} <br>
      * @return The value of the column 'course_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getCourseId() {
@@ -227,7 +287,7 @@ public abstract class BsTReservationDetail extends AbstractEntity implements Dom
     }
 
     /**
-     * [set] course_id: {int4(10)} <br>
+     * [set] course_id: {int4(10), FK to m_course} <br>
      * @param courseId The value of the column 'course_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setCourseId(Integer courseId) {

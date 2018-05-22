@@ -25,13 +25,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop, m_staff
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mShop, mStaff
  *
  * [referrer property]
  *     
@@ -59,6 +59,20 @@ public class LoaderOfMWorkingStaff {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfMShop _foreignMShopLoader;
+    public LoaderOfMShop pulloutMShop() {
+        if (_foreignMShopLoader == null)
+        { _foreignMShopLoader = new LoaderOfMShop().ready(myBhv().pulloutMShop(_selectedList), _selector); }
+        return _foreignMShopLoader;
+    }
+
+    protected LoaderOfMStaff _foreignMStaffLoader;
+    public LoaderOfMStaff pulloutMStaff() {
+        if (_foreignMStaffLoader == null)
+        { _foreignMStaffLoader = new LoaderOfMStaff().ready(myBhv().pulloutMStaff(_selectedList), _selector); }
+        return _foreignMStaffLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

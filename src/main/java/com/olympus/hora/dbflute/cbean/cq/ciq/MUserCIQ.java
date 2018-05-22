@@ -62,6 +62,16 @@ public class MUserCIQ extends AbstractBsMUserCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    public String keepUserId_ExistsReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_TReservationListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueFamilyName() { return _myCQ.xdfgetFamilyName(); }
     protected ConditionValue xgetCValueGivenName() { return _myCQ.xdfgetGivenName(); }
     protected ConditionValue xgetCValueFamilyNameKana() { return _myCQ.xdfgetFamilyNameKana(); }

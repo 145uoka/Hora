@@ -174,7 +174,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationId The value of reservationId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setReservationId_Equal(Long reservationId) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationId The value of reservationId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setReservationId_NotEqual(Long reservationId) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationId The value of reservationId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setReservationId_GreaterThan(Long reservationId) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationId The value of reservationId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setReservationId_LessThan(Long reservationId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationId The value of reservationId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setReservationId_GreaterEqual(Long reservationId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationId The value of reservationId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setReservationId_LessEqual(Long reservationId) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param minNumber The min number of reservationId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of reservationId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param minNumber The min number of reservationId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of reservationId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationIdList The collection of reservationId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReservationId_InScope(Collection<Long> reservationIdList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @param reservationIdList The collection of reservationId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setReservationId_NotInScope(Collection<Long> reservationIdList) {
@@ -288,13 +288,13 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      */
     public void setReservationId_IsNull() { regReservationId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      */
     public void setReservationId_IsNotNull() { regReservationId(CK_ISNN, DOBJ); }
 
@@ -303,7 +303,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseId The value of courseId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseId_Equal(Integer courseId) {
@@ -316,7 +316,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseId The value of courseId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseId_NotEqual(Integer courseId) {
@@ -329,7 +329,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseId The value of courseId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseId_GreaterThan(Integer courseId) {
@@ -338,7 +338,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseId The value of courseId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseId_LessThan(Integer courseId) {
@@ -347,7 +347,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseId The value of courseId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseId_GreaterEqual(Integer courseId) {
@@ -356,7 +356,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseId The value of courseId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseId_LessEqual(Integer courseId) {
@@ -367,7 +367,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param minNumber The min number of courseId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of courseId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -380,7 +380,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param minNumber The min number of courseId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of courseId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -391,7 +391,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseIdList The collection of courseId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setCourseId_InScope(Collection<Integer> courseIdList) {
@@ -404,7 +404,7 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @param courseIdList The collection of courseId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setCourseId_NotInScope(Collection<Integer> courseIdList) {
@@ -417,13 +417,13 @@ public abstract class AbstractBsTReservationDetailCQ extends AbstractConditionQu
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      */
     public void setCourseId_IsNull() { regCourseId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      */
     public void setCourseId_IsNotNull() { regCourseId(CK_ISNN, DOBJ); }
 

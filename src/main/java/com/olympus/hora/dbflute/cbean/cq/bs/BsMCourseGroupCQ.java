@@ -79,6 +79,20 @@ public class BsMCourseGroupCQ extends AbstractBsMCourseGroupCQ {
       return _courseGroupId; }
     protected ConditionValue xgetCValueCourseGroupId() { return xdfgetCourseGroupId(); }
 
+    public Map<String, MCourseCQ> xdfgetCourseGroupId_ExistsReferrer_MCourseList() { return xgetSQueMap("courseGroupId_ExistsReferrer_MCourseList"); }
+    public String keepCourseGroupId_ExistsReferrer_MCourseList(MCourseCQ sq) { return xkeepSQue("courseGroupId_ExistsReferrer_MCourseList", sq); }
+
+    public Map<String, MCourseCQ> xdfgetCourseGroupId_NotExistsReferrer_MCourseList() { return xgetSQueMap("courseGroupId_NotExistsReferrer_MCourseList"); }
+    public String keepCourseGroupId_NotExistsReferrer_MCourseList(MCourseCQ sq) { return xkeepSQue("courseGroupId_NotExistsReferrer_MCourseList", sq); }
+
+    public Map<String, MCourseCQ> xdfgetCourseGroupId_SpecifyDerivedReferrer_MCourseList() { return xgetSQueMap("courseGroupId_SpecifyDerivedReferrer_MCourseList"); }
+    public String keepCourseGroupId_SpecifyDerivedReferrer_MCourseList(MCourseCQ sq) { return xkeepSQue("courseGroupId_SpecifyDerivedReferrer_MCourseList", sq); }
+
+    public Map<String, MCourseCQ> xdfgetCourseGroupId_QueryDerivedReferrer_MCourseList() { return xgetSQueMap("courseGroupId_QueryDerivedReferrer_MCourseList"); }
+    public String keepCourseGroupId_QueryDerivedReferrer_MCourseList(MCourseCQ sq) { return xkeepSQue("courseGroupId_QueryDerivedReferrer_MCourseList", sq); }
+    public Map<String, Object> xdfgetCourseGroupId_QueryDerivedReferrer_MCourseListParameter() { return xgetSQuePmMap("courseGroupId_QueryDerivedReferrer_MCourseList"); }
+    public String keepCourseGroupId_QueryDerivedReferrer_MCourseListParameter(Object pm) { return xkeepSQuePm("courseGroupId_QueryDerivedReferrer_MCourseList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * course_group_id: {PK, ID, NotNull, serial(10)}
@@ -101,14 +115,14 @@ public class BsMCourseGroupCQ extends AbstractBsMCourseGroupCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsMCourseGroupCQ addOrderBy_ShopId_Asc() { regOBA("shop_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsMCourseGroupCQ addOrderBy_ShopId_Desc() { regOBD("shop_id"); return this; }
@@ -272,11 +286,36 @@ public class BsMCourseGroupCQ extends AbstractBsMCourseGroupCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MCourseGroupCQ bq = (MCourseGroupCQ)bqs;
+        MCourseGroupCQ uq = (MCourseGroupCQ)uqs;
+        if (bq.hasConditionQueryMShop()) {
+            uq.queryMShop().reflectRelationOnUnionQuery(bq.queryMShop(), uq.queryMShop());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MShopCQ queryMShop() {
+        return xdfgetConditionQueryMShop();
+    }
+    public MShopCQ xdfgetConditionQueryMShop() {
+        String prop = "mShop";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMShop()); xsetupOuterJoinMShop(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MShopCQ xcreateQueryMShop() {
+        String nrp = xresolveNRP("m_course_group", "mShop"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MShopCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mShop", nrp);
+    }
+    protected void xsetupOuterJoinMShop() { xregOutJo("mShop"); }
+    public boolean hasConditionQueryMShop() { return xhasQueRlMap("mShop"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

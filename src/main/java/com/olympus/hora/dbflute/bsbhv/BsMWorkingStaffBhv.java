@@ -38,13 +38,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop, m_staff
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mShop, mStaff
  *
  * [referrer property]
  *     
@@ -379,6 +379,22 @@ public abstract class BsMWorkingStaffBhv extends AbstractBehaviorWritable<MWorki
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MShop'.
+     * @param mWorkingStaffList The list of mWorkingStaff. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MShop> pulloutMShop(List<MWorkingStaff> mWorkingStaffList)
+    { return helpPulloutInternally(mWorkingStaffList, "mShop"); }
+
+    /**
+     * Pull out the list of foreign table 'MStaff'.
+     * @param mWorkingStaffList The list of mWorkingStaff. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MStaff> pulloutMStaff(List<MWorkingStaff> mWorkingStaffList)
+    { return helpPulloutInternally(mWorkingStaffList, "mStaff"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

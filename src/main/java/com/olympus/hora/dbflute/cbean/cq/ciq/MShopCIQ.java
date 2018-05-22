@@ -62,6 +62,56 @@ public class MShopCIQ extends AbstractBsMShopCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueShopId() { return _myCQ.xdfgetShopId(); }
+    public String keepShopId_ExistsReferrer_MCourseGroupList(MCourseGroupCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepShopId_ExistsReferrer_MWorkingDayList(MWorkingDayCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepShopId_ExistsReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepShopId_ExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepShopId_ExistsReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepShopId_NotExistsReferrer_MCourseGroupList(MCourseGroupCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepShopId_NotExistsReferrer_MWorkingDayList(MWorkingDayCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepShopId_NotExistsReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepShopId_NotExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepShopId_NotExistsReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepShopId_SpecifyDerivedReferrer_MCourseGroupList(MCourseGroupCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepShopId_SpecifyDerivedReferrer_MWorkingDayList(MWorkingDayCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepShopId_SpecifyDerivedReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepShopId_SpecifyDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepShopId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MCourseGroupList(MCourseGroupCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MCourseGroupListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayList(MWorkingDayCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayDeffListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_MWorkingStaffListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_TReservationList(TReservationCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepShopId_QueryDerivedReferrer_TReservationListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueCompanyId() { return _myCQ.xdfgetCompanyId(); }
     protected ConditionValue xgetCValueShopAbbreviatedName() { return _myCQ.xdfgetShopAbbreviatedName(); }
     protected ConditionValue xgetCValueShopName() { return _myCQ.xdfgetShopName(); }

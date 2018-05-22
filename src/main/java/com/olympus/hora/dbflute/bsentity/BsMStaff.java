@@ -32,13 +32,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     m_working_staff, t_reservation, t_shift
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     mWorkingStaffList, tReservationList, tShiftList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -130,6 +130,66 @@ public abstract class BsMStaff extends AbstractEntity implements DomainEntity, E
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** m_working_staff by staff_id, named 'MWorkingStaffList'. */
+    protected List<MWorkingStaff> _mWorkingStaffList;
+
+    /**
+     * [get] m_working_staff by staff_id, named 'MWorkingStaffList'.
+     * @return The entity list of referrer property 'MWorkingStaffList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MWorkingStaff> getMWorkingStaffList() {
+        if (_mWorkingStaffList == null) { _mWorkingStaffList = newReferrerList(); }
+        return _mWorkingStaffList;
+    }
+
+    /**
+     * [set] m_working_staff by staff_id, named 'MWorkingStaffList'.
+     * @param mWorkingStaffList The entity list of referrer property 'MWorkingStaffList'. (NullAllowed)
+     */
+    public void setMWorkingStaffList(List<MWorkingStaff> mWorkingStaffList) {
+        _mWorkingStaffList = mWorkingStaffList;
+    }
+
+    /** t_reservation by staff_id, named 'TReservationList'. */
+    protected List<TReservation> _tReservationList;
+
+    /**
+     * [get] t_reservation by staff_id, named 'TReservationList'.
+     * @return The entity list of referrer property 'TReservationList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<TReservation> getTReservationList() {
+        if (_tReservationList == null) { _tReservationList = newReferrerList(); }
+        return _tReservationList;
+    }
+
+    /**
+     * [set] t_reservation by staff_id, named 'TReservationList'.
+     * @param tReservationList The entity list of referrer property 'TReservationList'. (NullAllowed)
+     */
+    public void setTReservationList(List<TReservation> tReservationList) {
+        _tReservationList = tReservationList;
+    }
+
+    /** t_shift by staff_id, named 'TShiftList'. */
+    protected List<TShift> _tShiftList;
+
+    /**
+     * [get] t_shift by staff_id, named 'TShiftList'.
+     * @return The entity list of referrer property 'TShiftList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<TShift> getTShiftList() {
+        if (_tShiftList == null) { _tShiftList = newReferrerList(); }
+        return _tShiftList;
+    }
+
+    /**
+     * [set] t_shift by staff_id, named 'TShiftList'.
+     * @param tShiftList The entity list of referrer property 'TShiftList'. (NullAllowed)
+     */
+    public void setTShiftList(List<TShift> tShiftList) {
+        _tShiftList = tShiftList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -158,7 +218,14 @@ public abstract class BsMStaff extends AbstractEntity implements DomainEntity, E
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mWorkingStaffList != null) { for (MWorkingStaff et : _mWorkingStaffList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mWorkingStaffList")); } } }
+        if (_tReservationList != null) { for (TReservation et : _tReservationList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "tReservationList")); } } }
+        if (_tShiftList != null) { for (TShift et : _tShiftList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "tShiftList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -182,7 +249,17 @@ public abstract class BsMStaff extends AbstractEntity implements DomainEntity, E
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mWorkingStaffList != null && !_mWorkingStaffList.isEmpty())
+        { sb.append(dm).append("mWorkingStaffList"); }
+        if (_tReservationList != null && !_tReservationList.isEmpty())
+        { sb.append(dm).append("tReservationList"); }
+        if (_tShiftList != null && !_tShiftList.isEmpty())
+        { sb.append(dm).append("tShiftList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.olympus.hora.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.olympus.hora.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.olympus.hora.dbflute.cbean.*;
 import com.olympus.hora.dbflute.cbean.cq.*;
+import com.olympus.hora.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of m_course.
@@ -237,6 +238,35 @@ public class BsMCourseCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected MCourseGroupNss _nssMCourseGroup;
+    public MCourseGroupNss xdfgetNssMCourseGroup() {
+        if (_nssMCourseGroup == null) { _nssMCourseGroup = new MCourseGroupNss(null); }
+        return _nssMCourseGroup;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_course_group by my course_group_id, named 'MCourseGroup'.
+     * <pre>
+     * <span style="color: #0000C0">mCourseBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MCourseGroup()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">mCourse</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">mCourse</span>.<span style="color: #CC4747">getMCourseGroup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public MCourseGroupNss setupSelect_MCourseGroup() {
+        assertSetupSelectPurpose("mCourseGroup");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnCourseGroupId();
+        }
+        doSetupSelect(() -> query().queryMCourseGroup());
+        if (_nssMCourseGroup == null || !_nssMCourseGroup.hasConditionQuery())
+        { _nssMCourseGroup = new MCourseGroupNss(query().queryMCourseGroup()); }
+        return _nssMCourseGroup;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +308,7 @@ public class BsMCourseCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MCourseCQ> {
+        protected MCourseGroupCB.HpSpecification _mCourseGroup;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MCourseCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,7 +319,7 @@ public class BsMCourseCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnCourseId() { return doColumn("course_id"); }
         /**
-         * course_group_id: {int4(10)}
+         * course_group_id: {int4(10), FK to m_course_group}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnCourseGroupId() { return doColumn("course_group_id"); }
@@ -327,9 +358,50 @@ public class BsMCourseCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnCourseId(); // PK
+            if (qyCall().qy().hasConditionQueryMCourseGroup()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MCourseGroupCQ) {
+                columnCourseGroupId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "m_course"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_course_group by my course_group_id, named 'MCourseGroup'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MCourseGroupCB.HpSpecification specifyMCourseGroup() {
+            assertRelation("mCourseGroup");
+            if (_mCourseGroup == null) {
+                _mCourseGroup = new MCourseGroupCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMCourseGroup()
+                                    , () -> _qyCall.qy().queryMCourseGroup())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mCourseGroup.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMCourseGroup()
+                      , () -> xsyncQyCall().qy().queryMCourseGroup()));
+                }
+            }
+            return _mCourseGroup;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from t_reservation_detail where ...) as FOO_MAX} <br>
+         * t_reservation_detail by course_id, named 'TReservationDetailList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     detailCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     detailCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, TReservationDetail.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<TReservationDetailCB, MCourseCQ> derivedTReservationDetail() {
+            assertDerived("tReservationDetailList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<TReservationDetailCB> sq, MCourseCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveTReservationDetailList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

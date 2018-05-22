@@ -38,16 +38,16 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_company
  *
  * [referrer table]
- *     
+ *     m_course_group, m_working_day, m_working_day_deff, m_working_staff, t_reservation
  *
  * [foreign property]
- *     
+ *     mCompany
  *
  * [referrer property]
- *     
+ *     mCourseGroupList, mWorkingDayList, mWorkingDayDeffList, mWorkingStaffList, tReservationList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,337 @@ public abstract class BsMShopBhv extends AbstractBehaviorWritable<MShop, MShopCB
         loaderLambda.handle(new LoaderOfMShop().ready(xnewLRAryLs(mShop), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of MCourseGroupList by the set-upper of referrer. <br>
+     * m_course_group by shop_id, named 'MCourseGroupList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMCourseGroup</span>(<span style="color: #553000">mShopList</span>, <span style="color: #553000">groupCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">groupCB</span>.setupSelect...
+     *     <span style="color: #553000">groupCB</span>.query().set...
+     *     <span style="color: #553000">groupCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MShop mShop : <span style="color: #553000">mShopList</span>) {
+     *     ... = mShop.<span style="color: #CC4747">getMCourseGroupList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShopList The entity list of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MCourseGroup> loadMCourseGroup(List<MShop> mShopList, ReferrerConditionSetupper<MCourseGroupCB> refCBLambda) {
+        xassLRArg(mShopList, refCBLambda);
+        return doLoadMCourseGroup(mShopList, new LoadReferrerOption<MCourseGroupCB, MCourseGroup>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MCourseGroupList by the set-upper of referrer. <br>
+     * m_course_group by shop_id, named 'MCourseGroupList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMCourseGroup</span>(<span style="color: #553000">mShop</span>, <span style="color: #553000">groupCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">groupCB</span>.setupSelect...
+     *     <span style="color: #553000">groupCB</span>.query().set...
+     *     <span style="color: #553000">groupCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mShop</span>.<span style="color: #CC4747">getMCourseGroupList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShop The entity of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MCourseGroup> loadMCourseGroup(MShop mShop, ReferrerConditionSetupper<MCourseGroupCB> refCBLambda) {
+        xassLRArg(mShop, refCBLambda);
+        return doLoadMCourseGroup(xnewLRLs(mShop), new LoadReferrerOption<MCourseGroupCB, MCourseGroup>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MCourseGroup> doLoadMCourseGroup(List<MShop> mShopList, LoadReferrerOption<MCourseGroupCB, MCourseGroup> option) {
+        return helpLoadReferrerInternally(mShopList, option, "mCourseGroupList");
+    }
+
+    /**
+     * Load referrer of MWorkingDayList by the set-upper of referrer. <br>
+     * m_working_day by shop_id, named 'MWorkingDayList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMWorkingDay</span>(<span style="color: #553000">mShopList</span>, <span style="color: #553000">dayCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">dayCB</span>.setupSelect...
+     *     <span style="color: #553000">dayCB</span>.query().set...
+     *     <span style="color: #553000">dayCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MShop mShop : <span style="color: #553000">mShopList</span>) {
+     *     ... = mShop.<span style="color: #CC4747">getMWorkingDayList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShopList The entity list of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingDay> loadMWorkingDay(List<MShop> mShopList, ReferrerConditionSetupper<MWorkingDayCB> refCBLambda) {
+        xassLRArg(mShopList, refCBLambda);
+        return doLoadMWorkingDay(mShopList, new LoadReferrerOption<MWorkingDayCB, MWorkingDay>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MWorkingDayList by the set-upper of referrer. <br>
+     * m_working_day by shop_id, named 'MWorkingDayList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMWorkingDay</span>(<span style="color: #553000">mShop</span>, <span style="color: #553000">dayCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">dayCB</span>.setupSelect...
+     *     <span style="color: #553000">dayCB</span>.query().set...
+     *     <span style="color: #553000">dayCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mShop</span>.<span style="color: #CC4747">getMWorkingDayList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShop The entity of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingDay> loadMWorkingDay(MShop mShop, ReferrerConditionSetupper<MWorkingDayCB> refCBLambda) {
+        xassLRArg(mShop, refCBLambda);
+        return doLoadMWorkingDay(xnewLRLs(mShop), new LoadReferrerOption<MWorkingDayCB, MWorkingDay>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MWorkingDay> doLoadMWorkingDay(List<MShop> mShopList, LoadReferrerOption<MWorkingDayCB, MWorkingDay> option) {
+        return helpLoadReferrerInternally(mShopList, option, "mWorkingDayList");
+    }
+
+    /**
+     * Load referrer of MWorkingDayDeffList by the set-upper of referrer. <br>
+     * m_working_day_deff by shop_id, named 'MWorkingDayDeffList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMWorkingDayDeff</span>(<span style="color: #553000">mShopList</span>, <span style="color: #553000">deffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">deffCB</span>.setupSelect...
+     *     <span style="color: #553000">deffCB</span>.query().set...
+     *     <span style="color: #553000">deffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MShop mShop : <span style="color: #553000">mShopList</span>) {
+     *     ... = mShop.<span style="color: #CC4747">getMWorkingDayDeffList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShopList The entity list of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingDayDeff> loadMWorkingDayDeff(List<MShop> mShopList, ReferrerConditionSetupper<MWorkingDayDeffCB> refCBLambda) {
+        xassLRArg(mShopList, refCBLambda);
+        return doLoadMWorkingDayDeff(mShopList, new LoadReferrerOption<MWorkingDayDeffCB, MWorkingDayDeff>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MWorkingDayDeffList by the set-upper of referrer. <br>
+     * m_working_day_deff by shop_id, named 'MWorkingDayDeffList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMWorkingDayDeff</span>(<span style="color: #553000">mShop</span>, <span style="color: #553000">deffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">deffCB</span>.setupSelect...
+     *     <span style="color: #553000">deffCB</span>.query().set...
+     *     <span style="color: #553000">deffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mShop</span>.<span style="color: #CC4747">getMWorkingDayDeffList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShop The entity of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingDayDeff> loadMWorkingDayDeff(MShop mShop, ReferrerConditionSetupper<MWorkingDayDeffCB> refCBLambda) {
+        xassLRArg(mShop, refCBLambda);
+        return doLoadMWorkingDayDeff(xnewLRLs(mShop), new LoadReferrerOption<MWorkingDayDeffCB, MWorkingDayDeff>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MWorkingDayDeff> doLoadMWorkingDayDeff(List<MShop> mShopList, LoadReferrerOption<MWorkingDayDeffCB, MWorkingDayDeff> option) {
+        return helpLoadReferrerInternally(mShopList, option, "mWorkingDayDeffList");
+    }
+
+    /**
+     * Load referrer of MWorkingStaffList by the set-upper of referrer. <br>
+     * m_working_staff by shop_id, named 'MWorkingStaffList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMWorkingStaff</span>(<span style="color: #553000">mShopList</span>, <span style="color: #553000">staffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">staffCB</span>.setupSelect...
+     *     <span style="color: #553000">staffCB</span>.query().set...
+     *     <span style="color: #553000">staffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MShop mShop : <span style="color: #553000">mShopList</span>) {
+     *     ... = mShop.<span style="color: #CC4747">getMWorkingStaffList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShopList The entity list of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingStaff> loadMWorkingStaff(List<MShop> mShopList, ReferrerConditionSetupper<MWorkingStaffCB> refCBLambda) {
+        xassLRArg(mShopList, refCBLambda);
+        return doLoadMWorkingStaff(mShopList, new LoadReferrerOption<MWorkingStaffCB, MWorkingStaff>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MWorkingStaffList by the set-upper of referrer. <br>
+     * m_working_staff by shop_id, named 'MWorkingStaffList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadMWorkingStaff</span>(<span style="color: #553000">mShop</span>, <span style="color: #553000">staffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">staffCB</span>.setupSelect...
+     *     <span style="color: #553000">staffCB</span>.query().set...
+     *     <span style="color: #553000">staffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mShop</span>.<span style="color: #CC4747">getMWorkingStaffList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShop The entity of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingStaff> loadMWorkingStaff(MShop mShop, ReferrerConditionSetupper<MWorkingStaffCB> refCBLambda) {
+        xassLRArg(mShop, refCBLambda);
+        return doLoadMWorkingStaff(xnewLRLs(mShop), new LoadReferrerOption<MWorkingStaffCB, MWorkingStaff>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MWorkingStaff> doLoadMWorkingStaff(List<MShop> mShopList, LoadReferrerOption<MWorkingStaffCB, MWorkingStaff> option) {
+        return helpLoadReferrerInternally(mShopList, option, "mWorkingStaffList");
+    }
+
+    /**
+     * Load referrer of TReservationList by the set-upper of referrer. <br>
+     * t_reservation by shop_id, named 'TReservationList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadTReservation</span>(<span style="color: #553000">mShopList</span>, <span style="color: #553000">reservationCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">reservationCB</span>.setupSelect...
+     *     <span style="color: #553000">reservationCB</span>.query().set...
+     *     <span style="color: #553000">reservationCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MShop mShop : <span style="color: #553000">mShopList</span>) {
+     *     ... = mShop.<span style="color: #CC4747">getTReservationList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShopList The entity list of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservation> loadTReservation(List<MShop> mShopList, ReferrerConditionSetupper<TReservationCB> refCBLambda) {
+        xassLRArg(mShopList, refCBLambda);
+        return doLoadTReservation(mShopList, new LoadReferrerOption<TReservationCB, TReservation>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TReservationList by the set-upper of referrer. <br>
+     * t_reservation by shop_id, named 'TReservationList'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.<span style="color: #CC4747">loadTReservation</span>(<span style="color: #553000">mShop</span>, <span style="color: #553000">reservationCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">reservationCB</span>.setupSelect...
+     *     <span style="color: #553000">reservationCB</span>.query().set...
+     *     <span style="color: #553000">reservationCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mShop</span>.<span style="color: #CC4747">getTReservationList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setShopId_InScope(pkList);
+     * cb.query().addOrderBy_ShopId_Asc();
+     * </pre>
+     * @param mShop The entity of MShop. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservation> loadTReservation(MShop mShop, ReferrerConditionSetupper<TReservationCB> refCBLambda) {
+        xassLRArg(mShop, refCBLambda);
+        return doLoadTReservation(xnewLRLs(mShop), new LoadReferrerOption<TReservationCB, TReservation>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TReservation> doLoadTReservation(List<MShop> mShopList, LoadReferrerOption<TReservationCB, TReservation> option) {
+        return helpLoadReferrerInternally(mShopList, option, "tReservationList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MCompany'.
+     * @param mShopList The list of mShop. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MCompany> pulloutMCompany(List<MShop> mShopList)
+    { return helpPulloutInternally(mShopList, "mCompany"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

@@ -158,6 +158,225 @@ public abstract class AbstractBsMStaffCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select staff_id from m_working_staff where ...)} <br>
+     * m_working_staff by staff_id, named 'MWorkingStaffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMWorkingStaff</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     staffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MWorkingStaffList for 'exists'. (NotNull)
+     */
+    public void existsMWorkingStaff(SubQuery<MWorkingStaffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepStaffId_ExistsReferrer_MWorkingStaffList(cb.query());
+        registerExistsReferrer(cb.query(), "staff_id", "staff_id", pp, "mWorkingStaffList");
+    }
+    public abstract String keepStaffId_ExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select staff_id from t_reservation where ...)} <br>
+     * t_reservation by staff_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTReservation</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TReservationList for 'exists'. (NotNull)
+     */
+    public void existsTReservation(SubQuery<TReservationCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepStaffId_ExistsReferrer_TReservationList(cb.query());
+        registerExistsReferrer(cb.query(), "staff_id", "staff_id", pp, "tReservationList");
+    }
+    public abstract String keepStaffId_ExistsReferrer_TReservationList(TReservationCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select staff_id from t_shift where ...)} <br>
+     * t_shift by staff_id, named 'TShiftAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTShift</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shiftCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TShiftList for 'exists'. (NotNull)
+     */
+    public void existsTShift(SubQuery<TShiftCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepStaffId_ExistsReferrer_TShiftList(cb.query());
+        registerExistsReferrer(cb.query(), "staff_id", "staff_id", pp, "tShiftList");
+    }
+    public abstract String keepStaffId_ExistsReferrer_TShiftList(TShiftCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select staff_id from m_working_staff where ...)} <br>
+     * m_working_staff by staff_id, named 'MWorkingStaffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMWorkingStaff</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     staffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of StaffId_NotExistsReferrer_MWorkingStaffList for 'not exists'. (NotNull)
+     */
+    public void notExistsMWorkingStaff(SubQuery<MWorkingStaffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepStaffId_NotExistsReferrer_MWorkingStaffList(cb.query());
+        registerNotExistsReferrer(cb.query(), "staff_id", "staff_id", pp, "mWorkingStaffList");
+    }
+    public abstract String keepStaffId_NotExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select staff_id from t_reservation where ...)} <br>
+     * t_reservation by staff_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTReservation</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of StaffId_NotExistsReferrer_TReservationList for 'not exists'. (NotNull)
+     */
+    public void notExistsTReservation(SubQuery<TReservationCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepStaffId_NotExistsReferrer_TReservationList(cb.query());
+        registerNotExistsReferrer(cb.query(), "staff_id", "staff_id", pp, "tReservationList");
+    }
+    public abstract String keepStaffId_NotExistsReferrer_TReservationList(TReservationCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select staff_id from t_shift where ...)} <br>
+     * t_shift by staff_id, named 'TShiftAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTShift</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shiftCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of StaffId_NotExistsReferrer_TShiftList for 'not exists'. (NotNull)
+     */
+    public void notExistsTShift(SubQuery<TShiftCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepStaffId_NotExistsReferrer_TShiftList(cb.query());
+        registerNotExistsReferrer(cb.query(), "staff_id", "staff_id", pp, "tShiftList");
+    }
+    public abstract String keepStaffId_NotExistsReferrer_TShiftList(TShiftCQ sq);
+
+    public void xsderiveMWorkingStaffList(String fn, SubQuery<MWorkingStaffCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepStaffId_SpecifyDerivedReferrer_MWorkingStaffList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "staff_id", "staff_id", pp, "mWorkingStaffList", al, op);
+    }
+    public abstract String keepStaffId_SpecifyDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+
+    public void xsderiveTReservationList(String fn, SubQuery<TReservationCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepStaffId_SpecifyDerivedReferrer_TReservationList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "staff_id", "staff_id", pp, "tReservationList", al, op);
+    }
+    public abstract String keepStaffId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq);
+
+    public void xsderiveTShiftList(String fn, SubQuery<TShiftCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepStaffId_SpecifyDerivedReferrer_TShiftList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "staff_id", "staff_id", pp, "tShiftList", al, op);
+    }
+    public abstract String keepStaffId_SpecifyDerivedReferrer_TShiftList(TShiftCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_working_staff where ...)} <br>
+     * m_working_staff by staff_id, named 'MWorkingStaffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMWorkingStaff()</span>.<span style="color: #CC4747">max</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     staffCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     staffCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MWorkingStaffCB> derivedMWorkingStaff() {
+        return xcreateQDRFunctionMWorkingStaffList();
+    }
+    protected HpQDRFunction<MWorkingStaffCB> xcreateQDRFunctionMWorkingStaffList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMWorkingStaffList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMWorkingStaffList(String fn, SubQuery<MWorkingStaffCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepStaffId_QueryDerivedReferrer_MWorkingStaffList(cb.query()); String prpp = keepStaffId_QueryDerivedReferrer_MWorkingStaffListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "staff_id", "staff_id", sqpp, "mWorkingStaffList", rd, vl, prpp, op);
+    }
+    public abstract String keepStaffId_QueryDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+    public abstract String keepStaffId_QueryDerivedReferrer_MWorkingStaffListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_reservation where ...)} <br>
+     * t_reservation by staff_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTReservation()</span>.<span style="color: #CC4747">max</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     reservationCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TReservationCB> derivedTReservation() {
+        return xcreateQDRFunctionTReservationList();
+    }
+    protected HpQDRFunction<TReservationCB> xcreateQDRFunctionTReservationList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTReservationList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTReservationList(String fn, SubQuery<TReservationCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepStaffId_QueryDerivedReferrer_TReservationList(cb.query()); String prpp = keepStaffId_QueryDerivedReferrer_TReservationListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "staff_id", "staff_id", sqpp, "tReservationList", rd, vl, prpp, op);
+    }
+    public abstract String keepStaffId_QueryDerivedReferrer_TReservationList(TReservationCQ sq);
+    public abstract String keepStaffId_QueryDerivedReferrer_TReservationListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_shift where ...)} <br>
+     * t_shift by staff_id, named 'TShiftAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTShift()</span>.<span style="color: #CC4747">max</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shiftCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     shiftCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TShiftCB> derivedTShift() {
+        return xcreateQDRFunctionTShiftList();
+    }
+    protected HpQDRFunction<TShiftCB> xcreateQDRFunctionTShiftList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTShiftList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTShiftList(String fn, SubQuery<TShiftCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepStaffId_QueryDerivedReferrer_TShiftList(cb.query()); String prpp = keepStaffId_QueryDerivedReferrer_TShiftListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "staff_id", "staff_id", sqpp, "tShiftList", rd, vl, prpp, op);
+    }
+    public abstract String keepStaffId_QueryDerivedReferrer_TShiftList(TShiftCQ sq);
+    public abstract String keepStaffId_QueryDerivedReferrer_TShiftListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * staff_id: {PK, ID, NotNull, serial(10)}
      */

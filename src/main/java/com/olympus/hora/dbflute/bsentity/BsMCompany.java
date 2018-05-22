@@ -32,13 +32,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     m_shop
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     mShopList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -110,6 +110,26 @@ public abstract class BsMCompany extends AbstractEntity implements DomainEntity,
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** m_shop by company_id, named 'MShopList'. */
+    protected List<MShop> _mShopList;
+
+    /**
+     * [get] m_shop by company_id, named 'MShopList'.
+     * @return The entity list of referrer property 'MShopList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MShop> getMShopList() {
+        if (_mShopList == null) { _mShopList = newReferrerList(); }
+        return _mShopList;
+    }
+
+    /**
+     * [set] m_shop by company_id, named 'MShopList'.
+     * @param mShopList The entity list of referrer property 'MShopList'. (NullAllowed)
+     */
+    public void setMShopList(List<MShop> mShopList) {
+        _mShopList = mShopList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -138,7 +158,10 @@ public abstract class BsMCompany extends AbstractEntity implements DomainEntity,
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mShopList != null) { for (MShop et : _mShopList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mShopList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -158,7 +181,13 @@ public abstract class BsMCompany extends AbstractEntity implements DomainEntity,
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mShopList != null && !_mShopList.isEmpty())
+        { sb.append(dm).append("mShopList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override

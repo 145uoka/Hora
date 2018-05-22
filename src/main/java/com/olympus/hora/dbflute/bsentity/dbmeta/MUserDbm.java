@@ -86,7 +86,7 @@ public class MUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, null, "nextval('m_user_user_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, null, "nextval('m_user_user_id_seq'::regclass)", false, null, null, null, "TReservationList", null, false);
     protected final ColumnInfo _columnFamilyName = cci("family_name", "family_name", null, null, String.class, "familyName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnGivenName = cci("given_name", "given_name", null, null, String.class, "givenName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnFamilyNameKana = cci("family_name_kana", "family_name_kana", null, null, String.class, "familyNameKana", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
@@ -285,6 +285,14 @@ public class MUserDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * t_reservation by user_id, named 'TReservationList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerTReservationList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), TReservationDbm.getInstance().columnUserId());
+        return cri("idx_t_reservation_fk0", "TReservationList", this, TReservationDbm.getInstance(), mp, false, "MUser");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

@@ -25,13 +25,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_course, t_reservation
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mCourse, tReservation
  *
  * [referrer property]
  *     
@@ -59,6 +59,20 @@ public class LoaderOfTReservationDetail {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfMCourse _foreignMCourseLoader;
+    public LoaderOfMCourse pulloutMCourse() {
+        if (_foreignMCourseLoader == null)
+        { _foreignMCourseLoader = new LoaderOfMCourse().ready(myBhv().pulloutMCourse(_selectedList), _selector); }
+        return _foreignMCourseLoader;
+    }
+
+    protected LoaderOfTReservation _foreignTReservationLoader;
+    public LoaderOfTReservation pulloutTReservation() {
+        if (_foreignTReservationLoader == null)
+        { _foreignTReservationLoader = new LoaderOfTReservation().ready(myBhv().pulloutTReservation(_selectedList), _selector); }
+        return _foreignTReservationLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

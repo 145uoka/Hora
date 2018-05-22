@@ -62,6 +62,16 @@ public class MWorkingDayCIQ extends AbstractBsMWorkingDayCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueWorkingDayId() { return _myCQ.xdfgetWorkingDayId(); }
+    public String keepWorkingDayId_ExistsReferrer_TShiftList(TShiftCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepWorkingDayId_NotExistsReferrer_TShiftList(TShiftCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepWorkingDayId_SpecifyDerivedReferrer_TShiftList(TShiftCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepWorkingDayId_QueryDerivedReferrer_TShiftList(TShiftCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepWorkingDayId_QueryDerivedReferrer_TShiftListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueShopId() { return _myCQ.xdfgetShopId(); }
     protected ConditionValue xgetCValueWorkingDate() { return _myCQ.xdfgetWorkingDate(); }
     protected ConditionValue xgetCValueStartTime() { return _myCQ.xdfgetStartTime(); }

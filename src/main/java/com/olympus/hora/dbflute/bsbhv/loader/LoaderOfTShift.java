@@ -25,13 +25,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_staff, m_working_day
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mStaff, mWorkingDay
  *
  * [referrer property]
  *     
@@ -59,6 +59,20 @@ public class LoaderOfTShift {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfMStaff _foreignMStaffLoader;
+    public LoaderOfMStaff pulloutMStaff() {
+        if (_foreignMStaffLoader == null)
+        { _foreignMStaffLoader = new LoaderOfMStaff().ready(myBhv().pulloutMStaff(_selectedList), _selector); }
+        return _foreignMStaffLoader;
+    }
+
+    protected LoaderOfMWorkingDay _foreignMWorkingDayLoader;
+    public LoaderOfMWorkingDay pulloutMWorkingDay() {
+        if (_foreignMWorkingDayLoader == null)
+        { _foreignMWorkingDayLoader = new LoaderOfMWorkingDay().ready(myBhv().pulloutMWorkingDay(_selectedList), _selector); }
+        return _foreignMWorkingDayLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

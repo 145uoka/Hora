@@ -79,6 +79,20 @@ public class BsMCompanyCQ extends AbstractBsMCompanyCQ {
       return _companyId; }
     protected ConditionValue xgetCValueCompanyId() { return xdfgetCompanyId(); }
 
+    public Map<String, MShopCQ> xdfgetCompanyId_ExistsReferrer_MShopList() { return xgetSQueMap("companyId_ExistsReferrer_MShopList"); }
+    public String keepCompanyId_ExistsReferrer_MShopList(MShopCQ sq) { return xkeepSQue("companyId_ExistsReferrer_MShopList", sq); }
+
+    public Map<String, MShopCQ> xdfgetCompanyId_NotExistsReferrer_MShopList() { return xgetSQueMap("companyId_NotExistsReferrer_MShopList"); }
+    public String keepCompanyId_NotExistsReferrer_MShopList(MShopCQ sq) { return xkeepSQue("companyId_NotExistsReferrer_MShopList", sq); }
+
+    public Map<String, MShopCQ> xdfgetCompanyId_SpecifyDerivedReferrer_MShopList() { return xgetSQueMap("companyId_SpecifyDerivedReferrer_MShopList"); }
+    public String keepCompanyId_SpecifyDerivedReferrer_MShopList(MShopCQ sq) { return xkeepSQue("companyId_SpecifyDerivedReferrer_MShopList", sq); }
+
+    public Map<String, MShopCQ> xdfgetCompanyId_QueryDerivedReferrer_MShopList() { return xgetSQueMap("companyId_QueryDerivedReferrer_MShopList"); }
+    public String keepCompanyId_QueryDerivedReferrer_MShopList(MShopCQ sq) { return xkeepSQue("companyId_QueryDerivedReferrer_MShopList", sq); }
+    public Map<String, Object> xdfgetCompanyId_QueryDerivedReferrer_MShopListParameter() { return xgetSQuePmMap("companyId_QueryDerivedReferrer_MShopList"); }
+    public String keepCompanyId_QueryDerivedReferrer_MShopListParameter(Object pm) { return xkeepSQuePm("companyId_QueryDerivedReferrer_MShopList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * company_id: {PK, ID, NotNull, serial(10)}

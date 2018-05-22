@@ -79,6 +79,76 @@ public class BsMShopCQ extends AbstractBsMShopCQ {
       return _shopId; }
     protected ConditionValue xgetCValueShopId() { return xdfgetShopId(); }
 
+    public Map<String, MCourseGroupCQ> xdfgetShopId_ExistsReferrer_MCourseGroupList() { return xgetSQueMap("shopId_ExistsReferrer_MCourseGroupList"); }
+    public String keepShopId_ExistsReferrer_MCourseGroupList(MCourseGroupCQ sq) { return xkeepSQue("shopId_ExistsReferrer_MCourseGroupList", sq); }
+
+    public Map<String, MWorkingDayCQ> xdfgetShopId_ExistsReferrer_MWorkingDayList() { return xgetSQueMap("shopId_ExistsReferrer_MWorkingDayList"); }
+    public String keepShopId_ExistsReferrer_MWorkingDayList(MWorkingDayCQ sq) { return xkeepSQue("shopId_ExistsReferrer_MWorkingDayList", sq); }
+
+    public Map<String, MWorkingDayDeffCQ> xdfgetShopId_ExistsReferrer_MWorkingDayDeffList() { return xgetSQueMap("shopId_ExistsReferrer_MWorkingDayDeffList"); }
+    public String keepShopId_ExistsReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq) { return xkeepSQue("shopId_ExistsReferrer_MWorkingDayDeffList", sq); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetShopId_ExistsReferrer_MWorkingStaffList() { return xgetSQueMap("shopId_ExistsReferrer_MWorkingStaffList"); }
+    public String keepShopId_ExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("shopId_ExistsReferrer_MWorkingStaffList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetShopId_ExistsReferrer_TReservationList() { return xgetSQueMap("shopId_ExistsReferrer_TReservationList"); }
+    public String keepShopId_ExistsReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("shopId_ExistsReferrer_TReservationList", sq); }
+
+    public Map<String, MCourseGroupCQ> xdfgetShopId_NotExistsReferrer_MCourseGroupList() { return xgetSQueMap("shopId_NotExistsReferrer_MCourseGroupList"); }
+    public String keepShopId_NotExistsReferrer_MCourseGroupList(MCourseGroupCQ sq) { return xkeepSQue("shopId_NotExistsReferrer_MCourseGroupList", sq); }
+
+    public Map<String, MWorkingDayCQ> xdfgetShopId_NotExistsReferrer_MWorkingDayList() { return xgetSQueMap("shopId_NotExistsReferrer_MWorkingDayList"); }
+    public String keepShopId_NotExistsReferrer_MWorkingDayList(MWorkingDayCQ sq) { return xkeepSQue("shopId_NotExistsReferrer_MWorkingDayList", sq); }
+
+    public Map<String, MWorkingDayDeffCQ> xdfgetShopId_NotExistsReferrer_MWorkingDayDeffList() { return xgetSQueMap("shopId_NotExistsReferrer_MWorkingDayDeffList"); }
+    public String keepShopId_NotExistsReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq) { return xkeepSQue("shopId_NotExistsReferrer_MWorkingDayDeffList", sq); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetShopId_NotExistsReferrer_MWorkingStaffList() { return xgetSQueMap("shopId_NotExistsReferrer_MWorkingStaffList"); }
+    public String keepShopId_NotExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("shopId_NotExistsReferrer_MWorkingStaffList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetShopId_NotExistsReferrer_TReservationList() { return xgetSQueMap("shopId_NotExistsReferrer_TReservationList"); }
+    public String keepShopId_NotExistsReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("shopId_NotExistsReferrer_TReservationList", sq); }
+
+    public Map<String, MCourseGroupCQ> xdfgetShopId_SpecifyDerivedReferrer_MCourseGroupList() { return xgetSQueMap("shopId_SpecifyDerivedReferrer_MCourseGroupList"); }
+    public String keepShopId_SpecifyDerivedReferrer_MCourseGroupList(MCourseGroupCQ sq) { return xkeepSQue("shopId_SpecifyDerivedReferrer_MCourseGroupList", sq); }
+
+    public Map<String, MWorkingDayCQ> xdfgetShopId_SpecifyDerivedReferrer_MWorkingDayList() { return xgetSQueMap("shopId_SpecifyDerivedReferrer_MWorkingDayList"); }
+    public String keepShopId_SpecifyDerivedReferrer_MWorkingDayList(MWorkingDayCQ sq) { return xkeepSQue("shopId_SpecifyDerivedReferrer_MWorkingDayList", sq); }
+
+    public Map<String, MWorkingDayDeffCQ> xdfgetShopId_SpecifyDerivedReferrer_MWorkingDayDeffList() { return xgetSQueMap("shopId_SpecifyDerivedReferrer_MWorkingDayDeffList"); }
+    public String keepShopId_SpecifyDerivedReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq) { return xkeepSQue("shopId_SpecifyDerivedReferrer_MWorkingDayDeffList", sq); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetShopId_SpecifyDerivedReferrer_MWorkingStaffList() { return xgetSQueMap("shopId_SpecifyDerivedReferrer_MWorkingStaffList"); }
+    public String keepShopId_SpecifyDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("shopId_SpecifyDerivedReferrer_MWorkingStaffList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetShopId_SpecifyDerivedReferrer_TReservationList() { return xgetSQueMap("shopId_SpecifyDerivedReferrer_TReservationList"); }
+    public String keepShopId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("shopId_SpecifyDerivedReferrer_TReservationList", sq); }
+
+    public Map<String, MCourseGroupCQ> xdfgetShopId_QueryDerivedReferrer_MCourseGroupList() { return xgetSQueMap("shopId_QueryDerivedReferrer_MCourseGroupList"); }
+    public String keepShopId_QueryDerivedReferrer_MCourseGroupList(MCourseGroupCQ sq) { return xkeepSQue("shopId_QueryDerivedReferrer_MCourseGroupList", sq); }
+    public Map<String, Object> xdfgetShopId_QueryDerivedReferrer_MCourseGroupListParameter() { return xgetSQuePmMap("shopId_QueryDerivedReferrer_MCourseGroupList"); }
+    public String keepShopId_QueryDerivedReferrer_MCourseGroupListParameter(Object pm) { return xkeepSQuePm("shopId_QueryDerivedReferrer_MCourseGroupList", pm); }
+
+    public Map<String, MWorkingDayCQ> xdfgetShopId_QueryDerivedReferrer_MWorkingDayList() { return xgetSQueMap("shopId_QueryDerivedReferrer_MWorkingDayList"); }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayList(MWorkingDayCQ sq) { return xkeepSQue("shopId_QueryDerivedReferrer_MWorkingDayList", sq); }
+    public Map<String, Object> xdfgetShopId_QueryDerivedReferrer_MWorkingDayListParameter() { return xgetSQuePmMap("shopId_QueryDerivedReferrer_MWorkingDayList"); }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayListParameter(Object pm) { return xkeepSQuePm("shopId_QueryDerivedReferrer_MWorkingDayList", pm); }
+
+    public Map<String, MWorkingDayDeffCQ> xdfgetShopId_QueryDerivedReferrer_MWorkingDayDeffList() { return xgetSQueMap("shopId_QueryDerivedReferrer_MWorkingDayDeffList"); }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq) { return xkeepSQue("shopId_QueryDerivedReferrer_MWorkingDayDeffList", sq); }
+    public Map<String, Object> xdfgetShopId_QueryDerivedReferrer_MWorkingDayDeffListParameter() { return xgetSQuePmMap("shopId_QueryDerivedReferrer_MWorkingDayDeffList"); }
+    public String keepShopId_QueryDerivedReferrer_MWorkingDayDeffListParameter(Object pm) { return xkeepSQuePm("shopId_QueryDerivedReferrer_MWorkingDayDeffList", pm); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetShopId_QueryDerivedReferrer_MWorkingStaffList() { return xgetSQueMap("shopId_QueryDerivedReferrer_MWorkingStaffList"); }
+    public String keepShopId_QueryDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("shopId_QueryDerivedReferrer_MWorkingStaffList", sq); }
+    public Map<String, Object> xdfgetShopId_QueryDerivedReferrer_MWorkingStaffListParameter() { return xgetSQuePmMap("shopId_QueryDerivedReferrer_MWorkingStaffList"); }
+    public String keepShopId_QueryDerivedReferrer_MWorkingStaffListParameter(Object pm) { return xkeepSQuePm("shopId_QueryDerivedReferrer_MWorkingStaffList", pm); }
+
+    public Map<String, TReservationCQ> xdfgetShopId_QueryDerivedReferrer_TReservationList() { return xgetSQueMap("shopId_QueryDerivedReferrer_TReservationList"); }
+    public String keepShopId_QueryDerivedReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("shopId_QueryDerivedReferrer_TReservationList", sq); }
+    public Map<String, Object> xdfgetShopId_QueryDerivedReferrer_TReservationListParameter() { return xgetSQuePmMap("shopId_QueryDerivedReferrer_TReservationList"); }
+    public String keepShopId_QueryDerivedReferrer_TReservationListParameter(Object pm) { return xkeepSQuePm("shopId_QueryDerivedReferrer_TReservationList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * shop_id: {PK, ID, NotNull, serial(10)}
@@ -101,14 +171,14 @@ public class BsMShopCQ extends AbstractBsMShopCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @return this. (NotNull)
      */
     public BsMShopCQ addOrderBy_CompanyId_Asc() { regOBA("company_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @return this. (NotNull)
      */
     public BsMShopCQ addOrderBy_CompanyId_Desc() { regOBD("company_id"); return this; }
@@ -592,11 +662,36 @@ public class BsMShopCQ extends AbstractBsMShopCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MShopCQ bq = (MShopCQ)bqs;
+        MShopCQ uq = (MShopCQ)uqs;
+        if (bq.hasConditionQueryMCompany()) {
+            uq.queryMCompany().reflectRelationOnUnionQuery(bq.queryMCompany(), uq.queryMCompany());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_company by my company_id, named 'MCompany'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MCompanyCQ queryMCompany() {
+        return xdfgetConditionQueryMCompany();
+    }
+    public MCompanyCQ xdfgetConditionQueryMCompany() {
+        String prop = "mCompany";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMCompany()); xsetupOuterJoinMCompany(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MCompanyCQ xcreateQueryMCompany() {
+        String nrp = xresolveNRP("m_shop", "mCompany"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MCompanyCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mCompany", nrp);
+    }
+    protected void xsetupOuterJoinMCompany() { xregOutJo("mCompany"); }
+    public boolean hasConditionQueryMCompany() { return xhasQueRlMap("mCompany"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

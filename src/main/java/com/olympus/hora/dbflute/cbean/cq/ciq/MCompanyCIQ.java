@@ -62,6 +62,16 @@ public class MCompanyCIQ extends AbstractBsMCompanyCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueCompanyId() { return _myCQ.xdfgetCompanyId(); }
+    public String keepCompanyId_ExistsReferrer_MShopList(MShopCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepCompanyId_NotExistsReferrer_MShopList(MShopCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepCompanyId_SpecifyDerivedReferrer_MShopList(MShopCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepCompanyId_QueryDerivedReferrer_MShopList(MShopCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepCompanyId_QueryDerivedReferrer_MShopListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueCompanyName() { return _myCQ.xdfgetCompanyName(); }
     protected ConditionValue xgetCValueDeleteFlag() { return _myCQ.xdfgetDeleteFlag(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }

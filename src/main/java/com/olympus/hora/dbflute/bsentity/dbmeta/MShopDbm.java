@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -70,6 +71,18 @@ public class MShopDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MShop)et).getMCompany(), (et, vl) -> ((MShop)et).setMCompany((OptionalEntity<MCompany>)vl), "MCompany");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -86,8 +99,8 @@ public class MShopDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, true, true, true, "serial", 10, 0, null, "nextval('m_shop_shop_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnCompanyId = cci("company_id", "company_id", null, null, Integer.class, "companyId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, true, true, true, "serial", 10, 0, null, "nextval('m_shop_shop_id_seq'::regclass)", false, null, null, null, "MCourseGroupList,MWorkingDayList,MWorkingDayDeffList,MWorkingStaffList,TReservationList", null, false);
+    protected final ColumnInfo _columnCompanyId = cci("company_id", "company_id", null, null, Integer.class, "companyId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MCompany", null, null, false);
     protected final ColumnInfo _columnShopAbbreviatedName = cci("shop_abbreviated_name", "shop_abbreviated_name", null, null, String.class, "shopAbbreviatedName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnShopName = cci("shop_name", "shop_name", null, null, String.class, "shopName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPhone11 = cci("phone1_1", "phone1_1", null, null, String.class, "phone11", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
@@ -117,7 +130,7 @@ public class MShopDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnShopId() { return _columnShopId; }
     /**
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnCompanyId() { return _columnCompanyId; }
@@ -281,10 +294,58 @@ public class MShopDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * m_company by my company_id, named 'MCompany'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMCompany() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCompanyId(), MCompanyDbm.getInstance().columnCompanyId());
+        return cfi("idx_m_shop_fk0", "MCompany", this, MCompanyDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "MShopList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * m_course_group by shop_id, named 'MCourseGroupList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMCourseGroupList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MCourseGroupDbm.getInstance().columnShopId());
+        return cri("idx_m_course_group_fk0", "MCourseGroupList", this, MCourseGroupDbm.getInstance(), mp, false, "MShop");
+    }
+    /**
+     * m_working_day by shop_id, named 'MWorkingDayList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMWorkingDayList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MWorkingDayDbm.getInstance().columnShopId());
+        return cri("idx_m_working_day_fk0", "MWorkingDayList", this, MWorkingDayDbm.getInstance(), mp, false, "MShop");
+    }
+    /**
+     * m_working_day_deff by shop_id, named 'MWorkingDayDeffList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMWorkingDayDeffList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MWorkingDayDeffDbm.getInstance().columnShopId());
+        return cri("idx_m_working_day_deff_fk0", "MWorkingDayDeffList", this, MWorkingDayDeffDbm.getInstance(), mp, false, "MShop");
+    }
+    /**
+     * m_working_staff by shop_id, named 'MWorkingStaffList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMWorkingStaffList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MWorkingStaffDbm.getInstance().columnShopId());
+        return cri("idx_m_working_staff_fk0", "MWorkingStaffList", this, MWorkingStaffDbm.getInstance(), mp, false, "MShop");
+    }
+    /**
+     * t_reservation by shop_id, named 'TReservationList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerTReservationList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), TReservationDbm.getInstance().columnShopId());
+        return cri("idx_t_reservation_fk1", "TReservationList", this, TReservationDbm.getInstance(), mp, false, "MShop");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

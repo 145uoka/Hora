@@ -18,6 +18,7 @@ import com.olympus.hora.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.olympus.hora.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.olympus.hora.dbflute.cbean.*;
 import com.olympus.hora.dbflute.cbean.cq.*;
+import com.olympus.hora.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of t_reservation.
@@ -237,6 +238,75 @@ public class BsTReservationCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected MShopNss _nssMShop;
+    public MShopNss xdfgetNssMShop() {
+        if (_nssMShop == null) { _nssMShop = new MShopNss(null); }
+        return _nssMShop;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_shop by my shop_id, named 'MShop'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MShop()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tReservation</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tReservation</span>.<span style="color: #CC4747">getMShop()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public MShopNss setupSelect_MShop() {
+        assertSetupSelectPurpose("mShop");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnShopId();
+        }
+        doSetupSelect(() -> query().queryMShop());
+        if (_nssMShop == null || !_nssMShop.hasConditionQuery())
+        { _nssMShop = new MShopNss(query().queryMShop()); }
+        return _nssMShop;
+    }
+
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_staff by my staff_id, named 'MStaff'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MStaff()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tReservation</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tReservation</span>.<span style="color: #CC4747">getMStaff()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_MStaff() {
+        assertSetupSelectPurpose("mStaff");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnStaffId();
+        }
+        doSetupSelect(() -> query().queryMStaff());
+    }
+
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_user by my user_id, named 'MUser'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MUser()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tReservation</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tReservation</span>.<span style="color: #CC4747">getMUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_MUser() {
+        assertSetupSelectPurpose("mUser");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnUserId();
+        }
+        doSetupSelect(() -> query().queryMUser());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +348,9 @@ public class BsTReservationCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<TReservationCQ> {
+        protected MShopCB.HpSpecification _mShop;
+        protected MStaffCB.HpSpecification _mStaff;
+        protected MUserCB.HpSpecification _mUser;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<TReservationCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,12 +361,12 @@ public class BsTReservationCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnReservationId() { return doColumn("reservation_id"); }
         /**
-         * shop_id: {int4(10)}
+         * shop_id: {int4(10), FK to m_shop}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnShopId() { return doColumn("shop_id"); }
         /**
-         * staff_id: {NotNull, int4(10)}
+         * staff_id: {NotNull, int4(10), FK to m_staff}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnStaffId() { return doColumn("staff_id"); }
@@ -328,7 +401,7 @@ public class BsTReservationCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnReservationTime() { return doColumn("reservation_time"); }
         /**
-         * user_id: {int4(10)}
+         * user_id: {int4(10), FK to m_user}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
@@ -367,9 +440,98 @@ public class BsTReservationCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnReservationId(); // PK
+            if (qyCall().qy().hasConditionQueryMShop()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MShopCQ) {
+                columnShopId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryMStaff()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MStaffCQ) {
+                columnStaffId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryMUser()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MUserCQ) {
+                columnUserId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "t_reservation"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_shop by my shop_id, named 'MShop'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MShopCB.HpSpecification specifyMShop() {
+            assertRelation("mShop");
+            if (_mShop == null) {
+                _mShop = new MShopCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMShop()
+                                    , () -> _qyCall.qy().queryMShop())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mShop.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMShop()
+                      , () -> xsyncQyCall().qy().queryMShop()));
+                }
+            }
+            return _mShop;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_staff by my staff_id, named 'MStaff'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MStaffCB.HpSpecification specifyMStaff() {
+            assertRelation("mStaff");
+            if (_mStaff == null) {
+                _mStaff = new MStaffCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMStaff()
+                                    , () -> _qyCall.qy().queryMStaff())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mStaff.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMStaff()
+                      , () -> xsyncQyCall().qy().queryMStaff()));
+                }
+            }
+            return _mStaff;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_user by my user_id, named 'MUser'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MUserCB.HpSpecification specifyMUser() {
+            assertRelation("mUser");
+            if (_mUser == null) {
+                _mUser = new MUserCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMUser()
+                                    , () -> _qyCall.qy().queryMUser())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mUser.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMUser()
+                      , () -> xsyncQyCall().qy().queryMUser()));
+                }
+            }
+            return _mUser;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from t_reservation_detail where ...) as FOO_MAX} <br>
+         * t_reservation_detail by reservation_id, named 'TReservationDetailList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     detailCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     detailCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, TReservationDetail.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<TReservationDetailCB, TReservationCQ> derivedTReservationDetail() {
+            assertDerived("tReservationDetailList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<TReservationDetailCB> sq, TReservationCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveTReservationDetailList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

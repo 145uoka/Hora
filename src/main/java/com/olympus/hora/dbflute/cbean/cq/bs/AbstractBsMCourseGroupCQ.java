@@ -158,6 +158,79 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select course_group_id from m_course where ...)} <br>
+     * m_course by course_group_id, named 'MCourseAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMCourse</span>(courseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     courseCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MCourseList for 'exists'. (NotNull)
+     */
+    public void existsMCourse(SubQuery<MCourseCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MCourseCB cb = new MCourseCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepCourseGroupId_ExistsReferrer_MCourseList(cb.query());
+        registerExistsReferrer(cb.query(), "course_group_id", "course_group_id", pp, "mCourseList");
+    }
+    public abstract String keepCourseGroupId_ExistsReferrer_MCourseList(MCourseCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select course_group_id from m_course where ...)} <br>
+     * m_course by course_group_id, named 'MCourseAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMCourse</span>(courseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     courseCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of CourseGroupId_NotExistsReferrer_MCourseList for 'not exists'. (NotNull)
+     */
+    public void notExistsMCourse(SubQuery<MCourseCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MCourseCB cb = new MCourseCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepCourseGroupId_NotExistsReferrer_MCourseList(cb.query());
+        registerNotExistsReferrer(cb.query(), "course_group_id", "course_group_id", pp, "mCourseList");
+    }
+    public abstract String keepCourseGroupId_NotExistsReferrer_MCourseList(MCourseCQ sq);
+
+    public void xsderiveMCourseList(String fn, SubQuery<MCourseCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MCourseCB cb = new MCourseCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepCourseGroupId_SpecifyDerivedReferrer_MCourseList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "course_group_id", "course_group_id", pp, "mCourseList", al, op);
+    }
+    public abstract String keepCourseGroupId_SpecifyDerivedReferrer_MCourseList(MCourseCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_course where ...)} <br>
+     * m_course by course_group_id, named 'MCourseAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMCourse()</span>.<span style="color: #CC4747">max</span>(courseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     courseCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     courseCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MCourseCB> derivedMCourse() {
+        return xcreateQDRFunctionMCourseList();
+    }
+    protected HpQDRFunction<MCourseCB> xcreateQDRFunctionMCourseList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMCourseList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMCourseList(String fn, SubQuery<MCourseCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MCourseCB cb = new MCourseCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepCourseGroupId_QueryDerivedReferrer_MCourseList(cb.query()); String prpp = keepCourseGroupId_QueryDerivedReferrer_MCourseListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "course_group_id", "course_group_id", sqpp, "mCourseList", rd, vl, prpp, op);
+    }
+    public abstract String keepCourseGroupId_QueryDerivedReferrer_MCourseList(MCourseCQ sq);
+    public abstract String keepCourseGroupId_QueryDerivedReferrer_MCourseListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * course_group_id: {PK, ID, NotNull, serial(10)}
      */
@@ -174,7 +247,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_Equal(Integer shopId) {
@@ -187,7 +260,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_NotEqual(Integer shopId) {
@@ -200,7 +273,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterThan(Integer shopId) {
@@ -209,7 +282,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessThan(Integer shopId) {
@@ -218,7 +291,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterEqual(Integer shopId) {
@@ -227,7 +300,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessEqual(Integer shopId) {
@@ -238,7 +311,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +324,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +335,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_InScope(Collection<Integer> shopIdList) {
@@ -275,7 +348,7 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_NotInScope(Collection<Integer> shopIdList) {
@@ -288,13 +361,13 @@ public abstract class AbstractBsMCourseGroupCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNull() { regShopId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNotNull() { regShopId(CK_ISNN, DOBJ); }
 

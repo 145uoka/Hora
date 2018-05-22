@@ -118,11 +118,102 @@ p.tablecount {
 </div>
 
 <div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/05/18 18:04:01</h2>
+	<p class="tablecount"><span class="dt">table count: </span>14&nbsp;-&gt;&nbsp;15</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li><a href="./schema-Hora.html#m_holiday">m_holiday</a></li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-Hora.html#m_course">m_course</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_course_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#m_course_group">m_course_group</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_course_group_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#m_shop">m_shop</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_shop_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#m_working_day">m_working_day</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_working_day_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#m_working_day_deff">m_working_day_deff</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_working_day_deff_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#m_working_day_detail_deff">m_working_day_detail_deff</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_working_day_detail_deff_fk1</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#m_working_staff">m_working_staff</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_m_working_staff_fk0</li>
+				<li>idx_m_working_staff_fk1</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#t_reservation">t_reservation</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_t_reservation_fk1</li>
+				<li>idx_t_reservation_fk2</li>
+				<li>idx_t_reservation_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#t_reservation_detail">t_reservation_detail</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_t_reservation_detail_fk2</li>
+				<li>idx_t_reservation_detail_fk0</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Hora.html#t_shift">t_shift</a></h4>
+		<div class="change-table-content">
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>idx_t_shift_fk1</li>
+				<li>idx_t_shift_fk0</li>
+			</ul>
+		</div>
+	</div>
+	<h3>Add Sequence</h3>
+	<ul class="table-content">
+		<li>postgres.hora.m_holiday_holiday_id_seq</li>
+	</ul>
+</div>
+<div class="section">
 	<h2><span class="dt">Diff Date: </span>2018/05/14 19:23:43</h2>
 
 	<h3>Change Table</h3>
 	<div class="table-content">
-		<h4><a href="./schema-Hora.html#m_code">m_code</a></h4>
+		<h4>m_code</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -131,7 +222,7 @@ p.tablecount {
 				<li>update_datetime</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_company">m_company</a></h4>
+		<h4>m_company</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -140,7 +231,7 @@ p.tablecount {
 				<li>update_datetime</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_course">m_course</a></h4>
+		<h4>m_course</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -153,7 +244,7 @@ p.tablecount {
 				<li>idx_m_course_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_course_group">m_course_group</a></h4>
+		<h4>m_course_group</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -166,7 +257,7 @@ p.tablecount {
 				<li>idx_m_course_group_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_shop">m_shop</a></h4>
+		<h4>m_shop</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -179,7 +270,7 @@ p.tablecount {
 				<li>idx_m_shop_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_staff">m_staff</a></h4>
+		<h4>m_staff</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -188,7 +279,7 @@ p.tablecount {
 				<li>update_datetime</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_user">m_user</a></h4>
+		<h4>m_user</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -197,7 +288,7 @@ p.tablecount {
 				<li>update_datetime</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_working_day">m_working_day</a></h4>
+		<h4>m_working_day</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -210,7 +301,7 @@ p.tablecount {
 				<li>idx_m_working_day_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_working_day_deff">m_working_day_deff</a></h4>
+		<h4>m_working_day_deff</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -229,7 +320,7 @@ p.tablecount {
 				<li>idx_m_working_day_deff_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_working_day_detail_deff">m_working_day_detail_deff</a></h4>
+		<h4>m_working_day_detail_deff</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -248,7 +339,7 @@ p.tablecount {
 				<li>idx_m_working_day_detail_deff_fk1</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#m_working_staff">m_working_staff</a></h4>
+		<h4>m_working_staff</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -262,7 +353,7 @@ p.tablecount {
 				<li>idx_m_working_staff_fk1</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#t_reservation">t_reservation</a></h4>
+		<h4>t_reservation</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -283,7 +374,7 @@ p.tablecount {
 				<li>idx_t_reservation_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#t_reservation_detail">t_reservation_detail</a></h4>
+		<h4>t_reservation_detail</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">
@@ -297,7 +388,7 @@ p.tablecount {
 				<li>idx_t_reservation_detail_fk0</li>
 			</ul>
 		</div>
-		<h4><a href="./schema-Hora.html#t_shift">t_shift</a></h4>
+		<h4>t_shift</h4>
 		<div class="change-table-content">
 			<h5>Add Column</h5>
 			<ul class="column-content">

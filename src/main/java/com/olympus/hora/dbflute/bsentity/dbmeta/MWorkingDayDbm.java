@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -54,6 +55,18 @@ public class MWorkingDayDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MWorkingDay)et).getMShop(), (et, vl) -> ((MWorkingDay)et).setMShop((OptionalEntity<MShop>)vl), "MShop");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -70,8 +83,8 @@ public class MWorkingDayDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnWorkingDayId = cci("working_day_id", "working_day_id", null, null, Integer.class, "workingDayId", null, true, true, true, "serial", 10, 0, null, "nextval('m_working_day_working_day_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnWorkingDayId = cci("working_day_id", "working_day_id", null, null, Integer.class, "workingDayId", null, true, true, true, "serial", 10, 0, null, "nextval('m_working_day_working_day_id_seq'::regclass)", false, null, null, null, "TShiftList", null, false);
+    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MShop", null, null, false);
     protected final ColumnInfo _columnWorkingDate = cci("working_date", "working_date", null, null, java.time.LocalDate.class, "workingDate", null, false, false, false, "date", 13, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStartTime = cci("start_time", "start_time", null, null, java.time.LocalTime.class, "startTime", null, false, false, false, "time", 15, 6, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEndTime = cci("end_time", "end_time", null, null, java.time.LocalTime.class, "endTime", null, false, false, false, "time", 15, 6, null, null, false, null, null, null, null, null, false);
@@ -85,7 +98,7 @@ public class MWorkingDayDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnWorkingDayId() { return _columnWorkingDayId; }
     /**
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnShopId() { return _columnShopId; }
@@ -153,10 +166,26 @@ public class MWorkingDayDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMShop() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MShopDbm.getInstance().columnShopId());
+        return cfi("idx_m_working_day_fk0", "MShop", this, MShopDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "MWorkingDayList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * t_shift by working_day_id, named 'TShiftList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerTShiftList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnWorkingDayId(), TShiftDbm.getInstance().columnWorkingDayId());
+        return cri("idx_t_shift_fk0", "TShiftList", this, TShiftDbm.getInstance(), mp, false, "MWorkingDay");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

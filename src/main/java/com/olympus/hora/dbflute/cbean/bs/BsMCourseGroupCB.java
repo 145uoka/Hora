@@ -18,6 +18,7 @@ import com.olympus.hora.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.olympus.hora.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.olympus.hora.dbflute.cbean.*;
 import com.olympus.hora.dbflute.cbean.cq.*;
+import com.olympus.hora.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of m_course_group.
@@ -237,6 +238,35 @@ public class BsMCourseGroupCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected MShopNss _nssMShop;
+    public MShopNss xdfgetNssMShop() {
+        if (_nssMShop == null) { _nssMShop = new MShopNss(null); }
+        return _nssMShop;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_shop by my shop_id, named 'MShop'.
+     * <pre>
+     * <span style="color: #0000C0">mCourseGroupBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MShop()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">mCourseGroup</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">mCourseGroup</span>.<span style="color: #CC4747">getMShop()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public MShopNss setupSelect_MShop() {
+        assertSetupSelectPurpose("mShop");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnShopId();
+        }
+        doSetupSelect(() -> query().queryMShop());
+        if (_nssMShop == null || !_nssMShop.hasConditionQuery())
+        { _nssMShop = new MShopNss(query().queryMShop()); }
+        return _nssMShop;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +308,7 @@ public class BsMCourseGroupCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MCourseGroupCQ> {
+        protected MShopCB.HpSpecification _mShop;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MCourseGroupCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,7 +319,7 @@ public class BsMCourseGroupCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnCourseGroupId() { return doColumn("course_group_id"); }
         /**
-         * shop_id: {int4(10)}
+         * shop_id: {int4(10), FK to m_shop}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnShopId() { return doColumn("shop_id"); }
@@ -327,9 +358,50 @@ public class BsMCourseGroupCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnCourseGroupId(); // PK
+            if (qyCall().qy().hasConditionQueryMShop()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MShopCQ) {
+                columnShopId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "m_course_group"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_shop by my shop_id, named 'MShop'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MShopCB.HpSpecification specifyMShop() {
+            assertRelation("mShop");
+            if (_mShop == null) {
+                _mShop = new MShopCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMShop()
+                                    , () -> _qyCall.qy().queryMShop())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mShop.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMShop()
+                      , () -> xsyncQyCall().qy().queryMShop()));
+                }
+            }
+            return _mShop;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from m_course where ...) as FOO_MAX} <br>
+         * m_course by course_group_id, named 'MCourseList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(courseCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     courseCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     courseCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MCourse.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MCourseCB, MCourseGroupCQ> derivedMCourse() {
+            assertDerived("mCourseList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MCourseCB> sq, MCourseGroupCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMCourseList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

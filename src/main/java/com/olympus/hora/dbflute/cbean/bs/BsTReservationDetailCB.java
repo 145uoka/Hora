@@ -18,6 +18,7 @@ import com.olympus.hora.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.olympus.hora.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.olympus.hora.dbflute.cbean.*;
 import com.olympus.hora.dbflute.cbean.cq.*;
+import com.olympus.hora.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of t_reservation_detail.
@@ -237,6 +238,64 @@ public class BsTReservationDetailCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected MCourseNss _nssMCourse;
+    public MCourseNss xdfgetNssMCourse() {
+        if (_nssMCourse == null) { _nssMCourse = new MCourseNss(null); }
+        return _nssMCourse;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_course by my course_id, named 'MCourse'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationDetailBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MCourse()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tReservationDetail</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tReservationDetail</span>.<span style="color: #CC4747">getMCourse()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public MCourseNss setupSelect_MCourse() {
+        assertSetupSelectPurpose("mCourse");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnCourseId();
+        }
+        doSetupSelect(() -> query().queryMCourse());
+        if (_nssMCourse == null || !_nssMCourse.hasConditionQuery())
+        { _nssMCourse = new MCourseNss(query().queryMCourse()); }
+        return _nssMCourse;
+    }
+
+    protected TReservationNss _nssTReservation;
+    public TReservationNss xdfgetNssTReservation() {
+        if (_nssTReservation == null) { _nssTReservation = new TReservationNss(null); }
+        return _nssTReservation;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * t_reservation by my reservation_id, named 'TReservation'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationDetailBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_TReservation()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tReservationDetail</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tReservationDetail</span>.<span style="color: #CC4747">getTReservation()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public TReservationNss setupSelect_TReservation() {
+        assertSetupSelectPurpose("tReservation");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnReservationId();
+        }
+        doSetupSelect(() -> query().queryTReservation());
+        if (_nssTReservation == null || !_nssTReservation.hasConditionQuery())
+        { _nssTReservation = new TReservationNss(query().queryTReservation()); }
+        return _nssTReservation;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +337,8 @@ public class BsTReservationDetailCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<TReservationDetailCQ> {
+        protected MCourseCB.HpSpecification _mCourse;
+        protected TReservationCB.HpSpecification _tReservation;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<TReservationDetailCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,12 +349,12 @@ public class BsTReservationDetailCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnReservationDetailId() { return doColumn("reservation_detail_id"); }
         /**
-         * reservation_id: {int8(19)}
+         * reservation_id: {int8(19), FK to t_reservation}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnReservationId() { return doColumn("reservation_id"); }
         /**
-         * course_id: {int4(10)}
+         * course_id: {int4(10), FK to m_course}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnCourseId() { return doColumn("course_id"); }
@@ -322,9 +383,57 @@ public class BsTReservationDetailCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnReservationDetailId(); // PK
+            if (qyCall().qy().hasConditionQueryMCourse()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MCourseCQ) {
+                columnCourseId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryTReservation()
+                    || qyCall().qy().xgetReferrerQuery() instanceof TReservationCQ) {
+                columnReservationId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "t_reservation_detail"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_course by my course_id, named 'MCourse'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MCourseCB.HpSpecification specifyMCourse() {
+            assertRelation("mCourse");
+            if (_mCourse == null) {
+                _mCourse = new MCourseCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMCourse()
+                                    , () -> _qyCall.qy().queryMCourse())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mCourse.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMCourse()
+                      , () -> xsyncQyCall().qy().queryMCourse()));
+                }
+            }
+            return _mCourse;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * t_reservation by my reservation_id, named 'TReservation'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public TReservationCB.HpSpecification specifyTReservation() {
+            assertRelation("tReservation");
+            if (_tReservation == null) {
+                _tReservation = new TReservationCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryTReservation()
+                                    , () -> _qyCall.qy().queryTReservation())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _tReservation.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryTReservation()
+                      , () -> xsyncQyCall().qy().queryTReservation()));
+                }
+            }
+            return _tReservation;
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

@@ -18,6 +18,7 @@ import com.olympus.hora.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.olympus.hora.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.olympus.hora.dbflute.cbean.*;
 import com.olympus.hora.dbflute.cbean.cq.*;
+import com.olympus.hora.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of m_working_day_detail_deff.
@@ -237,6 +238,35 @@ public class BsMWorkingDayDetailDeffCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected MWorkingDayDeffNss _nssMWorkingDayDeff;
+    public MWorkingDayDeffNss xdfgetNssMWorkingDayDeff() {
+        if (_nssMWorkingDayDeff == null) { _nssMWorkingDayDeff = new MWorkingDayDeffNss(null); }
+        return _nssMWorkingDayDeff;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'.
+     * <pre>
+     * <span style="color: #0000C0">mWorkingDayDetailDeffBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MWorkingDayDeff()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">mWorkingDayDetailDeff</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">mWorkingDayDetailDeff</span>.<span style="color: #CC4747">getMWorkingDayDeff()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public MWorkingDayDeffNss setupSelect_MWorkingDayDeff() {
+        assertSetupSelectPurpose("mWorkingDayDeff");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnMWorkingDayDeffId();
+        }
+        doSetupSelect(() -> query().queryMWorkingDayDeff());
+        if (_nssMWorkingDayDeff == null || !_nssMWorkingDayDeff.hasConditionQuery())
+        { _nssMWorkingDayDeff = new MWorkingDayDeffNss(query().queryMWorkingDayDeff()); }
+        return _nssMWorkingDayDeff;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +308,7 @@ public class BsMWorkingDayDetailDeffCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MWorkingDayDetailDeffCQ> {
+        protected MWorkingDayDeffCB.HpSpecification _mWorkingDayDeff;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MWorkingDayDetailDeffCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,7 +319,7 @@ public class BsMWorkingDayDetailDeffCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnWorkingDayDetailDeffId() { return doColumn("working_day_detail_deff_id"); }
         /**
-         * m_working_day_deff_id: {NotNull, int4(10)}
+         * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMWorkingDayDeffId() { return doColumn("m_working_day_deff_id"); }
@@ -407,9 +438,33 @@ public class BsMWorkingDayDetailDeffCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnWorkingDayDetailDeffId(); // PK
+            if (qyCall().qy().hasConditionQueryMWorkingDayDeff()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MWorkingDayDeffCQ) {
+                columnMWorkingDayDeffId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "m_working_day_detail_deff"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MWorkingDayDeffCB.HpSpecification specifyMWorkingDayDeff() {
+            assertRelation("mWorkingDayDeff");
+            if (_mWorkingDayDeff == null) {
+                _mWorkingDayDeff = new MWorkingDayDeffCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMWorkingDayDeff()
+                                    , () -> _qyCall.qy().queryMWorkingDayDeff())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mWorkingDayDeff.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMWorkingDayDeff()
+                      , () -> xsyncQyCall().qy().queryMWorkingDayDeff()));
+                }
+            }
+            return _mWorkingDayDeff;
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

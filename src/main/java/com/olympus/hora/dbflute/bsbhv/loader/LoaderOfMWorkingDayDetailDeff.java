@@ -25,13 +25,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_working_day_deff
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mWorkingDayDeff
  *
  * [referrer property]
  *     
@@ -59,6 +59,13 @@ public class LoaderOfMWorkingDayDetailDeff {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfMWorkingDayDeff _foreignMWorkingDayDeffLoader;
+    public LoaderOfMWorkingDayDeff pulloutMWorkingDayDeff() {
+        if (_foreignMWorkingDayDeffLoader == null)
+        { _foreignMWorkingDayDeffLoader = new LoaderOfMWorkingDayDeff().ready(myBhv().pulloutMWorkingDayDeff(_selectedList), _selector); }
+        return _foreignMWorkingDayDeffLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

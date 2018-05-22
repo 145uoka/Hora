@@ -62,6 +62,16 @@ public class TReservationCIQ extends AbstractBsTReservationCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueReservationId() { return _myCQ.xdfgetReservationId(); }
+    public String keepReservationId_ExistsReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepReservationId_NotExistsReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepReservationId_SpecifyDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepReservationId_QueryDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepReservationId_QueryDerivedReferrer_TReservationDetailListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueShopId() { return _myCQ.xdfgetShopId(); }
     protected ConditionValue xgetCValueStaffId() { return _myCQ.xdfgetStaffId(); }
     protected ConditionValue xgetCValueHistStaffFamilyName() { return _myCQ.xdfgetHistStaffFamilyName(); }

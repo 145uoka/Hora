@@ -158,6 +158,79 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select working_day_id from t_shift where ...)} <br>
+     * t_shift by working_day_id, named 'TShiftAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTShift</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shiftCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TShiftList for 'exists'. (NotNull)
+     */
+    public void existsTShift(SubQuery<TShiftCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepWorkingDayId_ExistsReferrer_TShiftList(cb.query());
+        registerExistsReferrer(cb.query(), "working_day_id", "working_day_id", pp, "tShiftList");
+    }
+    public abstract String keepWorkingDayId_ExistsReferrer_TShiftList(TShiftCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select working_day_id from t_shift where ...)} <br>
+     * t_shift by working_day_id, named 'TShiftAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTShift</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shiftCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of WorkingDayId_NotExistsReferrer_TShiftList for 'not exists'. (NotNull)
+     */
+    public void notExistsTShift(SubQuery<TShiftCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepWorkingDayId_NotExistsReferrer_TShiftList(cb.query());
+        registerNotExistsReferrer(cb.query(), "working_day_id", "working_day_id", pp, "tShiftList");
+    }
+    public abstract String keepWorkingDayId_NotExistsReferrer_TShiftList(TShiftCQ sq);
+
+    public void xsderiveTShiftList(String fn, SubQuery<TShiftCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepWorkingDayId_SpecifyDerivedReferrer_TShiftList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "working_day_id", "working_day_id", pp, "tShiftList", al, op);
+    }
+    public abstract String keepWorkingDayId_SpecifyDerivedReferrer_TShiftList(TShiftCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_shift where ...)} <br>
+     * t_shift by working_day_id, named 'TShiftAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTShift()</span>.<span style="color: #CC4747">max</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shiftCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     shiftCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TShiftCB> derivedTShift() {
+        return xcreateQDRFunctionTShiftList();
+    }
+    protected HpQDRFunction<TShiftCB> xcreateQDRFunctionTShiftList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTShiftList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTShiftList(String fn, SubQuery<TShiftCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TShiftCB cb = new TShiftCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepWorkingDayId_QueryDerivedReferrer_TShiftList(cb.query()); String prpp = keepWorkingDayId_QueryDerivedReferrer_TShiftListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "working_day_id", "working_day_id", sqpp, "tShiftList", rd, vl, prpp, op);
+    }
+    public abstract String keepWorkingDayId_QueryDerivedReferrer_TShiftList(TShiftCQ sq);
+    public abstract String keepWorkingDayId_QueryDerivedReferrer_TShiftListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * working_day_id: {PK, ID, NotNull, serial(10)}
      */
@@ -174,7 +247,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_Equal(Integer shopId) {
@@ -187,7 +260,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_NotEqual(Integer shopId) {
@@ -200,7 +273,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterThan(Integer shopId) {
@@ -209,7 +282,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessThan(Integer shopId) {
@@ -218,7 +291,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterEqual(Integer shopId) {
@@ -227,7 +300,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessEqual(Integer shopId) {
@@ -238,7 +311,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +324,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +335,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_InScope(Collection<Integer> shopIdList) {
@@ -275,7 +348,7 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_NotInScope(Collection<Integer> shopIdList) {
@@ -288,13 +361,13 @@ public abstract class AbstractBsMWorkingDayCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNull() { regShopId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNotNull() { regShopId(CK_ISNN, DOBJ); }
 

@@ -158,6 +158,79 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select reservation_id from t_reservation_detail where ...)} <br>
+     * t_reservation_detail by reservation_id, named 'TReservationDetailAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTReservationDetail</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     detailCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TReservationDetailList for 'exists'. (NotNull)
+     */
+    public void existsTReservationDetail(SubQuery<TReservationDetailCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepReservationId_ExistsReferrer_TReservationDetailList(cb.query());
+        registerExistsReferrer(cb.query(), "reservation_id", "reservation_id", pp, "tReservationDetailList");
+    }
+    public abstract String keepReservationId_ExistsReferrer_TReservationDetailList(TReservationDetailCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select reservation_id from t_reservation_detail where ...)} <br>
+     * t_reservation_detail by reservation_id, named 'TReservationDetailAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTReservationDetail</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     detailCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ReservationId_NotExistsReferrer_TReservationDetailList for 'not exists'. (NotNull)
+     */
+    public void notExistsTReservationDetail(SubQuery<TReservationDetailCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepReservationId_NotExistsReferrer_TReservationDetailList(cb.query());
+        registerNotExistsReferrer(cb.query(), "reservation_id", "reservation_id", pp, "tReservationDetailList");
+    }
+    public abstract String keepReservationId_NotExistsReferrer_TReservationDetailList(TReservationDetailCQ sq);
+
+    public void xsderiveTReservationDetailList(String fn, SubQuery<TReservationDetailCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepReservationId_SpecifyDerivedReferrer_TReservationDetailList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "reservation_id", "reservation_id", pp, "tReservationDetailList", al, op);
+    }
+    public abstract String keepReservationId_SpecifyDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_reservation_detail where ...)} <br>
+     * t_reservation_detail by reservation_id, named 'TReservationDetailAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTReservationDetail()</span>.<span style="color: #CC4747">max</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     detailCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     detailCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TReservationDetailCB> derivedTReservationDetail() {
+        return xcreateQDRFunctionTReservationDetailList();
+    }
+    protected HpQDRFunction<TReservationDetailCB> xcreateQDRFunctionTReservationDetailList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTReservationDetailList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTReservationDetailList(String fn, SubQuery<TReservationDetailCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepReservationId_QueryDerivedReferrer_TReservationDetailList(cb.query()); String prpp = keepReservationId_QueryDerivedReferrer_TReservationDetailListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "reservation_id", "reservation_id", sqpp, "tReservationDetailList", rd, vl, prpp, op);
+    }
+    public abstract String keepReservationId_QueryDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq);
+    public abstract String keepReservationId_QueryDerivedReferrer_TReservationDetailListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * reservation_id: {PK, ID, NotNull, bigserial(19)}
      */
@@ -174,7 +247,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_Equal(Integer shopId) {
@@ -187,7 +260,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_NotEqual(Integer shopId) {
@@ -200,7 +273,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterThan(Integer shopId) {
@@ -209,7 +282,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessThan(Integer shopId) {
@@ -218,7 +291,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterEqual(Integer shopId) {
@@ -227,7 +300,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessEqual(Integer shopId) {
@@ -238,7 +311,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +324,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +335,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_InScope(Collection<Integer> shopIdList) {
@@ -275,7 +348,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_NotInScope(Collection<Integer> shopIdList) {
@@ -288,13 +361,13 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNull() { regShopId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNotNull() { regShopId(CK_ISNN, DOBJ); }
 
@@ -303,7 +376,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffId The value of staffId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_Equal(Integer staffId) {
@@ -316,7 +389,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffId The value of staffId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_NotEqual(Integer staffId) {
@@ -329,7 +402,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffId The value of staffId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_GreaterThan(Integer staffId) {
@@ -338,7 +411,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffId The value of staffId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_LessThan(Integer staffId) {
@@ -347,7 +420,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffId The value of staffId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_GreaterEqual(Integer staffId) {
@@ -356,7 +429,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffId The value of staffId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_LessEqual(Integer staffId) {
@@ -367,7 +440,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param minNumber The min number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -380,7 +453,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param minNumber The min number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -391,7 +464,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffIdList The collection of staffId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setStaffId_InScope(Collection<Integer> staffIdList) {
@@ -404,7 +477,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @param staffIdList The collection of staffId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setStaffId_NotInScope(Collection<Integer> staffIdList) {
@@ -1179,7 +1252,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_Equal(Integer userId) {
@@ -1192,7 +1265,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userId The value of userId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_NotEqual(Integer userId) {
@@ -1205,7 +1278,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userId The value of userId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterThan(Integer userId) {
@@ -1214,7 +1287,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userId The value of userId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessThan(Integer userId) {
@@ -1223,7 +1296,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userId The value of userId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterEqual(Integer userId) {
@@ -1232,7 +1305,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userId The value of userId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessEqual(Integer userId) {
@@ -1243,7 +1316,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -1256,7 +1329,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -1267,7 +1340,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userIdList The collection of userId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_InScope(Collection<Integer> userIdList) {
@@ -1280,7 +1353,7 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @param userIdList The collection of userId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_NotInScope(Collection<Integer> userIdList) {
@@ -1293,13 +1366,13 @@ public abstract class AbstractBsTReservationCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      */
     public void setUserId_IsNull() { regUserId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      */
     public void setUserId_IsNotNull() { regUserId(CK_ISNN, DOBJ); }
 

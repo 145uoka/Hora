@@ -79,6 +79,48 @@ public class BsMStaffCQ extends AbstractBsMStaffCQ {
       return _staffId; }
     protected ConditionValue xgetCValueStaffId() { return xdfgetStaffId(); }
 
+    public Map<String, MWorkingStaffCQ> xdfgetStaffId_ExistsReferrer_MWorkingStaffList() { return xgetSQueMap("staffId_ExistsReferrer_MWorkingStaffList"); }
+    public String keepStaffId_ExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("staffId_ExistsReferrer_MWorkingStaffList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetStaffId_ExistsReferrer_TReservationList() { return xgetSQueMap("staffId_ExistsReferrer_TReservationList"); }
+    public String keepStaffId_ExistsReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("staffId_ExistsReferrer_TReservationList", sq); }
+
+    public Map<String, TShiftCQ> xdfgetStaffId_ExistsReferrer_TShiftList() { return xgetSQueMap("staffId_ExistsReferrer_TShiftList"); }
+    public String keepStaffId_ExistsReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("staffId_ExistsReferrer_TShiftList", sq); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetStaffId_NotExistsReferrer_MWorkingStaffList() { return xgetSQueMap("staffId_NotExistsReferrer_MWorkingStaffList"); }
+    public String keepStaffId_NotExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("staffId_NotExistsReferrer_MWorkingStaffList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetStaffId_NotExistsReferrer_TReservationList() { return xgetSQueMap("staffId_NotExistsReferrer_TReservationList"); }
+    public String keepStaffId_NotExistsReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("staffId_NotExistsReferrer_TReservationList", sq); }
+
+    public Map<String, TShiftCQ> xdfgetStaffId_NotExistsReferrer_TShiftList() { return xgetSQueMap("staffId_NotExistsReferrer_TShiftList"); }
+    public String keepStaffId_NotExistsReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("staffId_NotExistsReferrer_TShiftList", sq); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetStaffId_SpecifyDerivedReferrer_MWorkingStaffList() { return xgetSQueMap("staffId_SpecifyDerivedReferrer_MWorkingStaffList"); }
+    public String keepStaffId_SpecifyDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("staffId_SpecifyDerivedReferrer_MWorkingStaffList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetStaffId_SpecifyDerivedReferrer_TReservationList() { return xgetSQueMap("staffId_SpecifyDerivedReferrer_TReservationList"); }
+    public String keepStaffId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("staffId_SpecifyDerivedReferrer_TReservationList", sq); }
+
+    public Map<String, TShiftCQ> xdfgetStaffId_SpecifyDerivedReferrer_TShiftList() { return xgetSQueMap("staffId_SpecifyDerivedReferrer_TShiftList"); }
+    public String keepStaffId_SpecifyDerivedReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("staffId_SpecifyDerivedReferrer_TShiftList", sq); }
+
+    public Map<String, MWorkingStaffCQ> xdfgetStaffId_QueryDerivedReferrer_MWorkingStaffList() { return xgetSQueMap("staffId_QueryDerivedReferrer_MWorkingStaffList"); }
+    public String keepStaffId_QueryDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq) { return xkeepSQue("staffId_QueryDerivedReferrer_MWorkingStaffList", sq); }
+    public Map<String, Object> xdfgetStaffId_QueryDerivedReferrer_MWorkingStaffListParameter() { return xgetSQuePmMap("staffId_QueryDerivedReferrer_MWorkingStaffList"); }
+    public String keepStaffId_QueryDerivedReferrer_MWorkingStaffListParameter(Object pm) { return xkeepSQuePm("staffId_QueryDerivedReferrer_MWorkingStaffList", pm); }
+
+    public Map<String, TReservationCQ> xdfgetStaffId_QueryDerivedReferrer_TReservationList() { return xgetSQueMap("staffId_QueryDerivedReferrer_TReservationList"); }
+    public String keepStaffId_QueryDerivedReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("staffId_QueryDerivedReferrer_TReservationList", sq); }
+    public Map<String, Object> xdfgetStaffId_QueryDerivedReferrer_TReservationListParameter() { return xgetSQuePmMap("staffId_QueryDerivedReferrer_TReservationList"); }
+    public String keepStaffId_QueryDerivedReferrer_TReservationListParameter(Object pm) { return xkeepSQuePm("staffId_QueryDerivedReferrer_TReservationList", pm); }
+
+    public Map<String, TShiftCQ> xdfgetStaffId_QueryDerivedReferrer_TShiftList() { return xgetSQueMap("staffId_QueryDerivedReferrer_TShiftList"); }
+    public String keepStaffId_QueryDerivedReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("staffId_QueryDerivedReferrer_TShiftList", sq); }
+    public Map<String, Object> xdfgetStaffId_QueryDerivedReferrer_TShiftListParameter() { return xgetSQuePmMap("staffId_QueryDerivedReferrer_TShiftList"); }
+    public String keepStaffId_QueryDerivedReferrer_TShiftListParameter(Object pm) { return xkeepSQuePm("staffId_QueryDerivedReferrer_TShiftList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * staff_id: {PK, ID, NotNull, serial(10)}

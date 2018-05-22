@@ -79,6 +79,20 @@ public class BsMWorkingDayCQ extends AbstractBsMWorkingDayCQ {
       return _workingDayId; }
     protected ConditionValue xgetCValueWorkingDayId() { return xdfgetWorkingDayId(); }
 
+    public Map<String, TShiftCQ> xdfgetWorkingDayId_ExistsReferrer_TShiftList() { return xgetSQueMap("workingDayId_ExistsReferrer_TShiftList"); }
+    public String keepWorkingDayId_ExistsReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("workingDayId_ExistsReferrer_TShiftList", sq); }
+
+    public Map<String, TShiftCQ> xdfgetWorkingDayId_NotExistsReferrer_TShiftList() { return xgetSQueMap("workingDayId_NotExistsReferrer_TShiftList"); }
+    public String keepWorkingDayId_NotExistsReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("workingDayId_NotExistsReferrer_TShiftList", sq); }
+
+    public Map<String, TShiftCQ> xdfgetWorkingDayId_SpecifyDerivedReferrer_TShiftList() { return xgetSQueMap("workingDayId_SpecifyDerivedReferrer_TShiftList"); }
+    public String keepWorkingDayId_SpecifyDerivedReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("workingDayId_SpecifyDerivedReferrer_TShiftList", sq); }
+
+    public Map<String, TShiftCQ> xdfgetWorkingDayId_QueryDerivedReferrer_TShiftList() { return xgetSQueMap("workingDayId_QueryDerivedReferrer_TShiftList"); }
+    public String keepWorkingDayId_QueryDerivedReferrer_TShiftList(TShiftCQ sq) { return xkeepSQue("workingDayId_QueryDerivedReferrer_TShiftList", sq); }
+    public Map<String, Object> xdfgetWorkingDayId_QueryDerivedReferrer_TShiftListParameter() { return xgetSQuePmMap("workingDayId_QueryDerivedReferrer_TShiftList"); }
+    public String keepWorkingDayId_QueryDerivedReferrer_TShiftListParameter(Object pm) { return xkeepSQuePm("workingDayId_QueryDerivedReferrer_TShiftList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * working_day_id: {PK, ID, NotNull, serial(10)}
@@ -101,14 +115,14 @@ public class BsMWorkingDayCQ extends AbstractBsMWorkingDayCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsMWorkingDayCQ addOrderBy_ShopId_Asc() { regOBA("shop_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsMWorkingDayCQ addOrderBy_ShopId_Desc() { regOBD("shop_id"); return this; }
@@ -272,11 +286,36 @@ public class BsMWorkingDayCQ extends AbstractBsMWorkingDayCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MWorkingDayCQ bq = (MWorkingDayCQ)bqs;
+        MWorkingDayCQ uq = (MWorkingDayCQ)uqs;
+        if (bq.hasConditionQueryMShop()) {
+            uq.queryMShop().reflectRelationOnUnionQuery(bq.queryMShop(), uq.queryMShop());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MShopCQ queryMShop() {
+        return xdfgetConditionQueryMShop();
+    }
+    public MShopCQ xdfgetConditionQueryMShop() {
+        String prop = "mShop";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMShop()); xsetupOuterJoinMShop(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MShopCQ xcreateQueryMShop() {
+        String nrp = xresolveNRP("m_working_day", "mShop"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MShopCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mShop", nrp);
+    }
+    protected void xsetupOuterJoinMShop() { xregOutJo("mShop"); }
+    public boolean hasConditionQueryMShop() { return xhasQueRlMap("mShop"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

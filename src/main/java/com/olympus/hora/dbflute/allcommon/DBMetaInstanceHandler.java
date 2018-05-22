@@ -35,6 +35,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("m_company", "com.olympus.hora.dbflute.bsentity.dbmeta.MCompanyDbm");
         tmpMap.put("m_course", "com.olympus.hora.dbflute.bsentity.dbmeta.MCourseDbm");
         tmpMap.put("m_course_group", "com.olympus.hora.dbflute.bsentity.dbmeta.MCourseGroupDbm");
+        tmpMap.put("m_holiday", "com.olympus.hora.dbflute.bsentity.dbmeta.MHolidayDbm");
         tmpMap.put("m_shop", "com.olympus.hora.dbflute.bsentity.dbmeta.MShopDbm");
         tmpMap.put("m_staff", "com.olympus.hora.dbflute.bsentity.dbmeta.MStaffDbm");
         tmpMap.put("m_user", "com.olympus.hora.dbflute.bsentity.dbmeta.MUserDbm");

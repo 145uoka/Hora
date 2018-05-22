@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -62,6 +63,20 @@ public class TReservationDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((TReservation)et).getMShop(), (et, vl) -> ((TReservation)et).setMShop((OptionalEntity<MShop>)vl), "MShop");
+        setupEfpg(_efpgMap, et -> ((TReservation)et).getMStaff(), (et, vl) -> ((TReservation)et).setMStaff((OptionalEntity<MStaff>)vl), "MStaff");
+        setupEfpg(_efpgMap, et -> ((TReservation)et).getMUser(), (et, vl) -> ((TReservation)et).setMUser((OptionalEntity<MUser>)vl), "MUser");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -78,16 +93,16 @@ public class TReservationDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnReservationId = cci("reservation_id", "reservation_id", null, null, Long.class, "reservationId", null, true, true, true, "bigserial", 19, 0, null, "nextval('t_reservation_reservation_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnStaffId = cci("staff_id", "staff_id", null, null, Integer.class, "staffId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnReservationId = cci("reservation_id", "reservation_id", null, null, Long.class, "reservationId", null, true, true, true, "bigserial", 19, 0, null, "nextval('t_reservation_reservation_id_seq'::regclass)", false, null, null, null, "TReservationDetailList", null, false);
+    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MShop", null, null, false);
+    protected final ColumnInfo _columnStaffId = cci("staff_id", "staff_id", null, null, Integer.class, "staffId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, "MStaff", null, null, false);
     protected final ColumnInfo _columnHistStaffFamilyName = cci("hist_staff_family_name", "hist_staff_family_name", null, null, String.class, "histStaffFamilyName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnHistShopName = cci("hist_shop_name", "hist_shop_name", null, null, String.class, "histShopName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnHistShopAbbreviatedName = cci("hist_shop_abbreviated_name", "hist_shop_abbreviated_name", null, null, String.class, "histShopAbbreviatedName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnHistStaffGivenName = cci("hist_staff_given_name", "hist_staff_given_name", null, null, String.class, "histStaffGivenName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnReservationDate = cci("reservation_date", "reservation_date", null, null, java.time.LocalDate.class, "reservationDate", null, false, false, false, "date", 13, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnReservationTime = cci("reservation_time", "reservation_time", null, null, java.time.LocalTime.class, "reservationTime", null, false, false, false, "time", 15, 6, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MUser", null, null, false);
     protected final ColumnInfo _columnTotalAmount = cci("total_amount", "total_amount", null, null, Integer.class, "totalAmount", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRemarks = cci("remarks", "remarks", null, null, String.class, "remarks", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStatus = cci("status", "status", null, null, Integer.class, "status", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -101,12 +116,12 @@ public class TReservationDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnReservationId() { return _columnReservationId; }
     /**
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnShopId() { return _columnShopId; }
     /**
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnStaffId() { return _columnStaffId; }
@@ -141,7 +156,7 @@ public class TReservationDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnReservationTime() { return _columnReservationTime; }
     /**
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
@@ -217,10 +232,42 @@ public class TReservationDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMShop() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MShopDbm.getInstance().columnShopId());
+        return cfi("idx_t_reservation_fk1", "MShop", this, MShopDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "TReservationList", false);
+    }
+    /**
+     * m_staff by my staff_id, named 'MStaff'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMStaff() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnStaffId(), MStaffDbm.getInstance().columnStaffId());
+        return cfi("idx_t_reservation_fk2", "MStaff", this, MStaffDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "TReservationList", false);
+    }
+    /**
+     * m_user by my user_id, named 'MUser'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMUser() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), MUserDbm.getInstance().columnUserId());
+        return cfi("idx_t_reservation_fk0", "MUser", this, MUserDbm.getInstance(), mp, 2, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "TReservationList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * t_reservation_detail by reservation_id, named 'TReservationDetailList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerTReservationDetailList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnReservationId(), TReservationDetailDbm.getInstance().columnReservationId());
+        return cri("idx_t_reservation_detail_fk0", "TReservationDetailList", this, TReservationDetailDbm.getInstance(), mp, false, "TReservation");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

@@ -55,6 +55,9 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_course_group" name="idx_m_course_fk0">
+            <reference foreign="course_group_id" local="course_group_id"/>
+        </foreign-key>
     </table>
     <table name="m_course_group" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="serial"
@@ -70,6 +73,26 @@
             size="5" type="SMALLINT"/>
         <column dbType="text" javaType="String" name="reamarks"
             size="2147483647" type="VARCHAR"/>
+        <column dbType="bool" default="false" javaType="Boolean"
+            name="delete_flag" required="true" size="1" type="BIT"/>
+        <column dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="register_datetime"
+            required="true" size="26, 3" type="TIMESTAMP"/>
+        <column dbType="timestamp" javaType="java.time.LocalDateTime"
+            name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_shop" name="idx_m_course_group_fk0">
+            <reference foreign="shop_id" local="shop_id"/>
+        </foreign-key>
+    </table>
+    <table name="m_holiday" schema="postgres.hora" type="TABLE">
+        <column autoIncrement="true" dbType="serial"
+            default="nextval('m_holiday_holiday_id_seq'::regclass)"
+            javaType="Integer" name="holiday_id" pkName="m_holiday_pkey"
+            pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
+        <column dbType="text" javaType="String" name="holiday_name"
+            size="2147483647" type="VARCHAR"/>
+        <column dbType="date" javaType="java.time.LocalDate"
+            name="holiday" size="13" type="DATE"/>
         <column dbType="bool" default="false" javaType="Boolean"
             name="delete_flag" required="true" size="1" type="BIT"/>
         <column dbType="timestamp" default="now()"
@@ -130,6 +153,9 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_company" name="idx_m_shop_fk0">
+            <reference foreign="company_id" local="company_id"/>
+        </foreign-key>
     </table>
     <table name="m_staff" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="serial"
@@ -227,6 +253,9 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_shop" name="idx_m_working_day_fk0">
+            <reference foreign="shop_id" local="shop_id"/>
+        </foreign-key>
     </table>
     <table name="m_working_day_deff" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="serial"
@@ -245,6 +274,9 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_shop" name="idx_m_working_day_deff_fk0">
+            <reference foreign="shop_id" local="shop_id"/>
+        </foreign-key>
     </table>
     <table name="m_working_day_detail_deff" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="serial"
@@ -292,6 +324,10 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora"
+            foreignTable="m_working_day_deff" name="idx_m_working_day_detail_deff_fk1">
+            <reference foreign="m_working_day_deff_id" local="m_working_day_deff_id"/>
+        </foreign-key>
     </table>
     <table name="m_working_staff" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="serial"
@@ -310,6 +346,12 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_shop" name="idx_m_working_staff_fk0">
+            <reference foreign="shop_id" local="shop_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="hora" foreignTable="m_staff" name="idx_m_working_staff_fk1">
+            <reference foreign="staff_id" local="staff_id"/>
+        </foreign-key>
     </table>
     <table name="t_reservation" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="bigserial"
@@ -347,6 +389,15 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_shop" name="idx_t_reservation_fk1">
+            <reference foreign="shop_id" local="shop_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="hora" foreignTable="m_staff" name="idx_t_reservation_fk2">
+            <reference foreign="staff_id" local="staff_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="hora" foreignTable="m_user" name="idx_t_reservation_fk0">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table name="t_reservation_detail" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="bigserial"
@@ -367,6 +418,12 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_course" name="idx_t_reservation_detail_fk2">
+            <reference foreign="course_id" local="course_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="hora" foreignTable="t_reservation" name="idx_t_reservation_detail_fk0">
+            <reference foreign="reservation_id" local="reservation_id"/>
+        </foreign-key>
     </table>
     <table name="t_shift" schema="postgres.hora" type="TABLE">
         <column autoIncrement="true" dbType="serial"
@@ -388,8 +445,16 @@
             required="true" size="26, 3" type="TIMESTAMP"/>
         <column dbType="timestamp" javaType="java.time.LocalDateTime"
             name="update_datetime" size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="hora" foreignTable="m_staff" name="idx_t_shift_fk1">
+            <reference foreign="staff_id" local="staff_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="hora" foreignTable="m_working_day" name="idx_t_shift_fk0">
+            <reference foreign="working_day_id" local="working_day_id"/>
+        </foreign-key>
     </table>
     <sequenceGroup>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="m_holiday_holiday_id_seq" schema="postgres.hora"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="m_code_code_id_seq" schema="postgres.hora"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"

@@ -38,13 +38,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_staff, m_working_day
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mStaff, mWorkingDay
  *
  * [referrer property]
  *     
@@ -379,6 +379,22 @@ public abstract class BsTShiftBhv extends AbstractBehaviorWritable<TShift, TShif
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MStaff'.
+     * @param tShiftList The list of tShift. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MStaff> pulloutMStaff(List<TShift> tShiftList)
+    { return helpPulloutInternally(tShiftList, "mStaff"); }
+
+    /**
+     * Pull out the list of foreign table 'MWorkingDay'.
+     * @param tShiftList The list of tShift. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MWorkingDay> pulloutMWorkingDay(List<TShift> tShiftList)
+    { return helpPulloutInternally(tShiftList, "mWorkingDay"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

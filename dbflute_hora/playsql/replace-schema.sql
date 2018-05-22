@@ -1,6 +1,7 @@
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS hora.m_holiday;
 DROP TABLE IF EXISTS hora.m_code;
 DROP TABLE IF EXISTS hora.t_reservation_detail;
 DROP TABLE IF EXISTS hora.m_course;
@@ -20,6 +21,18 @@ DROP TABLE IF EXISTS hora.m_user;
 
 
 /* Create Tables */
+
+CREATE TABLE hora.m_holiday
+(
+	holiday_id serial NOT NULL,
+	holiday_name text,
+	holiday date,
+	delete_flag boolean DEFAULT 'false' NOT NULL,
+	register_datetime timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	update_datetime timestamp(3),
+	PRIMARY KEY (holiday_id)
+) WITHOUT OIDS;
+
 
 CREATE TABLE hora.m_code
 (
@@ -264,6 +277,129 @@ CREATE TABLE hora.t_shift
 	update_datetime timestamp(3),
 	CONSTRAINT idx_t_shift_pk PRIMARY KEY (shift_id)
 ) WITHOUT OIDS;
+
+
+
+/* Create Foreign Keys */
+
+ALTER TABLE hora.m_shop
+	ADD CONSTRAINT idx_m_shop_fk0 FOREIGN KEY (company_id)
+	REFERENCES hora.m_company (company_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_reservation_detail
+	ADD CONSTRAINT idx_t_reservation_detail_fk2 FOREIGN KEY (course_id)
+	REFERENCES hora.m_course (course_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_course
+	ADD CONSTRAINT idx_m_course_fk0 FOREIGN KEY (course_group_id)
+	REFERENCES hora.m_course_group (course_group_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_course_group
+	ADD CONSTRAINT idx_m_course_group_fk0 FOREIGN KEY (shop_id)
+	REFERENCES hora.m_shop (shop_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_working_day
+	ADD CONSTRAINT idx_m_working_day_fk0 FOREIGN KEY (shop_id)
+	REFERENCES hora.m_shop (shop_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_working_day_deff
+	ADD CONSTRAINT idx_m_working_day_deff_fk0 FOREIGN KEY (shop_id)
+	REFERENCES hora.m_shop (shop_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_working_staff
+	ADD CONSTRAINT idx_m_working_staff_fk0 FOREIGN KEY (shop_id)
+	REFERENCES hora.m_shop (shop_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_reservation
+	ADD CONSTRAINT idx_t_reservation_fk1 FOREIGN KEY (shop_id)
+	REFERENCES hora.m_shop (shop_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_working_staff
+	ADD CONSTRAINT idx_m_working_staff_fk1 FOREIGN KEY (staff_id)
+	REFERENCES hora.m_staff (staff_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_reservation
+	ADD CONSTRAINT idx_t_reservation_fk2 FOREIGN KEY (staff_id)
+	REFERENCES hora.m_staff (staff_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_shift
+	ADD CONSTRAINT idx_t_shift_fk1 FOREIGN KEY (staff_id)
+	REFERENCES hora.m_staff (staff_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_reservation
+	ADD CONSTRAINT idx_t_reservation_fk0 FOREIGN KEY (user_id)
+	REFERENCES hora.m_user (user_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_shift
+	ADD CONSTRAINT idx_t_shift_fk0 FOREIGN KEY (working_day_id)
+	REFERENCES hora.m_working_day (working_day_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.m_working_day_detail_deff
+	ADD CONSTRAINT idx_m_working_day_detail_deff_fk1 FOREIGN KEY (m_working_day_deff_id)
+	REFERENCES hora.m_working_day_deff (m_working_day_deff_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
+
+
+ALTER TABLE hora.t_reservation_detail
+	ADD CONSTRAINT idx_t_reservation_detail_fk0 FOREIGN KEY (reservation_id)
+	REFERENCES hora.t_reservation (reservation_id)
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION
+;
 
 
 

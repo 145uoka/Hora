@@ -6,6 +6,16 @@
  *
  *================================*/
 
+/* 土曜日 */
+.saturday{
+	color: #0000a0;
+}
+
+/* 日曜日・祝日 */
+.holiday{
+	color: #ff0000;
+}
+
 /* 濃青 */
 .main-background-color {
 	background-color: #9ED78F;

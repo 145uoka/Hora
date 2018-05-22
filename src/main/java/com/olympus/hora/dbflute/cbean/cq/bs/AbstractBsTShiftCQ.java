@@ -174,7 +174,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayId The value of workingDayId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setWorkingDayId_Equal(Integer workingDayId) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayId The value of workingDayId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setWorkingDayId_NotEqual(Integer workingDayId) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayId The value of workingDayId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setWorkingDayId_GreaterThan(Integer workingDayId) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayId The value of workingDayId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setWorkingDayId_LessThan(Integer workingDayId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayId The value of workingDayId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setWorkingDayId_GreaterEqual(Integer workingDayId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayId The value of workingDayId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setWorkingDayId_LessEqual(Integer workingDayId) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param minNumber The min number of workingDayId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of workingDayId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param minNumber The min number of workingDayId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of workingDayId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayIdList The collection of workingDayId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWorkingDayId_InScope(Collection<Integer> workingDayIdList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @param workingDayIdList The collection of workingDayId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setWorkingDayId_NotInScope(Collection<Integer> workingDayIdList) {
@@ -288,13 +288,13 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      */
     public void setWorkingDayId_IsNull() { regWorkingDayId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      */
     public void setWorkingDayId_IsNotNull() { regWorkingDayId(CK_ISNN, DOBJ); }
 
@@ -303,7 +303,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_Equal(Integer staffId) {
@@ -316,7 +316,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_NotEqual(Integer staffId) {
@@ -329,7 +329,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_GreaterThan(Integer staffId) {
@@ -338,7 +338,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_LessThan(Integer staffId) {
@@ -347,7 +347,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_GreaterEqual(Integer staffId) {
@@ -356,7 +356,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_LessEqual(Integer staffId) {
@@ -367,7 +367,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param minNumber The min number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -380,7 +380,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param minNumber The min number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -391,7 +391,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffIdList The collection of staffId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setStaffId_InScope(Collection<Integer> staffIdList) {
@@ -404,7 +404,7 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffIdList The collection of staffId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setStaffId_NotInScope(Collection<Integer> staffIdList) {
@@ -417,13 +417,13 @@ public abstract class AbstractBsTShiftCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      */
     public void setStaffId_IsNull() { regStaffId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      */
     public void setStaffId_IsNotNull() { regStaffId(CK_ISNN, DOBJ); }
 

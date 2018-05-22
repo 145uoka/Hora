@@ -158,6 +158,79 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select m_working_day_deff_id from m_working_day_detail_deff where ...)} <br>
+     * m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMWorkingDayDetailDeff</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     deffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MWorkingDayDetailDeffList for 'exists'. (NotNull)
+     */
+    public void existsMWorkingDayDetailDeff(SubQuery<MWorkingDayDetailDeffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingDayDetailDeffCB cb = new MWorkingDayDetailDeffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMWorkingDayDeffId_ExistsReferrer_MWorkingDayDetailDeffList(cb.query());
+        registerExistsReferrer(cb.query(), "m_working_day_deff_id", "m_working_day_deff_id", pp, "mWorkingDayDetailDeffList");
+    }
+    public abstract String keepMWorkingDayDeffId_ExistsReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select m_working_day_deff_id from m_working_day_detail_deff where ...)} <br>
+     * m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMWorkingDayDetailDeff</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     deffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MWorkingDayDeffId_NotExistsReferrer_MWorkingDayDetailDeffList for 'not exists'. (NotNull)
+     */
+    public void notExistsMWorkingDayDetailDeff(SubQuery<MWorkingDayDetailDeffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingDayDetailDeffCB cb = new MWorkingDayDetailDeffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMWorkingDayDeffId_NotExistsReferrer_MWorkingDayDetailDeffList(cb.query());
+        registerNotExistsReferrer(cb.query(), "m_working_day_deff_id", "m_working_day_deff_id", pp, "mWorkingDayDetailDeffList");
+    }
+    public abstract String keepMWorkingDayDeffId_NotExistsReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq);
+
+    public void xsderiveMWorkingDayDetailDeffList(String fn, SubQuery<MWorkingDayDetailDeffCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingDayDetailDeffCB cb = new MWorkingDayDetailDeffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepMWorkingDayDeffId_SpecifyDerivedReferrer_MWorkingDayDetailDeffList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "m_working_day_deff_id", "m_working_day_deff_id", pp, "mWorkingDayDetailDeffList", al, op);
+    }
+    public abstract String keepMWorkingDayDeffId_SpecifyDerivedReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_working_day_detail_deff where ...)} <br>
+     * m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMWorkingDayDetailDeff()</span>.<span style="color: #CC4747">max</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     deffCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     deffCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MWorkingDayDetailDeffCB> derivedMWorkingDayDetailDeff() {
+        return xcreateQDRFunctionMWorkingDayDetailDeffList();
+    }
+    protected HpQDRFunction<MWorkingDayDetailDeffCB> xcreateQDRFunctionMWorkingDayDetailDeffList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMWorkingDayDetailDeffList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMWorkingDayDetailDeffList(String fn, SubQuery<MWorkingDayDetailDeffCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingDayDetailDeffCB cb = new MWorkingDayDetailDeffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepMWorkingDayDeffId_QueryDerivedReferrer_MWorkingDayDetailDeffList(cb.query()); String prpp = keepMWorkingDayDeffId_QueryDerivedReferrer_MWorkingDayDetailDeffListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "m_working_day_deff_id", "m_working_day_deff_id", sqpp, "mWorkingDayDetailDeffList", rd, vl, prpp, op);
+    }
+    public abstract String keepMWorkingDayDeffId_QueryDerivedReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq);
+    public abstract String keepMWorkingDayDeffId_QueryDerivedReferrer_MWorkingDayDetailDeffListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * m_working_day_deff_id: {PK, ID, NotNull, serial(10)}
      */
@@ -174,7 +247,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopId The value of shopId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_Equal(Integer shopId) {
@@ -187,7 +260,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopId The value of shopId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_NotEqual(Integer shopId) {
@@ -200,7 +273,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterThan(Integer shopId) {
@@ -209,7 +282,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessThan(Integer shopId) {
@@ -218,7 +291,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterEqual(Integer shopId) {
@@ -227,7 +300,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessEqual(Integer shopId) {
@@ -238,7 +311,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +324,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +335,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_InScope(Collection<Integer> shopIdList) {
@@ -275,7 +348,7 @@ public abstract class AbstractBsMWorkingDayDeffCQ extends AbstractConditionQuery
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {NotNull, int4(10)}
+     * shop_id: {NotNull, int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_NotInScope(Collection<Integer> shopIdList) {

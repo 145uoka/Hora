@@ -18,6 +18,7 @@ import com.olympus.hora.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.olympus.hora.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.olympus.hora.dbflute.cbean.*;
 import com.olympus.hora.dbflute.cbean.cq.*;
+import com.olympus.hora.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of t_shift.
@@ -237,6 +238,55 @@ public class BsTShiftCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_staff by my staff_id, named 'MStaff'.
+     * <pre>
+     * <span style="color: #0000C0">tShiftBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MStaff()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tShift</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tShift</span>.<span style="color: #CC4747">getMStaff()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_MStaff() {
+        assertSetupSelectPurpose("mStaff");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnStaffId();
+        }
+        doSetupSelect(() -> query().queryMStaff());
+    }
+
+    protected MWorkingDayNss _nssMWorkingDay;
+    public MWorkingDayNss xdfgetNssMWorkingDay() {
+        if (_nssMWorkingDay == null) { _nssMWorkingDay = new MWorkingDayNss(null); }
+        return _nssMWorkingDay;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_working_day by my working_day_id, named 'MWorkingDay'.
+     * <pre>
+     * <span style="color: #0000C0">tShiftBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MWorkingDay()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">tShift</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">tShift</span>.<span style="color: #CC4747">getMWorkingDay()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public MWorkingDayNss setupSelect_MWorkingDay() {
+        assertSetupSelectPurpose("mWorkingDay");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnWorkingDayId();
+        }
+        doSetupSelect(() -> query().queryMWorkingDay());
+        if (_nssMWorkingDay == null || !_nssMWorkingDay.hasConditionQuery())
+        { _nssMWorkingDay = new MWorkingDayNss(query().queryMWorkingDay()); }
+        return _nssMWorkingDay;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +328,8 @@ public class BsTShiftCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<TShiftCQ> {
+        protected MStaffCB.HpSpecification _mStaff;
+        protected MWorkingDayCB.HpSpecification _mWorkingDay;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<TShiftCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,12 +340,12 @@ public class BsTShiftCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnShiftId() { return doColumn("shift_id"); }
         /**
-         * working_day_id: {int4(10)}
+         * working_day_id: {int4(10), FK to m_working_day}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnWorkingDayId() { return doColumn("working_day_id"); }
         /**
-         * staff_id: {int4(10)}
+         * staff_id: {int4(10), FK to m_staff}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnStaffId() { return doColumn("staff_id"); }
@@ -327,9 +379,57 @@ public class BsTShiftCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnShiftId(); // PK
+            if (qyCall().qy().hasConditionQueryMStaff()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MStaffCQ) {
+                columnStaffId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryMWorkingDay()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MWorkingDayCQ) {
+                columnWorkingDayId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "t_shift"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_staff by my staff_id, named 'MStaff'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MStaffCB.HpSpecification specifyMStaff() {
+            assertRelation("mStaff");
+            if (_mStaff == null) {
+                _mStaff = new MStaffCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMStaff()
+                                    , () -> _qyCall.qy().queryMStaff())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mStaff.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMStaff()
+                      , () -> xsyncQyCall().qy().queryMStaff()));
+                }
+            }
+            return _mStaff;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_working_day by my working_day_id, named 'MWorkingDay'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MWorkingDayCB.HpSpecification specifyMWorkingDay() {
+            assertRelation("mWorkingDay");
+            if (_mWorkingDay == null) {
+                _mWorkingDay = new MWorkingDayCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMWorkingDay()
+                                    , () -> _qyCall.qy().queryMWorkingDay())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mWorkingDay.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMWorkingDay()
+                      , () -> xsyncQyCall().qy().queryMWorkingDay()));
+                }
+            }
+            return _mWorkingDay;
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

@@ -158,6 +158,79 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select course_id from t_reservation_detail where ...)} <br>
+     * t_reservation_detail by course_id, named 'TReservationDetailAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTReservationDetail</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     detailCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TReservationDetailList for 'exists'. (NotNull)
+     */
+    public void existsTReservationDetail(SubQuery<TReservationDetailCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepCourseId_ExistsReferrer_TReservationDetailList(cb.query());
+        registerExistsReferrer(cb.query(), "course_id", "course_id", pp, "tReservationDetailList");
+    }
+    public abstract String keepCourseId_ExistsReferrer_TReservationDetailList(TReservationDetailCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select course_id from t_reservation_detail where ...)} <br>
+     * t_reservation_detail by course_id, named 'TReservationDetailAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTReservationDetail</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     detailCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of CourseId_NotExistsReferrer_TReservationDetailList for 'not exists'. (NotNull)
+     */
+    public void notExistsTReservationDetail(SubQuery<TReservationDetailCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepCourseId_NotExistsReferrer_TReservationDetailList(cb.query());
+        registerNotExistsReferrer(cb.query(), "course_id", "course_id", pp, "tReservationDetailList");
+    }
+    public abstract String keepCourseId_NotExistsReferrer_TReservationDetailList(TReservationDetailCQ sq);
+
+    public void xsderiveTReservationDetailList(String fn, SubQuery<TReservationDetailCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepCourseId_SpecifyDerivedReferrer_TReservationDetailList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "course_id", "course_id", pp, "tReservationDetailList", al, op);
+    }
+    public abstract String keepCourseId_SpecifyDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_reservation_detail where ...)} <br>
+     * t_reservation_detail by course_id, named 'TReservationDetailAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTReservationDetail()</span>.<span style="color: #CC4747">max</span>(detailCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     detailCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     detailCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TReservationDetailCB> derivedTReservationDetail() {
+        return xcreateQDRFunctionTReservationDetailList();
+    }
+    protected HpQDRFunction<TReservationDetailCB> xcreateQDRFunctionTReservationDetailList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTReservationDetailList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTReservationDetailList(String fn, SubQuery<TReservationDetailCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationDetailCB cb = new TReservationDetailCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepCourseId_QueryDerivedReferrer_TReservationDetailList(cb.query()); String prpp = keepCourseId_QueryDerivedReferrer_TReservationDetailListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "course_id", "course_id", sqpp, "tReservationDetailList", rd, vl, prpp, op);
+    }
+    public abstract String keepCourseId_QueryDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq);
+    public abstract String keepCourseId_QueryDerivedReferrer_TReservationDetailListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * course_id: {PK, NotNull, int4(10)}
      */
@@ -174,7 +247,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupId The value of courseGroupId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseGroupId_Equal(Integer courseGroupId) {
@@ -187,7 +260,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupId The value of courseGroupId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseGroupId_NotEqual(Integer courseGroupId) {
@@ -200,7 +273,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupId The value of courseGroupId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseGroupId_GreaterThan(Integer courseGroupId) {
@@ -209,7 +282,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupId The value of courseGroupId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseGroupId_LessThan(Integer courseGroupId) {
@@ -218,7 +291,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupId The value of courseGroupId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseGroupId_GreaterEqual(Integer courseGroupId) {
@@ -227,7 +300,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupId The value of courseGroupId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCourseGroupId_LessEqual(Integer courseGroupId) {
@@ -238,7 +311,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param minNumber The min number of courseGroupId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of courseGroupId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +324,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param minNumber The min number of courseGroupId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of courseGroupId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +335,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupIdList The collection of courseGroupId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setCourseGroupId_InScope(Collection<Integer> courseGroupIdList) {
@@ -275,7 +348,7 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      * @param courseGroupIdList The collection of courseGroupId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setCourseGroupId_NotInScope(Collection<Integer> courseGroupIdList) {
@@ -288,13 +361,13 @@ public abstract class AbstractBsMCourseCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      */
     public void setCourseGroupId_IsNull() { regCourseGroupId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * course_group_id: {int4(10)}
+     * course_group_id: {int4(10), FK to m_course_group}
      */
     public void setCourseGroupId_IsNotNull() { regCourseGroupId(CK_ISNN, DOBJ); }
 

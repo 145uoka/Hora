@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -52,6 +53,19 @@ public class MWorkingStaffDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MWorkingStaff)et).getMShop(), (et, vl) -> ((MWorkingStaff)et).setMShop((OptionalEntity<MShop>)vl), "MShop");
+        setupEfpg(_efpgMap, et -> ((MWorkingStaff)et).getMStaff(), (et, vl) -> ((MWorkingStaff)et).setMStaff((OptionalEntity<MStaff>)vl), "MStaff");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -69,8 +83,8 @@ public class MWorkingStaffDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnWorkingStaffId = cci("working_staff_id", "working_staff_id", null, null, Integer.class, "workingStaffId", null, true, true, true, "serial", 10, 0, null, "nextval('m_working_staff_working_staff_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnStaffId = cci("staff_id", "staff_id", null, null, Integer.class, "staffId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MShop", null, null, false);
+    protected final ColumnInfo _columnStaffId = cci("staff_id", "staff_id", null, null, Integer.class, "staffId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MStaff", null, null, false);
     protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, null, Boolean.class, "deleteFlag", null, false, false, true, "bool", 1, 0, null, "false", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "timestamp", 26, 3, null, "now()", true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 26, 3, null, null, true, null, null, null, null, null, false);
@@ -81,12 +95,12 @@ public class MWorkingStaffDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnWorkingStaffId() { return _columnWorkingStaffId; }
     /**
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnShopId() { return _columnShopId; }
     /**
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnStaffId() { return _columnStaffId; }
@@ -137,6 +151,22 @@ public class MWorkingStaffDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMShop() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MShopDbm.getInstance().columnShopId());
+        return cfi("idx_m_working_staff_fk0", "MShop", this, MShopDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "MWorkingStaffList", false);
+    }
+    /**
+     * m_staff by my staff_id, named 'MStaff'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMStaff() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnStaffId(), MStaffDbm.getInstance().columnStaffId());
+        return cfi("idx_m_working_staff_fk1", "MStaff", this, MStaffDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "MWorkingStaffList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property

@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,13 +31,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_staff, m_working_day
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mStaff, mWorkingDay
  *
  * [referrer property]
  *     
@@ -76,10 +78,10 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
     /** shift_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _shiftId;
 
-    /** working_day_id: {int4(10)} */
+    /** working_day_id: {int4(10), FK to m_working_day} */
     protected Integer _workingDayId;
 
-    /** staff_id: {int4(10)} */
+    /** staff_id: {int4(10), FK to m_staff} */
     protected Integer _staffId;
 
     /** start_time: {time(15, 6)} */
@@ -122,6 +124,48 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_staff by my staff_id, named 'MStaff'. */
+    protected OptionalEntity<MStaff> _mStaff;
+
+    /**
+     * [get] m_staff by my staff_id, named 'MStaff'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MStaff'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MStaff> getMStaff() {
+        if (_mStaff == null) { _mStaff = OptionalEntity.relationEmpty(this, "MStaff"); }
+        return _mStaff;
+    }
+
+    /**
+     * [set] m_staff by my staff_id, named 'MStaff'.
+     * @param mStaff The entity of foreign property 'MStaff'. (NullAllowed)
+     */
+    public void setMStaff(OptionalEntity<MStaff> mStaff) {
+        _mStaff = mStaff;
+    }
+
+    /** m_working_day by my working_day_id, named 'MWorkingDay'. */
+    protected OptionalEntity<MWorkingDay> _mWorkingDay;
+
+    /**
+     * [get] m_working_day by my working_day_id, named 'MWorkingDay'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MWorkingDay'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MWorkingDay> getMWorkingDay() {
+        if (_mWorkingDay == null) { _mWorkingDay = OptionalEntity.relationEmpty(this, "MWorkingDay"); }
+        return _mWorkingDay;
+    }
+
+    /**
+     * [set] m_working_day by my working_day_id, named 'MWorkingDay'.
+     * @param mWorkingDay The entity of foreign property 'MWorkingDay'. (NullAllowed)
+     */
+    public void setMWorkingDay(OptionalEntity<MWorkingDay> mWorkingDay) {
+        _mWorkingDay = mWorkingDay;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -153,7 +197,15 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mStaff != null && _mStaff.isPresent())
+        { sb.append(li).append(xbRDS(_mStaff, "mStaff")); }
+        if (_mWorkingDay != null && _mWorkingDay.isPresent())
+        { sb.append(li).append(xbRDS(_mWorkingDay, "mWorkingDay")); }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -176,7 +228,15 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mStaff != null && _mStaff.isPresent())
+        { sb.append(dm).append("mStaff"); }
+        if (_mWorkingDay != null && _mWorkingDay.isPresent())
+        { sb.append(dm).append("mWorkingDay"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -206,7 +266,7 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] working_day_id: {int4(10)} <br>
+     * [get] working_day_id: {int4(10), FK to m_working_day} <br>
      * @return The value of the column 'working_day_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getWorkingDayId() {
@@ -215,7 +275,7 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] working_day_id: {int4(10)} <br>
+     * [set] working_day_id: {int4(10), FK to m_working_day} <br>
      * @param workingDayId The value of the column 'working_day_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setWorkingDayId(Integer workingDayId) {
@@ -224,7 +284,7 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] staff_id: {int4(10)} <br>
+     * [get] staff_id: {int4(10), FK to m_staff} <br>
      * @return The value of the column 'staff_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getStaffId() {
@@ -233,7 +293,7 @@ public abstract class BsTShift extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] staff_id: {int4(10)} <br>
+     * [set] staff_id: {int4(10), FK to m_staff} <br>
      * @param staffId The value of the column 'staff_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setStaffId(Integer staffId) {

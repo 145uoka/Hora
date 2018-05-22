@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,16 +31,16 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop, m_staff, m_user
  *
  * [referrer table]
- *     
+ *     t_reservation_detail
  *
  * [foreign property]
- *     
+ *     mShop, mStaff, mUser
  *
  * [referrer property]
- *     
+ *     tReservationDetailList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -92,10 +94,10 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     /** reservation_id: {PK, ID, NotNull, bigserial(19)} */
     protected Long _reservationId;
 
-    /** shop_id: {int4(10)} */
+    /** shop_id: {int4(10), FK to m_shop} */
     protected Integer _shopId;
 
-    /** staff_id: {NotNull, int4(10)} */
+    /** staff_id: {NotNull, int4(10), FK to m_staff} */
     protected Integer _staffId;
 
     /** hist_staff_family_name: {text(2147483647)} */
@@ -116,7 +118,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     /** reservation_time: {time(15, 6)} */
     protected java.time.LocalTime _reservationTime;
 
-    /** user_id: {int4(10)} */
+    /** user_id: {int4(10), FK to m_user} */
     protected Integer _userId;
 
     /** total_amount: {int4(10)} */
@@ -162,9 +164,92 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_shop by my shop_id, named 'MShop'. */
+    protected OptionalEntity<MShop> _mShop;
+
+    /**
+     * [get] m_shop by my shop_id, named 'MShop'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MShop'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MShop> getMShop() {
+        if (_mShop == null) { _mShop = OptionalEntity.relationEmpty(this, "MShop"); }
+        return _mShop;
+    }
+
+    /**
+     * [set] m_shop by my shop_id, named 'MShop'.
+     * @param mShop The entity of foreign property 'MShop'. (NullAllowed)
+     */
+    public void setMShop(OptionalEntity<MShop> mShop) {
+        _mShop = mShop;
+    }
+
+    /** m_staff by my staff_id, named 'MStaff'. */
+    protected OptionalEntity<MStaff> _mStaff;
+
+    /**
+     * [get] m_staff by my staff_id, named 'MStaff'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MStaff'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MStaff> getMStaff() {
+        if (_mStaff == null) { _mStaff = OptionalEntity.relationEmpty(this, "MStaff"); }
+        return _mStaff;
+    }
+
+    /**
+     * [set] m_staff by my staff_id, named 'MStaff'.
+     * @param mStaff The entity of foreign property 'MStaff'. (NullAllowed)
+     */
+    public void setMStaff(OptionalEntity<MStaff> mStaff) {
+        _mStaff = mStaff;
+    }
+
+    /** m_user by my user_id, named 'MUser'. */
+    protected OptionalEntity<MUser> _mUser;
+
+    /**
+     * [get] m_user by my user_id, named 'MUser'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MUser'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MUser> getMUser() {
+        if (_mUser == null) { _mUser = OptionalEntity.relationEmpty(this, "MUser"); }
+        return _mUser;
+    }
+
+    /**
+     * [set] m_user by my user_id, named 'MUser'.
+     * @param mUser The entity of foreign property 'MUser'. (NullAllowed)
+     */
+    public void setMUser(OptionalEntity<MUser> mUser) {
+        _mUser = mUser;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** t_reservation_detail by reservation_id, named 'TReservationDetailList'. */
+    protected List<TReservationDetail> _tReservationDetailList;
+
+    /**
+     * [get] t_reservation_detail by reservation_id, named 'TReservationDetailList'.
+     * @return The entity list of referrer property 'TReservationDetailList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<TReservationDetail> getTReservationDetailList() {
+        if (_tReservationDetailList == null) { _tReservationDetailList = newReferrerList(); }
+        return _tReservationDetailList;
+    }
+
+    /**
+     * [set] t_reservation_detail by reservation_id, named 'TReservationDetailList'.
+     * @param tReservationDetailList The entity list of referrer property 'TReservationDetailList'. (NullAllowed)
+     */
+    public void setTReservationDetailList(List<TReservationDetail> tReservationDetailList) {
+        _tReservationDetailList = tReservationDetailList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -193,7 +278,19 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mShop != null && _mShop.isPresent())
+        { sb.append(li).append(xbRDS(_mShop, "mShop")); }
+        if (_mStaff != null && _mStaff.isPresent())
+        { sb.append(li).append(xbRDS(_mStaff, "mStaff")); }
+        if (_mUser != null && _mUser.isPresent())
+        { sb.append(li).append(xbRDS(_mUser, "mUser")); }
+        if (_tReservationDetailList != null) { for (TReservationDetail et : _tReservationDetailList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "tReservationDetailList")); } } }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -224,7 +321,19 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mShop != null && _mShop.isPresent())
+        { sb.append(dm).append("mShop"); }
+        if (_mStaff != null && _mStaff.isPresent())
+        { sb.append(dm).append("mStaff"); }
+        if (_mUser != null && _mUser.isPresent())
+        { sb.append(dm).append("mUser"); }
+        if (_tReservationDetailList != null && !_tReservationDetailList.isEmpty())
+        { sb.append(dm).append("tReservationDetailList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -254,7 +363,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [get] shop_id: {int4(10)} <br>
+     * [get] shop_id: {int4(10), FK to m_shop} <br>
      * @return The value of the column 'shop_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getShopId() {
@@ -263,7 +372,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] shop_id: {int4(10)} <br>
+     * [set] shop_id: {int4(10), FK to m_shop} <br>
      * @param shopId The value of the column 'shop_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setShopId(Integer shopId) {
@@ -272,7 +381,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [get] staff_id: {NotNull, int4(10)} <br>
+     * [get] staff_id: {NotNull, int4(10), FK to m_staff} <br>
      * @return The value of the column 'staff_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getStaffId() {
@@ -281,7 +390,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] staff_id: {NotNull, int4(10)} <br>
+     * [set] staff_id: {NotNull, int4(10), FK to m_staff} <br>
      * @param staffId The value of the column 'staff_id'. (basically NotNull if update: for the constraint)
      */
     public void setStaffId(Integer staffId) {
@@ -398,7 +507,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [get] user_id: {int4(10)} <br>
+     * [get] user_id: {int4(10), FK to m_user} <br>
      * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserId() {
@@ -407,7 +516,7 @@ public abstract class BsTReservation extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] user_id: {int4(10)} <br>
+     * [set] user_id: {int4(10), FK to m_user} <br>
      * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserId(Integer userId) {

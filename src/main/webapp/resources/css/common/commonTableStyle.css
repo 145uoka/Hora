@@ -1,7 +1,31 @@
 /* table */
 table {
   font-size: 12px;
+   width: 100%;
 }
+
+table th {
+    white-space: nowrap;
+    text-align: center;
+	vertical-align: middle;
+}
+
+.th-input-size{
+	width: 200px;
+}
+.th-checkbox-s-size{
+	width: 20px;
+}
+
+.th-checkbox-size{
+	width: 25px;
+}
+
+table td {
+    text-align: center;
+	vertical-align: middle;
+}
+
 
 /*スクロール用*/
 thead#scrollHead, tbody#scrollBody {

@@ -62,6 +62,16 @@ public class MWorkingDayDeffCIQ extends AbstractBsMWorkingDayDeffCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueMWorkingDayDeffId() { return _myCQ.xdfgetMWorkingDayDeffId(); }
+    public String keepMWorkingDayDeffId_ExistsReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMWorkingDayDeffId_NotExistsReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMWorkingDayDeffId_SpecifyDerivedReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMWorkingDayDeffId_QueryDerivedReferrer_MWorkingDayDetailDeffList(MWorkingDayDetailDeffCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMWorkingDayDeffId_QueryDerivedReferrer_MWorkingDayDetailDeffListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueShopId() { return _myCQ.xdfgetShopId(); }
     protected ConditionValue xgetCValueStartDay() { return _myCQ.xdfgetStartDay(); }
     protected ConditionValue xgetCValueDeleteFlag() { return _myCQ.xdfgetDeleteFlag(); }

@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,16 +31,16 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_course_group
  *
  * [referrer table]
- *     
+ *     t_reservation_detail
  *
  * [foreign property]
- *     
+ *     mCourseGroup
  *
  * [referrer property]
- *     
+ *     tReservationDetailList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -76,7 +78,7 @@ public abstract class BsMCourse extends AbstractEntity implements DomainEntity, 
     /** course_id: {PK, NotNull, int4(10)} */
     protected Integer _courseId;
 
-    /** course_group_id: {int4(10)} */
+    /** course_group_id: {int4(10), FK to m_course_group} */
     protected Integer _courseGroupId;
 
     /** course_name: {text(2147483647)} */
@@ -122,9 +124,50 @@ public abstract class BsMCourse extends AbstractEntity implements DomainEntity, 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_course_group by my course_group_id, named 'MCourseGroup'. */
+    protected OptionalEntity<MCourseGroup> _mCourseGroup;
+
+    /**
+     * [get] m_course_group by my course_group_id, named 'MCourseGroup'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MCourseGroup'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MCourseGroup> getMCourseGroup() {
+        if (_mCourseGroup == null) { _mCourseGroup = OptionalEntity.relationEmpty(this, "MCourseGroup"); }
+        return _mCourseGroup;
+    }
+
+    /**
+     * [set] m_course_group by my course_group_id, named 'MCourseGroup'.
+     * @param mCourseGroup The entity of foreign property 'MCourseGroup'. (NullAllowed)
+     */
+    public void setMCourseGroup(OptionalEntity<MCourseGroup> mCourseGroup) {
+        _mCourseGroup = mCourseGroup;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** t_reservation_detail by course_id, named 'TReservationDetailList'. */
+    protected List<TReservationDetail> _tReservationDetailList;
+
+    /**
+     * [get] t_reservation_detail by course_id, named 'TReservationDetailList'.
+     * @return The entity list of referrer property 'TReservationDetailList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<TReservationDetail> getTReservationDetailList() {
+        if (_tReservationDetailList == null) { _tReservationDetailList = newReferrerList(); }
+        return _tReservationDetailList;
+    }
+
+    /**
+     * [set] t_reservation_detail by course_id, named 'TReservationDetailList'.
+     * @param tReservationDetailList The entity list of referrer property 'TReservationDetailList'. (NullAllowed)
+     */
+    public void setTReservationDetailList(List<TReservationDetail> tReservationDetailList) {
+        _tReservationDetailList = tReservationDetailList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -153,7 +196,15 @@ public abstract class BsMCourse extends AbstractEntity implements DomainEntity, 
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mCourseGroup != null && _mCourseGroup.isPresent())
+        { sb.append(li).append(xbRDS(_mCourseGroup, "mCourseGroup")); }
+        if (_tReservationDetailList != null) { for (TReservationDetail et : _tReservationDetailList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "tReservationDetailList")); } } }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -176,7 +227,15 @@ public abstract class BsMCourse extends AbstractEntity implements DomainEntity, 
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mCourseGroup != null && _mCourseGroup.isPresent())
+        { sb.append(dm).append("mCourseGroup"); }
+        if (_tReservationDetailList != null && !_tReservationDetailList.isEmpty())
+        { sb.append(dm).append("tReservationDetailList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -206,7 +265,7 @@ public abstract class BsMCourse extends AbstractEntity implements DomainEntity, 
     }
 
     /**
-     * [get] course_group_id: {int4(10)} <br>
+     * [get] course_group_id: {int4(10), FK to m_course_group} <br>
      * @return The value of the column 'course_group_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getCourseGroupId() {
@@ -215,7 +274,7 @@ public abstract class BsMCourse extends AbstractEntity implements DomainEntity, 
     }
 
     /**
-     * [set] course_group_id: {int4(10)} <br>
+     * [set] course_group_id: {int4(10), FK to m_course_group} <br>
      * @param courseGroupId The value of the column 'course_group_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setCourseGroupId(Integer courseGroupId) {

@@ -158,6 +158,371 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select shop_id from m_course_group where ...)} <br>
+     * m_course_group by shop_id, named 'MCourseGroupAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMCourseGroup</span>(groupCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     groupCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MCourseGroupList for 'exists'. (NotNull)
+     */
+    public void existsMCourseGroup(SubQuery<MCourseGroupCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MCourseGroupCB cb = new MCourseGroupCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_ExistsReferrer_MCourseGroupList(cb.query());
+        registerExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mCourseGroupList");
+    }
+    public abstract String keepShopId_ExistsReferrer_MCourseGroupList(MCourseGroupCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select shop_id from m_working_day where ...)} <br>
+     * m_working_day by shop_id, named 'MWorkingDayAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMWorkingDay</span>(dayCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     dayCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MWorkingDayList for 'exists'. (NotNull)
+     */
+    public void existsMWorkingDay(SubQuery<MWorkingDayCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingDayCB cb = new MWorkingDayCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_ExistsReferrer_MWorkingDayList(cb.query());
+        registerExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mWorkingDayList");
+    }
+    public abstract String keepShopId_ExistsReferrer_MWorkingDayList(MWorkingDayCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select shop_id from m_working_day_deff where ...)} <br>
+     * m_working_day_deff by shop_id, named 'MWorkingDayDeffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMWorkingDayDeff</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     deffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MWorkingDayDeffList for 'exists'. (NotNull)
+     */
+    public void existsMWorkingDayDeff(SubQuery<MWorkingDayDeffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingDayDeffCB cb = new MWorkingDayDeffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_ExistsReferrer_MWorkingDayDeffList(cb.query());
+        registerExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mWorkingDayDeffList");
+    }
+    public abstract String keepShopId_ExistsReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select shop_id from m_working_staff where ...)} <br>
+     * m_working_staff by shop_id, named 'MWorkingStaffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMWorkingStaff</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     staffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MWorkingStaffList for 'exists'. (NotNull)
+     */
+    public void existsMWorkingStaff(SubQuery<MWorkingStaffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_ExistsReferrer_MWorkingStaffList(cb.query());
+        registerExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mWorkingStaffList");
+    }
+    public abstract String keepShopId_ExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select shop_id from t_reservation where ...)} <br>
+     * t_reservation by shop_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTReservation</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TReservationList for 'exists'. (NotNull)
+     */
+    public void existsTReservation(SubQuery<TReservationCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_ExistsReferrer_TReservationList(cb.query());
+        registerExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "tReservationList");
+    }
+    public abstract String keepShopId_ExistsReferrer_TReservationList(TReservationCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select shop_id from m_course_group where ...)} <br>
+     * m_course_group by shop_id, named 'MCourseGroupAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMCourseGroup</span>(groupCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     groupCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ShopId_NotExistsReferrer_MCourseGroupList for 'not exists'. (NotNull)
+     */
+    public void notExistsMCourseGroup(SubQuery<MCourseGroupCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MCourseGroupCB cb = new MCourseGroupCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_NotExistsReferrer_MCourseGroupList(cb.query());
+        registerNotExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mCourseGroupList");
+    }
+    public abstract String keepShopId_NotExistsReferrer_MCourseGroupList(MCourseGroupCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select shop_id from m_working_day where ...)} <br>
+     * m_working_day by shop_id, named 'MWorkingDayAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMWorkingDay</span>(dayCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     dayCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ShopId_NotExistsReferrer_MWorkingDayList for 'not exists'. (NotNull)
+     */
+    public void notExistsMWorkingDay(SubQuery<MWorkingDayCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingDayCB cb = new MWorkingDayCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_NotExistsReferrer_MWorkingDayList(cb.query());
+        registerNotExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mWorkingDayList");
+    }
+    public abstract String keepShopId_NotExistsReferrer_MWorkingDayList(MWorkingDayCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select shop_id from m_working_day_deff where ...)} <br>
+     * m_working_day_deff by shop_id, named 'MWorkingDayDeffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMWorkingDayDeff</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     deffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ShopId_NotExistsReferrer_MWorkingDayDeffList for 'not exists'. (NotNull)
+     */
+    public void notExistsMWorkingDayDeff(SubQuery<MWorkingDayDeffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingDayDeffCB cb = new MWorkingDayDeffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_NotExistsReferrer_MWorkingDayDeffList(cb.query());
+        registerNotExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mWorkingDayDeffList");
+    }
+    public abstract String keepShopId_NotExistsReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select shop_id from m_working_staff where ...)} <br>
+     * m_working_staff by shop_id, named 'MWorkingStaffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMWorkingStaff</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     staffCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ShopId_NotExistsReferrer_MWorkingStaffList for 'not exists'. (NotNull)
+     */
+    public void notExistsMWorkingStaff(SubQuery<MWorkingStaffCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_NotExistsReferrer_MWorkingStaffList(cb.query());
+        registerNotExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "mWorkingStaffList");
+    }
+    public abstract String keepShopId_NotExistsReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select shop_id from t_reservation where ...)} <br>
+     * t_reservation by shop_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTReservation</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ShopId_NotExistsReferrer_TReservationList for 'not exists'. (NotNull)
+     */
+    public void notExistsTReservation(SubQuery<TReservationCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepShopId_NotExistsReferrer_TReservationList(cb.query());
+        registerNotExistsReferrer(cb.query(), "shop_id", "shop_id", pp, "tReservationList");
+    }
+    public abstract String keepShopId_NotExistsReferrer_TReservationList(TReservationCQ sq);
+
+    public void xsderiveMCourseGroupList(String fn, SubQuery<MCourseGroupCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MCourseGroupCB cb = new MCourseGroupCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepShopId_SpecifyDerivedReferrer_MCourseGroupList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", pp, "mCourseGroupList", al, op);
+    }
+    public abstract String keepShopId_SpecifyDerivedReferrer_MCourseGroupList(MCourseGroupCQ sq);
+
+    public void xsderiveMWorkingDayList(String fn, SubQuery<MWorkingDayCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingDayCB cb = new MWorkingDayCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepShopId_SpecifyDerivedReferrer_MWorkingDayList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", pp, "mWorkingDayList", al, op);
+    }
+    public abstract String keepShopId_SpecifyDerivedReferrer_MWorkingDayList(MWorkingDayCQ sq);
+
+    public void xsderiveMWorkingDayDeffList(String fn, SubQuery<MWorkingDayDeffCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingDayDeffCB cb = new MWorkingDayDeffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepShopId_SpecifyDerivedReferrer_MWorkingDayDeffList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", pp, "mWorkingDayDeffList", al, op);
+    }
+    public abstract String keepShopId_SpecifyDerivedReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq);
+
+    public void xsderiveMWorkingStaffList(String fn, SubQuery<MWorkingStaffCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepShopId_SpecifyDerivedReferrer_MWorkingStaffList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", pp, "mWorkingStaffList", al, op);
+    }
+    public abstract String keepShopId_SpecifyDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+
+    public void xsderiveTReservationList(String fn, SubQuery<TReservationCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepShopId_SpecifyDerivedReferrer_TReservationList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", pp, "tReservationList", al, op);
+    }
+    public abstract String keepShopId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_course_group where ...)} <br>
+     * m_course_group by shop_id, named 'MCourseGroupAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMCourseGroup()</span>.<span style="color: #CC4747">max</span>(groupCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     groupCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     groupCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MCourseGroupCB> derivedMCourseGroup() {
+        return xcreateQDRFunctionMCourseGroupList();
+    }
+    protected HpQDRFunction<MCourseGroupCB> xcreateQDRFunctionMCourseGroupList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMCourseGroupList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMCourseGroupList(String fn, SubQuery<MCourseGroupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MCourseGroupCB cb = new MCourseGroupCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepShopId_QueryDerivedReferrer_MCourseGroupList(cb.query()); String prpp = keepShopId_QueryDerivedReferrer_MCourseGroupListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", sqpp, "mCourseGroupList", rd, vl, prpp, op);
+    }
+    public abstract String keepShopId_QueryDerivedReferrer_MCourseGroupList(MCourseGroupCQ sq);
+    public abstract String keepShopId_QueryDerivedReferrer_MCourseGroupListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_working_day where ...)} <br>
+     * m_working_day by shop_id, named 'MWorkingDayAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMWorkingDay()</span>.<span style="color: #CC4747">max</span>(dayCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     dayCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     dayCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MWorkingDayCB> derivedMWorkingDay() {
+        return xcreateQDRFunctionMWorkingDayList();
+    }
+    protected HpQDRFunction<MWorkingDayCB> xcreateQDRFunctionMWorkingDayList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMWorkingDayList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMWorkingDayList(String fn, SubQuery<MWorkingDayCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingDayCB cb = new MWorkingDayCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepShopId_QueryDerivedReferrer_MWorkingDayList(cb.query()); String prpp = keepShopId_QueryDerivedReferrer_MWorkingDayListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", sqpp, "mWorkingDayList", rd, vl, prpp, op);
+    }
+    public abstract String keepShopId_QueryDerivedReferrer_MWorkingDayList(MWorkingDayCQ sq);
+    public abstract String keepShopId_QueryDerivedReferrer_MWorkingDayListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_working_day_deff where ...)} <br>
+     * m_working_day_deff by shop_id, named 'MWorkingDayDeffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMWorkingDayDeff()</span>.<span style="color: #CC4747">max</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     deffCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     deffCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MWorkingDayDeffCB> derivedMWorkingDayDeff() {
+        return xcreateQDRFunctionMWorkingDayDeffList();
+    }
+    protected HpQDRFunction<MWorkingDayDeffCB> xcreateQDRFunctionMWorkingDayDeffList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMWorkingDayDeffList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMWorkingDayDeffList(String fn, SubQuery<MWorkingDayDeffCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingDayDeffCB cb = new MWorkingDayDeffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepShopId_QueryDerivedReferrer_MWorkingDayDeffList(cb.query()); String prpp = keepShopId_QueryDerivedReferrer_MWorkingDayDeffListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", sqpp, "mWorkingDayDeffList", rd, vl, prpp, op);
+    }
+    public abstract String keepShopId_QueryDerivedReferrer_MWorkingDayDeffList(MWorkingDayDeffCQ sq);
+    public abstract String keepShopId_QueryDerivedReferrer_MWorkingDayDeffListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_working_staff where ...)} <br>
+     * m_working_staff by shop_id, named 'MWorkingStaffAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMWorkingStaff()</span>.<span style="color: #CC4747">max</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     staffCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     staffCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MWorkingStaffCB> derivedMWorkingStaff() {
+        return xcreateQDRFunctionMWorkingStaffList();
+    }
+    protected HpQDRFunction<MWorkingStaffCB> xcreateQDRFunctionMWorkingStaffList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMWorkingStaffList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMWorkingStaffList(String fn, SubQuery<MWorkingStaffCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MWorkingStaffCB cb = new MWorkingStaffCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepShopId_QueryDerivedReferrer_MWorkingStaffList(cb.query()); String prpp = keepShopId_QueryDerivedReferrer_MWorkingStaffListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", sqpp, "mWorkingStaffList", rd, vl, prpp, op);
+    }
+    public abstract String keepShopId_QueryDerivedReferrer_MWorkingStaffList(MWorkingStaffCQ sq);
+    public abstract String keepShopId_QueryDerivedReferrer_MWorkingStaffListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_reservation where ...)} <br>
+     * t_reservation by shop_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTReservation()</span>.<span style="color: #CC4747">max</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     reservationCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TReservationCB> derivedTReservation() {
+        return xcreateQDRFunctionTReservationList();
+    }
+    protected HpQDRFunction<TReservationCB> xcreateQDRFunctionTReservationList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTReservationList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTReservationList(String fn, SubQuery<TReservationCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepShopId_QueryDerivedReferrer_TReservationList(cb.query()); String prpp = keepShopId_QueryDerivedReferrer_TReservationListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "shop_id", "shop_id", sqpp, "tReservationList", rd, vl, prpp, op);
+    }
+    public abstract String keepShopId_QueryDerivedReferrer_TReservationList(TReservationCQ sq);
+    public abstract String keepShopId_QueryDerivedReferrer_TReservationListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * shop_id: {PK, ID, NotNull, serial(10)}
      */
@@ -174,7 +539,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyId The value of companyId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setCompanyId_Equal(Integer companyId) {
@@ -187,7 +552,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyId The value of companyId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCompanyId_NotEqual(Integer companyId) {
@@ -200,7 +565,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyId The value of companyId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCompanyId_GreaterThan(Integer companyId) {
@@ -209,7 +574,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyId The value of companyId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCompanyId_LessThan(Integer companyId) {
@@ -218,7 +583,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyId The value of companyId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCompanyId_GreaterEqual(Integer companyId) {
@@ -227,7 +592,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyId The value of companyId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCompanyId_LessEqual(Integer companyId) {
@@ -238,7 +603,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param minNumber The min number of companyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of companyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +616,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param minNumber The min number of companyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of companyId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +627,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyIdList The collection of companyId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setCompanyId_InScope(Collection<Integer> companyIdList) {
@@ -275,7 +640,7 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      * @param companyIdList The collection of companyId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setCompanyId_NotInScope(Collection<Integer> companyIdList) {
@@ -288,13 +653,13 @@ public abstract class AbstractBsMShopCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      */
     public void setCompanyId_IsNull() { regCompanyId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * company_id: {int4(10)}
+     * company_id: {int4(10), FK to m_company}
      */
     public void setCompanyId_IsNotNull() { regCompanyId(CK_ISNN, DOBJ); }
 

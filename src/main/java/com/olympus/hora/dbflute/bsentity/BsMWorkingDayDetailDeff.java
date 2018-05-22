@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,13 +31,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_working_day_deff
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mWorkingDayDeff
  *
  * [referrer property]
  *     
@@ -108,7 +110,7 @@ public abstract class BsMWorkingDayDetailDeff extends AbstractEntity implements 
     /** working_day_detail_deff_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _workingDayDetailDeffId;
 
-    /** m_working_day_deff_id: {NotNull, int4(10)} */
+    /** m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff} */
     protected Integer _mWorkingDayDeffId;
 
     /** effective_flag: {NotNull, bool(1)} */
@@ -202,6 +204,27 @@ public abstract class BsMWorkingDayDetailDeff extends AbstractEntity implements 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'. */
+    protected OptionalEntity<MWorkingDayDeff> _mWorkingDayDeff;
+
+    /**
+     * [get] m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MWorkingDayDeff'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MWorkingDayDeff> getMWorkingDayDeff() {
+        if (_mWorkingDayDeff == null) { _mWorkingDayDeff = OptionalEntity.relationEmpty(this, "MWorkingDayDeff"); }
+        return _mWorkingDayDeff;
+    }
+
+    /**
+     * [set] m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'.
+     * @param mWorkingDayDeff The entity of foreign property 'MWorkingDayDeff'. (NullAllowed)
+     */
+    public void setMWorkingDayDeff(OptionalEntity<MWorkingDayDeff> mWorkingDayDeff) {
+        _mWorkingDayDeff = mWorkingDayDeff;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -233,7 +256,13 @@ public abstract class BsMWorkingDayDetailDeff extends AbstractEntity implements 
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mWorkingDayDeff != null && _mWorkingDayDeff.isPresent())
+        { sb.append(li).append(xbRDS(_mWorkingDayDeff, "mWorkingDayDeff")); }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -272,7 +301,13 @@ public abstract class BsMWorkingDayDetailDeff extends AbstractEntity implements 
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mWorkingDayDeff != null && _mWorkingDayDeff.isPresent())
+        { sb.append(dm).append("mWorkingDayDeff"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -302,7 +337,7 @@ public abstract class BsMWorkingDayDetailDeff extends AbstractEntity implements 
     }
 
     /**
-     * [get] m_working_day_deff_id: {NotNull, int4(10)} <br>
+     * [get] m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff} <br>
      * @return The value of the column 'm_working_day_deff_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getMWorkingDayDeffId() {
@@ -311,7 +346,7 @@ public abstract class BsMWorkingDayDetailDeff extends AbstractEntity implements 
     }
 
     /**
-     * [set] m_working_day_deff_id: {NotNull, int4(10)} <br>
+     * [set] m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff} <br>
      * @param mWorkingDayDeffId The value of the column 'm_working_day_deff_id'. (basically NotNull if update: for the constraint)
      */
     public void setMWorkingDayDeffId(Integer mWorkingDayDeffId) {

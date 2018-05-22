@@ -67,7 +67,7 @@ public class MCompanyDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnCompanyId = cci("company_id", "company_id", null, null, Integer.class, "companyId", null, true, true, true, "serial", 10, 0, null, "nextval('m_company_company_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnCompanyId = cci("company_id", "company_id", null, null, Integer.class, "companyId", null, true, true, true, "serial", 10, 0, null, "nextval('m_company_company_id_seq'::regclass)", false, null, null, null, "MShopList", null, false);
     protected final ColumnInfo _columnCompanyName = cci("company_name", "company_name", null, null, String.class, "companyName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, null, Boolean.class, "deleteFlag", null, false, false, true, "bool", 1, 0, null, "false", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "timestamp", 26, 3, null, "now()", true, null, null, null, null, null, false);
@@ -133,6 +133,14 @@ public class MCompanyDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * m_shop by company_id, named 'MShopList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMShopList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCompanyId(), MShopDbm.getInstance().columnCompanyId());
+        return cri("idx_m_shop_fk0", "MShopList", this, MShopDbm.getInstance(), mp, false, "MCompany");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

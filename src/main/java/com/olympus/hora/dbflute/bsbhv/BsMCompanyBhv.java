@@ -41,13 +41,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     m_shop
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     mShopList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -374,6 +374,70 @@ public abstract class BsMCompanyBhv extends AbstractBehaviorWritable<MCompany, M
     public void load(MCompany mCompany, ReferrerLoaderHandler<LoaderOfMCompany> loaderLambda) {
         xassLRArg(mCompany, loaderLambda);
         loaderLambda.handle(new LoaderOfMCompany().ready(xnewLRAryLs(mCompany), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of MShopList by the set-upper of referrer. <br>
+     * m_shop by company_id, named 'MShopList'.
+     * <pre>
+     * <span style="color: #0000C0">mCompanyBhv</span>.<span style="color: #CC4747">loadMShop</span>(<span style="color: #553000">mCompanyList</span>, <span style="color: #553000">shopCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">shopCB</span>.setupSelect...
+     *     <span style="color: #553000">shopCB</span>.query().set...
+     *     <span style="color: #553000">shopCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MCompany mCompany : <span style="color: #553000">mCompanyList</span>) {
+     *     ... = mCompany.<span style="color: #CC4747">getMShopList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCompanyId_InScope(pkList);
+     * cb.query().addOrderBy_CompanyId_Asc();
+     * </pre>
+     * @param mCompanyList The entity list of MCompany. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MShop> loadMShop(List<MCompany> mCompanyList, ReferrerConditionSetupper<MShopCB> refCBLambda) {
+        xassLRArg(mCompanyList, refCBLambda);
+        return doLoadMShop(mCompanyList, new LoadReferrerOption<MShopCB, MShop>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MShopList by the set-upper of referrer. <br>
+     * m_shop by company_id, named 'MShopList'.
+     * <pre>
+     * <span style="color: #0000C0">mCompanyBhv</span>.<span style="color: #CC4747">loadMShop</span>(<span style="color: #553000">mCompany</span>, <span style="color: #553000">shopCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">shopCB</span>.setupSelect...
+     *     <span style="color: #553000">shopCB</span>.query().set...
+     *     <span style="color: #553000">shopCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mCompany</span>.<span style="color: #CC4747">getMShopList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCompanyId_InScope(pkList);
+     * cb.query().addOrderBy_CompanyId_Asc();
+     * </pre>
+     * @param mCompany The entity of MCompany. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MShop> loadMShop(MCompany mCompany, ReferrerConditionSetupper<MShopCB> refCBLambda) {
+        xassLRArg(mCompany, refCBLambda);
+        return doLoadMShop(xnewLRLs(mCompany), new LoadReferrerOption<MShopCB, MShop>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MShop> doLoadMShop(List<MCompany> mCompanyList, LoadReferrerOption<MShopCB, MShop> option) {
+        return helpLoadReferrerInternally(mCompanyList, option, "mShopList");
     }
 
     // ===================================================================================

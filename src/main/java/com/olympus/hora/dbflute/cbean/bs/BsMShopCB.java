@@ -237,6 +237,26 @@ public class BsMShopCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * m_company by my company_id, named 'MCompany'.
+     * <pre>
+     * <span style="color: #0000C0">mShopBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_MCompany()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">mShop</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">mShop</span>.<span style="color: #CC4747">getMCompany()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_MCompany() {
+        assertSetupSelectPurpose("mCompany");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnCompanyId();
+        }
+        doSetupSelect(() -> query().queryMCompany());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +298,7 @@ public class BsMShopCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MShopCQ> {
+        protected MCompanyCB.HpSpecification _mCompany;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MShopCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,7 +309,7 @@ public class BsMShopCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnShopId() { return doColumn("shop_id"); }
         /**
-         * company_id: {int4(10)}
+         * company_id: {int4(10), FK to m_company}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnCompanyId() { return doColumn("company_id"); }
@@ -407,9 +428,118 @@ public class BsMShopCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnShopId(); // PK
+            if (qyCall().qy().hasConditionQueryMCompany()
+                    || qyCall().qy().xgetReferrerQuery() instanceof MCompanyCQ) {
+                columnCompanyId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "m_shop"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * m_company by my company_id, named 'MCompany'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public MCompanyCB.HpSpecification specifyMCompany() {
+            assertRelation("mCompany");
+            if (_mCompany == null) {
+                _mCompany = new MCompanyCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryMCompany()
+                                    , () -> _qyCall.qy().queryMCompany())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _mCompany.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryMCompany()
+                      , () -> xsyncQyCall().qy().queryMCompany()));
+                }
+            }
+            return _mCompany;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from m_course_group where ...) as FOO_MAX} <br>
+         * m_course_group by shop_id, named 'MCourseGroupList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(groupCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     groupCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     groupCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MCourseGroup.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MCourseGroupCB, MShopCQ> derivedMCourseGroup() {
+            assertDerived("mCourseGroupList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MCourseGroupCB> sq, MShopCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMCourseGroupList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from m_working_day where ...) as FOO_MAX} <br>
+         * m_working_day by shop_id, named 'MWorkingDayList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(dayCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     dayCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     dayCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MWorkingDay.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MWorkingDayCB, MShopCQ> derivedMWorkingDay() {
+            assertDerived("mWorkingDayList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MWorkingDayCB> sq, MShopCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMWorkingDayList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from m_working_day_deff where ...) as FOO_MAX} <br>
+         * m_working_day_deff by shop_id, named 'MWorkingDayDeffList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(deffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     deffCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     deffCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MWorkingDayDeff.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MWorkingDayDeffCB, MShopCQ> derivedMWorkingDayDeff() {
+            assertDerived("mWorkingDayDeffList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MWorkingDayDeffCB> sq, MShopCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMWorkingDayDeffList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from m_working_staff where ...) as FOO_MAX} <br>
+         * m_working_staff by shop_id, named 'MWorkingStaffList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     staffCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     staffCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MWorkingStaff.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MWorkingStaffCB, MShopCQ> derivedMWorkingStaff() {
+            assertDerived("mWorkingStaffList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MWorkingStaffCB> sq, MShopCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMWorkingStaffList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from t_reservation where ...) as FOO_MAX} <br>
+         * t_reservation by shop_id, named 'TReservationList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     reservationCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     reservationCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, TReservation.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<TReservationCB, MShopCQ> derivedTReservation() {
+            assertDerived("tReservationList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<TReservationCB> sq, MShopCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveTReservationList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

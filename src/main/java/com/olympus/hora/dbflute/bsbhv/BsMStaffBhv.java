@@ -41,13 +41,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     m_working_staff, t_reservation, t_shift
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     mWorkingStaffList, tReservationList, tShiftList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -374,6 +374,198 @@ public abstract class BsMStaffBhv extends AbstractBehaviorWritable<MStaff, MStaf
     public void load(MStaff mStaff, ReferrerLoaderHandler<LoaderOfMStaff> loaderLambda) {
         xassLRArg(mStaff, loaderLambda);
         loaderLambda.handle(new LoaderOfMStaff().ready(xnewLRAryLs(mStaff), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of MWorkingStaffList by the set-upper of referrer. <br>
+     * m_working_staff by staff_id, named 'MWorkingStaffList'.
+     * <pre>
+     * <span style="color: #0000C0">mStaffBhv</span>.<span style="color: #CC4747">loadMWorkingStaff</span>(<span style="color: #553000">mStaffList</span>, <span style="color: #553000">staffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">staffCB</span>.setupSelect...
+     *     <span style="color: #553000">staffCB</span>.query().set...
+     *     <span style="color: #553000">staffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MStaff mStaff : <span style="color: #553000">mStaffList</span>) {
+     *     ... = mStaff.<span style="color: #CC4747">getMWorkingStaffList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setStaffId_InScope(pkList);
+     * cb.query().addOrderBy_StaffId_Asc();
+     * </pre>
+     * @param mStaffList The entity list of MStaff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingStaff> loadMWorkingStaff(List<MStaff> mStaffList, ReferrerConditionSetupper<MWorkingStaffCB> refCBLambda) {
+        xassLRArg(mStaffList, refCBLambda);
+        return doLoadMWorkingStaff(mStaffList, new LoadReferrerOption<MWorkingStaffCB, MWorkingStaff>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MWorkingStaffList by the set-upper of referrer. <br>
+     * m_working_staff by staff_id, named 'MWorkingStaffList'.
+     * <pre>
+     * <span style="color: #0000C0">mStaffBhv</span>.<span style="color: #CC4747">loadMWorkingStaff</span>(<span style="color: #553000">mStaff</span>, <span style="color: #553000">staffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">staffCB</span>.setupSelect...
+     *     <span style="color: #553000">staffCB</span>.query().set...
+     *     <span style="color: #553000">staffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mStaff</span>.<span style="color: #CC4747">getMWorkingStaffList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setStaffId_InScope(pkList);
+     * cb.query().addOrderBy_StaffId_Asc();
+     * </pre>
+     * @param mStaff The entity of MStaff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingStaff> loadMWorkingStaff(MStaff mStaff, ReferrerConditionSetupper<MWorkingStaffCB> refCBLambda) {
+        xassLRArg(mStaff, refCBLambda);
+        return doLoadMWorkingStaff(xnewLRLs(mStaff), new LoadReferrerOption<MWorkingStaffCB, MWorkingStaff>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MWorkingStaff> doLoadMWorkingStaff(List<MStaff> mStaffList, LoadReferrerOption<MWorkingStaffCB, MWorkingStaff> option) {
+        return helpLoadReferrerInternally(mStaffList, option, "mWorkingStaffList");
+    }
+
+    /**
+     * Load referrer of TReservationList by the set-upper of referrer. <br>
+     * t_reservation by staff_id, named 'TReservationList'.
+     * <pre>
+     * <span style="color: #0000C0">mStaffBhv</span>.<span style="color: #CC4747">loadTReservation</span>(<span style="color: #553000">mStaffList</span>, <span style="color: #553000">reservationCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">reservationCB</span>.setupSelect...
+     *     <span style="color: #553000">reservationCB</span>.query().set...
+     *     <span style="color: #553000">reservationCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MStaff mStaff : <span style="color: #553000">mStaffList</span>) {
+     *     ... = mStaff.<span style="color: #CC4747">getTReservationList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setStaffId_InScope(pkList);
+     * cb.query().addOrderBy_StaffId_Asc();
+     * </pre>
+     * @param mStaffList The entity list of MStaff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservation> loadTReservation(List<MStaff> mStaffList, ReferrerConditionSetupper<TReservationCB> refCBLambda) {
+        xassLRArg(mStaffList, refCBLambda);
+        return doLoadTReservation(mStaffList, new LoadReferrerOption<TReservationCB, TReservation>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TReservationList by the set-upper of referrer. <br>
+     * t_reservation by staff_id, named 'TReservationList'.
+     * <pre>
+     * <span style="color: #0000C0">mStaffBhv</span>.<span style="color: #CC4747">loadTReservation</span>(<span style="color: #553000">mStaff</span>, <span style="color: #553000">reservationCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">reservationCB</span>.setupSelect...
+     *     <span style="color: #553000">reservationCB</span>.query().set...
+     *     <span style="color: #553000">reservationCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mStaff</span>.<span style="color: #CC4747">getTReservationList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setStaffId_InScope(pkList);
+     * cb.query().addOrderBy_StaffId_Asc();
+     * </pre>
+     * @param mStaff The entity of MStaff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservation> loadTReservation(MStaff mStaff, ReferrerConditionSetupper<TReservationCB> refCBLambda) {
+        xassLRArg(mStaff, refCBLambda);
+        return doLoadTReservation(xnewLRLs(mStaff), new LoadReferrerOption<TReservationCB, TReservation>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TReservation> doLoadTReservation(List<MStaff> mStaffList, LoadReferrerOption<TReservationCB, TReservation> option) {
+        return helpLoadReferrerInternally(mStaffList, option, "tReservationList");
+    }
+
+    /**
+     * Load referrer of TShiftList by the set-upper of referrer. <br>
+     * t_shift by staff_id, named 'TShiftList'.
+     * <pre>
+     * <span style="color: #0000C0">mStaffBhv</span>.<span style="color: #CC4747">loadTShift</span>(<span style="color: #553000">mStaffList</span>, <span style="color: #553000">shiftCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">shiftCB</span>.setupSelect...
+     *     <span style="color: #553000">shiftCB</span>.query().set...
+     *     <span style="color: #553000">shiftCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MStaff mStaff : <span style="color: #553000">mStaffList</span>) {
+     *     ... = mStaff.<span style="color: #CC4747">getTShiftList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setStaffId_InScope(pkList);
+     * cb.query().addOrderBy_StaffId_Asc();
+     * </pre>
+     * @param mStaffList The entity list of MStaff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TShift> loadTShift(List<MStaff> mStaffList, ReferrerConditionSetupper<TShiftCB> refCBLambda) {
+        xassLRArg(mStaffList, refCBLambda);
+        return doLoadTShift(mStaffList, new LoadReferrerOption<TShiftCB, TShift>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TShiftList by the set-upper of referrer. <br>
+     * t_shift by staff_id, named 'TShiftList'.
+     * <pre>
+     * <span style="color: #0000C0">mStaffBhv</span>.<span style="color: #CC4747">loadTShift</span>(<span style="color: #553000">mStaff</span>, <span style="color: #553000">shiftCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">shiftCB</span>.setupSelect...
+     *     <span style="color: #553000">shiftCB</span>.query().set...
+     *     <span style="color: #553000">shiftCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mStaff</span>.<span style="color: #CC4747">getTShiftList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setStaffId_InScope(pkList);
+     * cb.query().addOrderBy_StaffId_Asc();
+     * </pre>
+     * @param mStaff The entity of MStaff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TShift> loadTShift(MStaff mStaff, ReferrerConditionSetupper<TShiftCB> refCBLambda) {
+        xassLRArg(mStaff, refCBLambda);
+        return doLoadTShift(xnewLRLs(mStaff), new LoadReferrerOption<TShiftCB, TShift>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TShift> doLoadTShift(List<MStaff> mStaffList, LoadReferrerOption<TShiftCB, TShift> option) {
+        return helpLoadReferrerInternally(mStaffList, option, "tShiftList");
     }
 
     // ===================================================================================

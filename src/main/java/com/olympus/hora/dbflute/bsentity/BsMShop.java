@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,16 +31,16 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_company
  *
  * [referrer table]
- *     
+ *     m_course_group, m_working_day, m_working_day_deff, m_working_staff, t_reservation
  *
  * [foreign property]
- *     
+ *     mCompany
  *
  * [referrer property]
- *     
+ *     mCourseGroupList, mWorkingDayList, mWorkingDayDeffList, mWorkingStaffList, tReservationList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -108,7 +110,7 @@ public abstract class BsMShop extends AbstractEntity implements DomainEntity, En
     /** shop_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _shopId;
 
-    /** company_id: {int4(10)} */
+    /** company_id: {int4(10), FK to m_company} */
     protected Integer _companyId;
 
     /** shop_abbreviated_name: {text(2147483647)} */
@@ -202,9 +204,130 @@ public abstract class BsMShop extends AbstractEntity implements DomainEntity, En
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_company by my company_id, named 'MCompany'. */
+    protected OptionalEntity<MCompany> _mCompany;
+
+    /**
+     * [get] m_company by my company_id, named 'MCompany'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MCompany'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MCompany> getMCompany() {
+        if (_mCompany == null) { _mCompany = OptionalEntity.relationEmpty(this, "MCompany"); }
+        return _mCompany;
+    }
+
+    /**
+     * [set] m_company by my company_id, named 'MCompany'.
+     * @param mCompany The entity of foreign property 'MCompany'. (NullAllowed)
+     */
+    public void setMCompany(OptionalEntity<MCompany> mCompany) {
+        _mCompany = mCompany;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** m_course_group by shop_id, named 'MCourseGroupList'. */
+    protected List<MCourseGroup> _mCourseGroupList;
+
+    /**
+     * [get] m_course_group by shop_id, named 'MCourseGroupList'.
+     * @return The entity list of referrer property 'MCourseGroupList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MCourseGroup> getMCourseGroupList() {
+        if (_mCourseGroupList == null) { _mCourseGroupList = newReferrerList(); }
+        return _mCourseGroupList;
+    }
+
+    /**
+     * [set] m_course_group by shop_id, named 'MCourseGroupList'.
+     * @param mCourseGroupList The entity list of referrer property 'MCourseGroupList'. (NullAllowed)
+     */
+    public void setMCourseGroupList(List<MCourseGroup> mCourseGroupList) {
+        _mCourseGroupList = mCourseGroupList;
+    }
+
+    /** m_working_day by shop_id, named 'MWorkingDayList'. */
+    protected List<MWorkingDay> _mWorkingDayList;
+
+    /**
+     * [get] m_working_day by shop_id, named 'MWorkingDayList'.
+     * @return The entity list of referrer property 'MWorkingDayList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MWorkingDay> getMWorkingDayList() {
+        if (_mWorkingDayList == null) { _mWorkingDayList = newReferrerList(); }
+        return _mWorkingDayList;
+    }
+
+    /**
+     * [set] m_working_day by shop_id, named 'MWorkingDayList'.
+     * @param mWorkingDayList The entity list of referrer property 'MWorkingDayList'. (NullAllowed)
+     */
+    public void setMWorkingDayList(List<MWorkingDay> mWorkingDayList) {
+        _mWorkingDayList = mWorkingDayList;
+    }
+
+    /** m_working_day_deff by shop_id, named 'MWorkingDayDeffList'. */
+    protected List<MWorkingDayDeff> _mWorkingDayDeffList;
+
+    /**
+     * [get] m_working_day_deff by shop_id, named 'MWorkingDayDeffList'.
+     * @return The entity list of referrer property 'MWorkingDayDeffList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MWorkingDayDeff> getMWorkingDayDeffList() {
+        if (_mWorkingDayDeffList == null) { _mWorkingDayDeffList = newReferrerList(); }
+        return _mWorkingDayDeffList;
+    }
+
+    /**
+     * [set] m_working_day_deff by shop_id, named 'MWorkingDayDeffList'.
+     * @param mWorkingDayDeffList The entity list of referrer property 'MWorkingDayDeffList'. (NullAllowed)
+     */
+    public void setMWorkingDayDeffList(List<MWorkingDayDeff> mWorkingDayDeffList) {
+        _mWorkingDayDeffList = mWorkingDayDeffList;
+    }
+
+    /** m_working_staff by shop_id, named 'MWorkingStaffList'. */
+    protected List<MWorkingStaff> _mWorkingStaffList;
+
+    /**
+     * [get] m_working_staff by shop_id, named 'MWorkingStaffList'.
+     * @return The entity list of referrer property 'MWorkingStaffList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MWorkingStaff> getMWorkingStaffList() {
+        if (_mWorkingStaffList == null) { _mWorkingStaffList = newReferrerList(); }
+        return _mWorkingStaffList;
+    }
+
+    /**
+     * [set] m_working_staff by shop_id, named 'MWorkingStaffList'.
+     * @param mWorkingStaffList The entity list of referrer property 'MWorkingStaffList'. (NullAllowed)
+     */
+    public void setMWorkingStaffList(List<MWorkingStaff> mWorkingStaffList) {
+        _mWorkingStaffList = mWorkingStaffList;
+    }
+
+    /** t_reservation by shop_id, named 'TReservationList'. */
+    protected List<TReservation> _tReservationList;
+
+    /**
+     * [get] t_reservation by shop_id, named 'TReservationList'.
+     * @return The entity list of referrer property 'TReservationList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<TReservation> getTReservationList() {
+        if (_tReservationList == null) { _tReservationList = newReferrerList(); }
+        return _tReservationList;
+    }
+
+    /**
+     * [set] t_reservation by shop_id, named 'TReservationList'.
+     * @param tReservationList The entity list of referrer property 'TReservationList'. (NullAllowed)
+     */
+    public void setTReservationList(List<TReservation> tReservationList) {
+        _tReservationList = tReservationList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -233,7 +356,23 @@ public abstract class BsMShop extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mCompany != null && _mCompany.isPresent())
+        { sb.append(li).append(xbRDS(_mCompany, "mCompany")); }
+        if (_mCourseGroupList != null) { for (MCourseGroup et : _mCourseGroupList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mCourseGroupList")); } } }
+        if (_mWorkingDayList != null) { for (MWorkingDay et : _mWorkingDayList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mWorkingDayList")); } } }
+        if (_mWorkingDayDeffList != null) { for (MWorkingDayDeff et : _mWorkingDayDeffList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mWorkingDayDeffList")); } } }
+        if (_mWorkingStaffList != null) { for (MWorkingStaff et : _mWorkingStaffList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mWorkingStaffList")); } } }
+        if (_tReservationList != null) { for (TReservation et : _tReservationList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "tReservationList")); } } }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -272,7 +411,23 @@ public abstract class BsMShop extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mCompany != null && _mCompany.isPresent())
+        { sb.append(dm).append("mCompany"); }
+        if (_mCourseGroupList != null && !_mCourseGroupList.isEmpty())
+        { sb.append(dm).append("mCourseGroupList"); }
+        if (_mWorkingDayList != null && !_mWorkingDayList.isEmpty())
+        { sb.append(dm).append("mWorkingDayList"); }
+        if (_mWorkingDayDeffList != null && !_mWorkingDayDeffList.isEmpty())
+        { sb.append(dm).append("mWorkingDayDeffList"); }
+        if (_mWorkingStaffList != null && !_mWorkingStaffList.isEmpty())
+        { sb.append(dm).append("mWorkingStaffList"); }
+        if (_tReservationList != null && !_tReservationList.isEmpty())
+        { sb.append(dm).append("tReservationList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -302,7 +457,7 @@ public abstract class BsMShop extends AbstractEntity implements DomainEntity, En
     }
 
     /**
-     * [get] company_id: {int4(10)} <br>
+     * [get] company_id: {int4(10), FK to m_company} <br>
      * @return The value of the column 'company_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getCompanyId() {
@@ -311,7 +466,7 @@ public abstract class BsMShop extends AbstractEntity implements DomainEntity, En
     }
 
     /**
-     * [set] company_id: {int4(10)} <br>
+     * [set] company_id: {int4(10), FK to m_company} <br>
      * @param companyId The value of the column 'company_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setCompanyId(Integer companyId) {

@@ -158,6 +158,79 @@ public abstract class AbstractBsMUserCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from t_reservation where ...)} <br>
+     * t_reservation by user_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsTReservation</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of TReservationList for 'exists'. (NotNull)
+     */
+    public void existsTReservation(SubQuery<TReservationCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_TReservationList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "tReservationList");
+    }
+    public abstract String keepUserId_ExistsReferrer_TReservationList(TReservationCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from t_reservation where ...)} <br>
+     * t_reservation by user_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsTReservation</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_TReservationList for 'not exists'. (NotNull)
+     */
+    public void notExistsTReservation(SubQuery<TReservationCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_TReservationList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "tReservationList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_TReservationList(TReservationCQ sq);
+
+    public void xsderiveTReservationList(String fn, SubQuery<TReservationCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_TReservationList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "tReservationList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from t_reservation where ...)} <br>
+     * t_reservation by user_id, named 'TReservationAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedTReservation()</span>.<span style="color: #CC4747">max</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     reservationCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     reservationCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<TReservationCB> derivedTReservation() {
+        return xcreateQDRFunctionTReservationList();
+    }
+    protected HpQDRFunction<TReservationCB> xcreateQDRFunctionTReservationList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveTReservationList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveTReservationList(String fn, SubQuery<TReservationCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        TReservationCB cb = new TReservationCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_TReservationList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_TReservationListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "tReservationList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_TReservationList(TReservationCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_TReservationListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * user_id: {PK, ID, NotNull, serial(10)}
      */

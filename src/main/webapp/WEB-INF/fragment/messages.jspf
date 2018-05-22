@@ -23,7 +23,9 @@
 <c:if test="${fn:length(errorMessages) > 0}">
   <div class="alert alert-danger" role="alert" align="left">
     <c:forEach var="errorMessage" items="${errorMessages}">
+     <p>
       <c:out value="${errorMessage}" />
+     </p>
     </c:forEach>
   </div>
 </c:if>

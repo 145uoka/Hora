@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -70,6 +71,18 @@ public class MWorkingDayDetailDeffDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MWorkingDayDetailDeff)et).getMWorkingDayDeff(), (et, vl) -> ((MWorkingDayDetailDeff)et).setMWorkingDayDeff((OptionalEntity<MWorkingDayDeff>)vl), "MWorkingDayDeff");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -87,7 +100,7 @@ public class MWorkingDayDetailDeffDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnWorkingDayDetailDeffId = cci("working_day_detail_deff_id", "working_day_detail_deff_id", null, null, Integer.class, "workingDayDetailDeffId", null, true, true, true, "serial", 10, 0, null, "nextval('m_working_day_detail_deff_working_day_detail_deff_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnMWorkingDayDeffId = cci("m_working_day_deff_id", "m_working_day_deff_id", null, null, Integer.class, "MWorkingDayDeffId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMWorkingDayDeffId = cci("m_working_day_deff_id", "m_working_day_deff_id", null, null, Integer.class, "MWorkingDayDeffId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, "MWorkingDayDeff", null, null, false);
     protected final ColumnInfo _columnEffectiveFlag = cci("effective_flag", "effective_flag", null, null, Boolean.class, "effectiveFlag", null, false, false, true, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnWorkingDayFlg = cci("working_day_flg", "working_day_flg", null, null, Boolean.class, "workingDayFlg", null, false, false, true, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnWeek1Flag = cci("week_1_flag", "week_1_flag", null, null, Boolean.class, "week1Flag", null, false, false, false, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
@@ -117,7 +130,7 @@ public class MWorkingDayDetailDeffDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnWorkingDayDetailDeffId() { return _columnWorkingDayDetailDeffId; }
     /**
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMWorkingDayDeffId() { return _columnMWorkingDayDeffId; }
@@ -281,6 +294,14 @@ public class MWorkingDayDetailDeffDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMWorkingDayDeff() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMWorkingDayDeffId(), MWorkingDayDeffDbm.getInstance().columnMWorkingDayDeffId());
+        return cfi("idx_m_working_day_detail_deff_fk1", "MWorkingDayDeff", this, MWorkingDayDeffDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "MWorkingDayDetailDeffList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property

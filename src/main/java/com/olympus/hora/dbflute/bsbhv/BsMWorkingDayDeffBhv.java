@@ -38,16 +38,16 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop
  *
  * [referrer table]
- *     
+ *     m_working_day_detail_deff
  *
  * [foreign property]
- *     
+ *     mShop
  *
  * [referrer property]
- *     
+ *     mWorkingDayDetailDeffList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,81 @@ public abstract class BsMWorkingDayDeffBhv extends AbstractBehaviorWritable<MWor
         loaderLambda.handle(new LoaderOfMWorkingDayDeff().ready(xnewLRAryLs(mWorkingDayDeff), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of MWorkingDayDetailDeffList by the set-upper of referrer. <br>
+     * m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffList'.
+     * <pre>
+     * <span style="color: #0000C0">mWorkingDayDeffBhv</span>.<span style="color: #CC4747">loadMWorkingDayDetailDeff</span>(<span style="color: #553000">mWorkingDayDeffList</span>, <span style="color: #553000">deffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">deffCB</span>.setupSelect...
+     *     <span style="color: #553000">deffCB</span>.query().set...
+     *     <span style="color: #553000">deffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MWorkingDayDeff mWorkingDayDeff : <span style="color: #553000">mWorkingDayDeffList</span>) {
+     *     ... = mWorkingDayDeff.<span style="color: #CC4747">getMWorkingDayDetailDeffList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMWorkingDayDeffId_InScope(pkList);
+     * cb.query().addOrderBy_MWorkingDayDeffId_Asc();
+     * </pre>
+     * @param mWorkingDayDeffList The entity list of MWorkingDayDeff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingDayDetailDeff> loadMWorkingDayDetailDeff(List<MWorkingDayDeff> mWorkingDayDeffList, ReferrerConditionSetupper<MWorkingDayDetailDeffCB> refCBLambda) {
+        xassLRArg(mWorkingDayDeffList, refCBLambda);
+        return doLoadMWorkingDayDetailDeff(mWorkingDayDeffList, new LoadReferrerOption<MWorkingDayDetailDeffCB, MWorkingDayDetailDeff>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MWorkingDayDetailDeffList by the set-upper of referrer. <br>
+     * m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffList'.
+     * <pre>
+     * <span style="color: #0000C0">mWorkingDayDeffBhv</span>.<span style="color: #CC4747">loadMWorkingDayDetailDeff</span>(<span style="color: #553000">mWorkingDayDeff</span>, <span style="color: #553000">deffCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">deffCB</span>.setupSelect...
+     *     <span style="color: #553000">deffCB</span>.query().set...
+     *     <span style="color: #553000">deffCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mWorkingDayDeff</span>.<span style="color: #CC4747">getMWorkingDayDetailDeffList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMWorkingDayDeffId_InScope(pkList);
+     * cb.query().addOrderBy_MWorkingDayDeffId_Asc();
+     * </pre>
+     * @param mWorkingDayDeff The entity of MWorkingDayDeff. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MWorkingDayDetailDeff> loadMWorkingDayDetailDeff(MWorkingDayDeff mWorkingDayDeff, ReferrerConditionSetupper<MWorkingDayDetailDeffCB> refCBLambda) {
+        xassLRArg(mWorkingDayDeff, refCBLambda);
+        return doLoadMWorkingDayDetailDeff(xnewLRLs(mWorkingDayDeff), new LoadReferrerOption<MWorkingDayDetailDeffCB, MWorkingDayDetailDeff>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MWorkingDayDetailDeff> doLoadMWorkingDayDetailDeff(List<MWorkingDayDeff> mWorkingDayDeffList, LoadReferrerOption<MWorkingDayDetailDeffCB, MWorkingDayDetailDeff> option) {
+        return helpLoadReferrerInternally(mWorkingDayDeffList, option, "mWorkingDayDetailDeffList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MShop'.
+     * @param mWorkingDayDeffList The list of mWorkingDayDeff. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MShop> pulloutMShop(List<MWorkingDayDeff> mWorkingDayDeffList)
+    { return helpPulloutInternally(mWorkingDayDeffList, "mShop"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

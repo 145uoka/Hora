@@ -38,16 +38,16 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop
  *
  * [referrer table]
- *     
+ *     t_shift
  *
  * [foreign property]
- *     
+ *     mShop
  *
  * [referrer property]
- *     
+ *     tShiftList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,81 @@ public abstract class BsMWorkingDayBhv extends AbstractBehaviorWritable<MWorking
         loaderLambda.handle(new LoaderOfMWorkingDay().ready(xnewLRAryLs(mWorkingDay), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of TShiftList by the set-upper of referrer. <br>
+     * t_shift by working_day_id, named 'TShiftList'.
+     * <pre>
+     * <span style="color: #0000C0">mWorkingDayBhv</span>.<span style="color: #CC4747">loadTShift</span>(<span style="color: #553000">mWorkingDayList</span>, <span style="color: #553000">shiftCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">shiftCB</span>.setupSelect...
+     *     <span style="color: #553000">shiftCB</span>.query().set...
+     *     <span style="color: #553000">shiftCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MWorkingDay mWorkingDay : <span style="color: #553000">mWorkingDayList</span>) {
+     *     ... = mWorkingDay.<span style="color: #CC4747">getTShiftList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setWorkingDayId_InScope(pkList);
+     * cb.query().addOrderBy_WorkingDayId_Asc();
+     * </pre>
+     * @param mWorkingDayList The entity list of MWorkingDay. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TShift> loadTShift(List<MWorkingDay> mWorkingDayList, ReferrerConditionSetupper<TShiftCB> refCBLambda) {
+        xassLRArg(mWorkingDayList, refCBLambda);
+        return doLoadTShift(mWorkingDayList, new LoadReferrerOption<TShiftCB, TShift>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TShiftList by the set-upper of referrer. <br>
+     * t_shift by working_day_id, named 'TShiftList'.
+     * <pre>
+     * <span style="color: #0000C0">mWorkingDayBhv</span>.<span style="color: #CC4747">loadTShift</span>(<span style="color: #553000">mWorkingDay</span>, <span style="color: #553000">shiftCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">shiftCB</span>.setupSelect...
+     *     <span style="color: #553000">shiftCB</span>.query().set...
+     *     <span style="color: #553000">shiftCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mWorkingDay</span>.<span style="color: #CC4747">getTShiftList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setWorkingDayId_InScope(pkList);
+     * cb.query().addOrderBy_WorkingDayId_Asc();
+     * </pre>
+     * @param mWorkingDay The entity of MWorkingDay. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TShift> loadTShift(MWorkingDay mWorkingDay, ReferrerConditionSetupper<TShiftCB> refCBLambda) {
+        xassLRArg(mWorkingDay, refCBLambda);
+        return doLoadTShift(xnewLRLs(mWorkingDay), new LoadReferrerOption<TShiftCB, TShift>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TShift> doLoadTShift(List<MWorkingDay> mWorkingDayList, LoadReferrerOption<TShiftCB, TShift> option) {
+        return helpLoadReferrerInternally(mWorkingDayList, option, "tShiftList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MShop'.
+     * @param mWorkingDayList The list of mWorkingDay. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MShop> pulloutMShop(List<MWorkingDay> mWorkingDayList)
+    { return helpPulloutInternally(mWorkingDayList, "mShop"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

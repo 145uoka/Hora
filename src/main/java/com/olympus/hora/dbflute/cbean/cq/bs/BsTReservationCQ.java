@@ -79,6 +79,20 @@ public class BsTReservationCQ extends AbstractBsTReservationCQ {
       return _reservationId; }
     protected ConditionValue xgetCValueReservationId() { return xdfgetReservationId(); }
 
+    public Map<String, TReservationDetailCQ> xdfgetReservationId_ExistsReferrer_TReservationDetailList() { return xgetSQueMap("reservationId_ExistsReferrer_TReservationDetailList"); }
+    public String keepReservationId_ExistsReferrer_TReservationDetailList(TReservationDetailCQ sq) { return xkeepSQue("reservationId_ExistsReferrer_TReservationDetailList", sq); }
+
+    public Map<String, TReservationDetailCQ> xdfgetReservationId_NotExistsReferrer_TReservationDetailList() { return xgetSQueMap("reservationId_NotExistsReferrer_TReservationDetailList"); }
+    public String keepReservationId_NotExistsReferrer_TReservationDetailList(TReservationDetailCQ sq) { return xkeepSQue("reservationId_NotExistsReferrer_TReservationDetailList", sq); }
+
+    public Map<String, TReservationDetailCQ> xdfgetReservationId_SpecifyDerivedReferrer_TReservationDetailList() { return xgetSQueMap("reservationId_SpecifyDerivedReferrer_TReservationDetailList"); }
+    public String keepReservationId_SpecifyDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq) { return xkeepSQue("reservationId_SpecifyDerivedReferrer_TReservationDetailList", sq); }
+
+    public Map<String, TReservationDetailCQ> xdfgetReservationId_QueryDerivedReferrer_TReservationDetailList() { return xgetSQueMap("reservationId_QueryDerivedReferrer_TReservationDetailList"); }
+    public String keepReservationId_QueryDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq) { return xkeepSQue("reservationId_QueryDerivedReferrer_TReservationDetailList", sq); }
+    public Map<String, Object> xdfgetReservationId_QueryDerivedReferrer_TReservationDetailListParameter() { return xgetSQuePmMap("reservationId_QueryDerivedReferrer_TReservationDetailList"); }
+    public String keepReservationId_QueryDerivedReferrer_TReservationDetailListParameter(Object pm) { return xkeepSQuePm("reservationId_QueryDerivedReferrer_TReservationDetailList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * reservation_id: {PK, ID, NotNull, bigserial(19)}
@@ -101,14 +115,14 @@ public class BsTReservationCQ extends AbstractBsTReservationCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsTReservationCQ addOrderBy_ShopId_Asc() { regOBA("shop_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsTReservationCQ addOrderBy_ShopId_Desc() { regOBD("shop_id"); return this; }
@@ -121,14 +135,14 @@ public class BsTReservationCQ extends AbstractBsTReservationCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @return this. (NotNull)
      */
     public BsTReservationCQ addOrderBy_StaffId_Asc() { regOBA("staff_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * staff_id: {NotNull, int4(10)}
+     * staff_id: {NotNull, int4(10), FK to m_staff}
      * @return this. (NotNull)
      */
     public BsTReservationCQ addOrderBy_StaffId_Desc() { regOBD("staff_id"); return this; }
@@ -261,14 +275,14 @@ public class BsTReservationCQ extends AbstractBsTReservationCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @return this. (NotNull)
      */
     public BsTReservationCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_id: {int4(10)}
+     * user_id: {int4(10), FK to m_user}
      * @return this. (NotNull)
      */
     public BsTReservationCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
@@ -432,11 +446,82 @@ public class BsTReservationCQ extends AbstractBsTReservationCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        TReservationCQ bq = (TReservationCQ)bqs;
+        TReservationCQ uq = (TReservationCQ)uqs;
+        if (bq.hasConditionQueryMShop()) {
+            uq.queryMShop().reflectRelationOnUnionQuery(bq.queryMShop(), uq.queryMShop());
+        }
+        if (bq.hasConditionQueryMStaff()) {
+            uq.queryMStaff().reflectRelationOnUnionQuery(bq.queryMStaff(), uq.queryMStaff());
+        }
+        if (bq.hasConditionQueryMUser()) {
+            uq.queryMUser().reflectRelationOnUnionQuery(bq.queryMUser(), uq.queryMUser());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MShopCQ queryMShop() {
+        return xdfgetConditionQueryMShop();
+    }
+    public MShopCQ xdfgetConditionQueryMShop() {
+        String prop = "mShop";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMShop()); xsetupOuterJoinMShop(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MShopCQ xcreateQueryMShop() {
+        String nrp = xresolveNRP("t_reservation", "mShop"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MShopCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mShop", nrp);
+    }
+    protected void xsetupOuterJoinMShop() { xregOutJo("mShop"); }
+    public boolean hasConditionQueryMShop() { return xhasQueRlMap("mShop"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_staff by my staff_id, named 'MStaff'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MStaffCQ queryMStaff() {
+        return xdfgetConditionQueryMStaff();
+    }
+    public MStaffCQ xdfgetConditionQueryMStaff() {
+        String prop = "mStaff";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMStaff()); xsetupOuterJoinMStaff(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MStaffCQ xcreateQueryMStaff() {
+        String nrp = xresolveNRP("t_reservation", "mStaff"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MStaffCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mStaff", nrp);
+    }
+    protected void xsetupOuterJoinMStaff() { xregOutJo("mStaff"); }
+    public boolean hasConditionQueryMStaff() { return xhasQueRlMap("mStaff"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_user by my user_id, named 'MUser'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MUserCQ queryMUser() {
+        return xdfgetConditionQueryMUser();
+    }
+    public MUserCQ xdfgetConditionQueryMUser() {
+        String prop = "mUser";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMUser()); xsetupOuterJoinMUser(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MUserCQ xcreateQueryMUser() {
+        String nrp = xresolveNRP("t_reservation", "mUser"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mUser", nrp);
+    }
+    protected void xsetupOuterJoinMUser() { xregOutJo("mUser"); }
+    public boolean hasConditionQueryMUser() { return xhasQueRlMap("mUser"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

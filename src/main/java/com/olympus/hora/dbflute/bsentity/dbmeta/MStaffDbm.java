@@ -71,7 +71,7 @@ public class MStaffDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnStaffId = cci("staff_id", "staff_id", null, null, Integer.class, "staffId", null, true, true, true, "serial", 10, 0, null, "nextval('m_staff_staff_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnStaffId = cci("staff_id", "staff_id", null, null, Integer.class, "staffId", null, true, true, true, "serial", 10, 0, null, "nextval('m_staff_staff_id_seq'::regclass)", false, null, null, null, "MWorkingStaffList,TReservationList,TShiftList", null, false);
     protected final ColumnInfo _columnFamilyName = cci("family_name", "family_name", null, null, String.class, "familyName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnGivenName = cci("given_name", "given_name", null, null, String.class, "givenName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPhone11 = cci("phone1_1", "phone1_1", null, null, String.class, "phone11", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
@@ -165,6 +165,30 @@ public class MStaffDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * m_working_staff by staff_id, named 'MWorkingStaffList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMWorkingStaffList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnStaffId(), MWorkingStaffDbm.getInstance().columnStaffId());
+        return cri("idx_m_working_staff_fk1", "MWorkingStaffList", this, MWorkingStaffDbm.getInstance(), mp, false, "MStaff");
+    }
+    /**
+     * t_reservation by staff_id, named 'TReservationList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerTReservationList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnStaffId(), TReservationDbm.getInstance().columnStaffId());
+        return cri("idx_t_reservation_fk2", "TReservationList", this, TReservationDbm.getInstance(), mp, false, "MStaff");
+    }
+    /**
+     * t_shift by staff_id, named 'TShiftList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerTShiftList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnStaffId(), TShiftDbm.getInstance().columnStaffId());
+        return cri("idx_t_shift_fk1", "TShiftList", this, TShiftDbm.getInstance(), mp, false, "MStaff");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

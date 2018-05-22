@@ -336,6 +336,57 @@ public class BsMStaffCB extends AbstractConditionBean {
         @Override
         protected String getTableDbName() { return "m_staff"; }
         /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from m_working_staff where ...) as FOO_MAX} <br>
+         * m_working_staff by staff_id, named 'MWorkingStaffList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(staffCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     staffCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     staffCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MWorkingStaff.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MWorkingStaffCB, MStaffCQ> derivedMWorkingStaff() {
+            assertDerived("mWorkingStaffList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MWorkingStaffCB> sq, MStaffCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMWorkingStaffList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from t_reservation where ...) as FOO_MAX} <br>
+         * t_reservation by staff_id, named 'TReservationList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(reservationCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     reservationCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     reservationCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, TReservation.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<TReservationCB, MStaffCQ> derivedTReservation() {
+            assertDerived("tReservationList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<TReservationCB> sq, MStaffCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveTReservationList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from t_shift where ...) as FOO_MAX} <br>
+         * t_shift by staff_id, named 'TShiftList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(shiftCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     shiftCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     shiftCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, TShift.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<TShiftCB, MStaffCQ> derivedTShift() {
+            assertDerived("tShiftList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<TShiftCB> sq, MStaffCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveTShiftList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */

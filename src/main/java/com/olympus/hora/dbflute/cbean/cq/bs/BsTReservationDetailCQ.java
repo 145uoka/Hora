@@ -101,14 +101,14 @@ public class BsTReservationDetailCQ extends AbstractBsTReservationDetailCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @return this. (NotNull)
      */
     public BsTReservationDetailCQ addOrderBy_ReservationId_Asc() { regOBA("reservation_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * reservation_id: {int8(19)}
+     * reservation_id: {int8(19), FK to t_reservation}
      * @return this. (NotNull)
      */
     public BsTReservationDetailCQ addOrderBy_ReservationId_Desc() { regOBD("reservation_id"); return this; }
@@ -121,14 +121,14 @@ public class BsTReservationDetailCQ extends AbstractBsTReservationDetailCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @return this. (NotNull)
      */
     public BsTReservationDetailCQ addOrderBy_CourseId_Asc() { regOBA("course_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * course_id: {int4(10)}
+     * course_id: {int4(10), FK to m_course}
      * @return this. (NotNull)
      */
     public BsTReservationDetailCQ addOrderBy_CourseId_Desc() { regOBD("course_id"); return this; }
@@ -252,11 +252,59 @@ public class BsTReservationDetailCQ extends AbstractBsTReservationDetailCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        TReservationDetailCQ bq = (TReservationDetailCQ)bqs;
+        TReservationDetailCQ uq = (TReservationDetailCQ)uqs;
+        if (bq.hasConditionQueryMCourse()) {
+            uq.queryMCourse().reflectRelationOnUnionQuery(bq.queryMCourse(), uq.queryMCourse());
+        }
+        if (bq.hasConditionQueryTReservation()) {
+            uq.queryTReservation().reflectRelationOnUnionQuery(bq.queryTReservation(), uq.queryTReservation());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_course by my course_id, named 'MCourse'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MCourseCQ queryMCourse() {
+        return xdfgetConditionQueryMCourse();
+    }
+    public MCourseCQ xdfgetConditionQueryMCourse() {
+        String prop = "mCourse";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMCourse()); xsetupOuterJoinMCourse(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MCourseCQ xcreateQueryMCourse() {
+        String nrp = xresolveNRP("t_reservation_detail", "mCourse"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MCourseCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mCourse", nrp);
+    }
+    protected void xsetupOuterJoinMCourse() { xregOutJo("mCourse"); }
+    public boolean hasConditionQueryMCourse() { return xhasQueRlMap("mCourse"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * t_reservation by my reservation_id, named 'TReservation'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public TReservationCQ queryTReservation() {
+        return xdfgetConditionQueryTReservation();
+    }
+    public TReservationCQ xdfgetConditionQueryTReservation() {
+        String prop = "tReservation";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryTReservation()); xsetupOuterJoinTReservation(); }
+        return xgetQueRlMap(prop);
+    }
+    protected TReservationCQ xcreateQueryTReservation() {
+        String nrp = xresolveNRP("t_reservation_detail", "tReservation"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new TReservationCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "tReservation", nrp);
+    }
+    protected void xsetupOuterJoinTReservation() { xregOutJo("tReservation"); }
+    public boolean hasConditionQueryTReservation() { return xhasQueRlMap("tReservation"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

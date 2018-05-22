@@ -38,16 +38,16 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop
  *
  * [referrer table]
- *     
+ *     m_course
  *
  * [foreign property]
- *     
+ *     mShop
  *
  * [referrer property]
- *     
+ *     mCourseList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,81 @@ public abstract class BsMCourseGroupBhv extends AbstractBehaviorWritable<MCourse
         loaderLambda.handle(new LoaderOfMCourseGroup().ready(xnewLRAryLs(mCourseGroup), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of MCourseList by the set-upper of referrer. <br>
+     * m_course by course_group_id, named 'MCourseList'.
+     * <pre>
+     * <span style="color: #0000C0">mCourseGroupBhv</span>.<span style="color: #CC4747">loadMCourse</span>(<span style="color: #553000">mCourseGroupList</span>, <span style="color: #553000">courseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">courseCB</span>.setupSelect...
+     *     <span style="color: #553000">courseCB</span>.query().set...
+     *     <span style="color: #553000">courseCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MCourseGroup mCourseGroup : <span style="color: #553000">mCourseGroupList</span>) {
+     *     ... = mCourseGroup.<span style="color: #CC4747">getMCourseList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCourseGroupId_InScope(pkList);
+     * cb.query().addOrderBy_CourseGroupId_Asc();
+     * </pre>
+     * @param mCourseGroupList The entity list of MCourseGroup. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MCourse> loadMCourse(List<MCourseGroup> mCourseGroupList, ReferrerConditionSetupper<MCourseCB> refCBLambda) {
+        xassLRArg(mCourseGroupList, refCBLambda);
+        return doLoadMCourse(mCourseGroupList, new LoadReferrerOption<MCourseCB, MCourse>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of MCourseList by the set-upper of referrer. <br>
+     * m_course by course_group_id, named 'MCourseList'.
+     * <pre>
+     * <span style="color: #0000C0">mCourseGroupBhv</span>.<span style="color: #CC4747">loadMCourse</span>(<span style="color: #553000">mCourseGroup</span>, <span style="color: #553000">courseCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">courseCB</span>.setupSelect...
+     *     <span style="color: #553000">courseCB</span>.query().set...
+     *     <span style="color: #553000">courseCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mCourseGroup</span>.<span style="color: #CC4747">getMCourseList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCourseGroupId_InScope(pkList);
+     * cb.query().addOrderBy_CourseGroupId_Asc();
+     * </pre>
+     * @param mCourseGroup The entity of MCourseGroup. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MCourse> loadMCourse(MCourseGroup mCourseGroup, ReferrerConditionSetupper<MCourseCB> refCBLambda) {
+        xassLRArg(mCourseGroup, refCBLambda);
+        return doLoadMCourse(xnewLRLs(mCourseGroup), new LoadReferrerOption<MCourseCB, MCourse>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MCourse> doLoadMCourse(List<MCourseGroup> mCourseGroupList, LoadReferrerOption<MCourseCB, MCourse> option) {
+        return helpLoadReferrerInternally(mCourseGroupList, option, "mCourseList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MShop'.
+     * @param mCourseGroupList The list of mCourseGroup. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MShop> pulloutMShop(List<MCourseGroup> mCourseGroupList)
+    { return helpPulloutInternally(mCourseGroupList, "mShop"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

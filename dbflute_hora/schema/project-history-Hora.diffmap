@@ -1,4 +1,143 @@
 map:{
+    ; 2018/05/18 18:04:01 = map:{
+        ; diffDate = 2018/05/18 18:04:01
+        ; tableCount = map:{
+            ; next = 15
+            ; previous = 14
+        }
+        ; tableDiff = map:{
+            ; m_holiday = map:{
+                ; tableName = m_holiday
+                ; diffType = ADD
+            }
+            ; m_course = map:{
+                ; tableName = m_course
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_course_fk0 = map:{
+                        ; constraintName = idx_m_course_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_course_group = map:{
+                ; tableName = m_course_group
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_course_group_fk0 = map:{
+                        ; constraintName = idx_m_course_group_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_shop = map:{
+                ; tableName = m_shop
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_shop_fk0 = map:{
+                        ; constraintName = idx_m_shop_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_working_day = map:{
+                ; tableName = m_working_day
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_day_fk0 = map:{
+                        ; constraintName = idx_m_working_day_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_working_day_deff = map:{
+                ; tableName = m_working_day_deff
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_day_deff_fk0 = map:{
+                        ; constraintName = idx_m_working_day_deff_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_working_day_detail_deff = map:{
+                ; tableName = m_working_day_detail_deff
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_day_detail_deff_fk1 = map:{
+                        ; constraintName = idx_m_working_day_detail_deff_fk1
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; m_working_staff = map:{
+                ; tableName = m_working_staff
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_m_working_staff_fk0 = map:{
+                        ; constraintName = idx_m_working_staff_fk0
+                        ; diffType = ADD
+                    }
+                    ; idx_m_working_staff_fk1 = map:{
+                        ; constraintName = idx_m_working_staff_fk1
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; t_reservation = map:{
+                ; tableName = t_reservation
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_t_reservation_fk1 = map:{
+                        ; constraintName = idx_t_reservation_fk1
+                        ; diffType = ADD
+                    }
+                    ; idx_t_reservation_fk2 = map:{
+                        ; constraintName = idx_t_reservation_fk2
+                        ; diffType = ADD
+                    }
+                    ; idx_t_reservation_fk0 = map:{
+                        ; constraintName = idx_t_reservation_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; t_reservation_detail = map:{
+                ; tableName = t_reservation_detail
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_t_reservation_detail_fk2 = map:{
+                        ; constraintName = idx_t_reservation_detail_fk2
+                        ; diffType = ADD
+                    }
+                    ; idx_t_reservation_detail_fk0 = map:{
+                        ; constraintName = idx_t_reservation_detail_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; t_shift = map:{
+                ; tableName = t_shift
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; idx_t_shift_fk1 = map:{
+                        ; constraintName = idx_t_shift_fk1
+                        ; diffType = ADD
+                    }
+                    ; idx_t_shift_fk0 = map:{
+                        ; constraintName = idx_t_shift_fk0
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.hora.m_holiday_holiday_id_seq = map:{
+                ; sequenceName = postgres.hora.m_holiday_holiday_id_seq
+                ; diffType = ADD
+            }
+        }
+    }
     ; 2018/05/14 19:23:43 = map:{
         ; diffDate = 2018/05/14 19:23:43
         ; tableDiff = map:{

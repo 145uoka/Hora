@@ -101,14 +101,14 @@ public class BsMWorkingStaffCQ extends AbstractBsMWorkingStaffCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsMWorkingStaffCQ addOrderBy_ShopId_Asc() { regOBA("shop_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return this. (NotNull)
      */
     public BsMWorkingStaffCQ addOrderBy_ShopId_Desc() { regOBD("shop_id"); return this; }
@@ -121,14 +121,14 @@ public class BsMWorkingStaffCQ extends AbstractBsMWorkingStaffCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @return this. (NotNull)
      */
     public BsMWorkingStaffCQ addOrderBy_StaffId_Asc() { regOBA("staff_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @return this. (NotNull)
      */
     public BsMWorkingStaffCQ addOrderBy_StaffId_Desc() { regOBD("staff_id"); return this; }
@@ -232,11 +232,59 @@ public class BsMWorkingStaffCQ extends AbstractBsMWorkingStaffCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MWorkingStaffCQ bq = (MWorkingStaffCQ)bqs;
+        MWorkingStaffCQ uq = (MWorkingStaffCQ)uqs;
+        if (bq.hasConditionQueryMShop()) {
+            uq.queryMShop().reflectRelationOnUnionQuery(bq.queryMShop(), uq.queryMShop());
+        }
+        if (bq.hasConditionQueryMStaff()) {
+            uq.queryMStaff().reflectRelationOnUnionQuery(bq.queryMStaff(), uq.queryMStaff());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MShopCQ queryMShop() {
+        return xdfgetConditionQueryMShop();
+    }
+    public MShopCQ xdfgetConditionQueryMShop() {
+        String prop = "mShop";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMShop()); xsetupOuterJoinMShop(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MShopCQ xcreateQueryMShop() {
+        String nrp = xresolveNRP("m_working_staff", "mShop"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MShopCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mShop", nrp);
+    }
+    protected void xsetupOuterJoinMShop() { xregOutJo("mShop"); }
+    public boolean hasConditionQueryMShop() { return xhasQueRlMap("mShop"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_staff by my staff_id, named 'MStaff'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MStaffCQ queryMStaff() {
+        return xdfgetConditionQueryMStaff();
+    }
+    public MStaffCQ xdfgetConditionQueryMStaff() {
+        String prop = "mStaff";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMStaff()); xsetupOuterJoinMStaff(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MStaffCQ xcreateQueryMStaff() {
+        String nrp = xresolveNRP("m_working_staff", "mStaff"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MStaffCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mStaff", nrp);
+    }
+    protected void xsetupOuterJoinMStaff() { xregOutJo("mStaff"); }
+    public boolean hasConditionQueryMStaff() { return xhasQueRlMap("mStaff"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

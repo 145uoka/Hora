@@ -62,6 +62,16 @@ public class MCourseCIQ extends AbstractBsMCourseCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueCourseId() { return _myCQ.xdfgetCourseId(); }
+    public String keepCourseId_ExistsReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepCourseId_NotExistsReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepCourseId_SpecifyDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepCourseId_QueryDerivedReferrer_TReservationDetailList(TReservationDetailCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepCourseId_QueryDerivedReferrer_TReservationDetailListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueCourseGroupId() { return _myCQ.xdfgetCourseGroupId(); }
     protected ConditionValue xgetCValueCourseName() { return _myCQ.xdfgetCourseName(); }
     protected ConditionValue xgetCValueCharge() { return _myCQ.xdfgetCharge(); }

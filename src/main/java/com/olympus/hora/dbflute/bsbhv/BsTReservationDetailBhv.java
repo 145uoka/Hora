@@ -38,13 +38,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_course, t_reservation
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mCourse, tReservation
  *
  * [referrer property]
  *     
@@ -379,6 +379,22 @@ public abstract class BsTReservationDetailBhv extends AbstractBehaviorWritable<T
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MCourse'.
+     * @param tReservationDetailList The list of tReservationDetail. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MCourse> pulloutMCourse(List<TReservationDetail> tReservationDetailList)
+    { return helpPulloutInternally(tReservationDetailList, "mCourse"); }
+
+    /**
+     * Pull out the list of foreign table 'TReservation'.
+     * @param tReservationDetailList The list of tReservationDetail. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<TReservation> pulloutTReservation(List<TReservationDetail> tReservationDetailList)
+    { return helpPulloutInternally(tReservationDetailList, "tReservation"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

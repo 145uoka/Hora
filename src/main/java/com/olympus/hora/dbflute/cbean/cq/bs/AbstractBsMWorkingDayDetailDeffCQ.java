@@ -174,7 +174,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffId The value of mWorkingDayDeffId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_Equal(Integer mWorkingDayDeffId) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffId The value of mWorkingDayDeffId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_NotEqual(Integer mWorkingDayDeffId) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffId The value of mWorkingDayDeffId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_GreaterThan(Integer mWorkingDayDeffId) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffId The value of mWorkingDayDeffId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_LessThan(Integer mWorkingDayDeffId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffId The value of mWorkingDayDeffId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_GreaterEqual(Integer mWorkingDayDeffId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffId The value of mWorkingDayDeffId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_LessEqual(Integer mWorkingDayDeffId) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param minNumber The min number of mWorkingDayDeffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of mWorkingDayDeffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param minNumber The min number of mWorkingDayDeffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of mWorkingDayDeffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffIdList The collection of mWorkingDayDeffId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_InScope(Collection<Integer> mWorkingDayDeffIdList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsMWorkingDayDetailDeffCQ extends AbstractConditio
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @param mWorkingDayDeffIdList The collection of mWorkingDayDeffId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setMWorkingDayDeffId_NotInScope(Collection<Integer> mWorkingDayDeffIdList) {

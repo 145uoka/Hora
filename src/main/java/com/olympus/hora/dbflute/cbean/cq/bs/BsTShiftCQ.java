@@ -101,14 +101,14 @@ public class BsTShiftCQ extends AbstractBsTShiftCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @return this. (NotNull)
      */
     public BsTShiftCQ addOrderBy_WorkingDayId_Asc() { regOBA("working_day_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * working_day_id: {int4(10)}
+     * working_day_id: {int4(10), FK to m_working_day}
      * @return this. (NotNull)
      */
     public BsTShiftCQ addOrderBy_WorkingDayId_Desc() { regOBD("working_day_id"); return this; }
@@ -121,14 +121,14 @@ public class BsTShiftCQ extends AbstractBsTShiftCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @return this. (NotNull)
      */
     public BsTShiftCQ addOrderBy_StaffId_Asc() { regOBA("staff_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @return this. (NotNull)
      */
     public BsTShiftCQ addOrderBy_StaffId_Desc() { regOBD("staff_id"); return this; }
@@ -272,11 +272,59 @@ public class BsTShiftCQ extends AbstractBsTShiftCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        TShiftCQ bq = (TShiftCQ)bqs;
+        TShiftCQ uq = (TShiftCQ)uqs;
+        if (bq.hasConditionQueryMStaff()) {
+            uq.queryMStaff().reflectRelationOnUnionQuery(bq.queryMStaff(), uq.queryMStaff());
+        }
+        if (bq.hasConditionQueryMWorkingDay()) {
+            uq.queryMWorkingDay().reflectRelationOnUnionQuery(bq.queryMWorkingDay(), uq.queryMWorkingDay());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_staff by my staff_id, named 'MStaff'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MStaffCQ queryMStaff() {
+        return xdfgetConditionQueryMStaff();
+    }
+    public MStaffCQ xdfgetConditionQueryMStaff() {
+        String prop = "mStaff";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMStaff()); xsetupOuterJoinMStaff(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MStaffCQ xcreateQueryMStaff() {
+        String nrp = xresolveNRP("t_shift", "mStaff"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MStaffCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mStaff", nrp);
+    }
+    protected void xsetupOuterJoinMStaff() { xregOutJo("mStaff"); }
+    public boolean hasConditionQueryMStaff() { return xhasQueRlMap("mStaff"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_working_day by my working_day_id, named 'MWorkingDay'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MWorkingDayCQ queryMWorkingDay() {
+        return xdfgetConditionQueryMWorkingDay();
+    }
+    public MWorkingDayCQ xdfgetConditionQueryMWorkingDay() {
+        String prop = "mWorkingDay";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMWorkingDay()); xsetupOuterJoinMWorkingDay(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MWorkingDayCQ xcreateQueryMWorkingDay() {
+        String nrp = xresolveNRP("t_shift", "mWorkingDay"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MWorkingDayCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mWorkingDay", nrp);
+    }
+    protected void xsetupOuterJoinMWorkingDay() { xregOutJo("mWorkingDay"); }
+    public boolean hasConditionQueryMWorkingDay() { return xhasQueRlMap("mWorkingDay"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

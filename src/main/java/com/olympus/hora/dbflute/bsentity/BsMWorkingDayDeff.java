@@ -3,9 +3,11 @@ package com.olympus.hora.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.hora.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.hora.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.hora.dbflute.exentity.*;
@@ -29,16 +31,16 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop
  *
  * [referrer table]
- *     
+ *     m_working_day_detail_deff
  *
  * [foreign property]
- *     
+ *     mShop
  *
  * [referrer property]
- *     
+ *     mWorkingDayDetailDeffList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -72,7 +74,7 @@ public abstract class BsMWorkingDayDeff extends AbstractEntity implements Domain
     /** m_working_day_deff_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _mWorkingDayDeffId;
 
-    /** shop_id: {NotNull, int4(10)} */
+    /** shop_id: {NotNull, int4(10), FK to m_shop} */
     protected Integer _shopId;
 
     /** start_day: {NotNull, date(13)} */
@@ -112,9 +114,50 @@ public abstract class BsMWorkingDayDeff extends AbstractEntity implements Domain
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** m_shop by my shop_id, named 'MShop'. */
+    protected OptionalEntity<MShop> _mShop;
+
+    /**
+     * [get] m_shop by my shop_id, named 'MShop'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'MShop'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<MShop> getMShop() {
+        if (_mShop == null) { _mShop = OptionalEntity.relationEmpty(this, "MShop"); }
+        return _mShop;
+    }
+
+    /**
+     * [set] m_shop by my shop_id, named 'MShop'.
+     * @param mShop The entity of foreign property 'MShop'. (NullAllowed)
+     */
+    public void setMShop(OptionalEntity<MShop> mShop) {
+        _mShop = mShop;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffList'. */
+    protected List<MWorkingDayDetailDeff> _mWorkingDayDetailDeffList;
+
+    /**
+     * [get] m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffList'.
+     * @return The entity list of referrer property 'MWorkingDayDetailDeffList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MWorkingDayDetailDeff> getMWorkingDayDetailDeffList() {
+        if (_mWorkingDayDetailDeffList == null) { _mWorkingDayDetailDeffList = newReferrerList(); }
+        return _mWorkingDayDetailDeffList;
+    }
+
+    /**
+     * [set] m_working_day_detail_deff by m_working_day_deff_id, named 'MWorkingDayDetailDeffList'.
+     * @param mWorkingDayDetailDeffList The entity list of referrer property 'MWorkingDayDetailDeffList'. (NullAllowed)
+     */
+    public void setMWorkingDayDetailDeffList(List<MWorkingDayDetailDeff> mWorkingDayDetailDeffList) {
+        _mWorkingDayDetailDeffList = mWorkingDayDetailDeffList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -143,7 +186,15 @@ public abstract class BsMWorkingDayDeff extends AbstractEntity implements Domain
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mShop != null && _mShop.isPresent())
+        { sb.append(li).append(xbRDS(_mShop, "mShop")); }
+        if (_mWorkingDayDetailDeffList != null) { for (MWorkingDayDetailDeff et : _mWorkingDayDetailDeffList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "mWorkingDayDetailDeffList")); } } }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -164,7 +215,15 @@ public abstract class BsMWorkingDayDeff extends AbstractEntity implements Domain
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_mShop != null && _mShop.isPresent())
+        { sb.append(dm).append("mShop"); }
+        if (_mWorkingDayDetailDeffList != null && !_mWorkingDayDetailDeffList.isEmpty())
+        { sb.append(dm).append("mWorkingDayDetailDeffList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -194,7 +253,7 @@ public abstract class BsMWorkingDayDeff extends AbstractEntity implements Domain
     }
 
     /**
-     * [get] shop_id: {NotNull, int4(10)} <br>
+     * [get] shop_id: {NotNull, int4(10), FK to m_shop} <br>
      * @return The value of the column 'shop_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getShopId() {
@@ -203,7 +262,7 @@ public abstract class BsMWorkingDayDeff extends AbstractEntity implements Domain
     }
 
     /**
-     * [set] shop_id: {NotNull, int4(10)} <br>
+     * [set] shop_id: {NotNull, int4(10), FK to m_shop} <br>
      * @param shopId The value of the column 'shop_id'. (basically NotNull if update: for the constraint)
      */
     public void setShopId(Integer shopId) {

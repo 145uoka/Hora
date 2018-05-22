@@ -79,6 +79,20 @@ public class BsMUserCQ extends AbstractBsMUserCQ {
       return _userId; }
     protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
 
+    public Map<String, TReservationCQ> xdfgetUserId_ExistsReferrer_TReservationList() { return xgetSQueMap("userId_ExistsReferrer_TReservationList"); }
+    public String keepUserId_ExistsReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("userId_ExistsReferrer_TReservationList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetUserId_NotExistsReferrer_TReservationList() { return xgetSQueMap("userId_NotExistsReferrer_TReservationList"); }
+    public String keepUserId_NotExistsReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("userId_NotExistsReferrer_TReservationList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetUserId_SpecifyDerivedReferrer_TReservationList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_TReservationList"); }
+    public String keepUserId_SpecifyDerivedReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_TReservationList", sq); }
+
+    public Map<String, TReservationCQ> xdfgetUserId_QueryDerivedReferrer_TReservationList() { return xgetSQueMap("userId_QueryDerivedReferrer_TReservationList"); }
+    public String keepUserId_QueryDerivedReferrer_TReservationList(TReservationCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_TReservationList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_TReservationListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_TReservationList"); }
+    public String keepUserId_QueryDerivedReferrer_TReservationListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_TReservationList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * user_id: {PK, ID, NotNull, serial(10)}

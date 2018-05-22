@@ -38,13 +38,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_working_day_deff
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     mWorkingDayDeff
  *
  * [referrer property]
  *     
@@ -379,6 +379,14 @@ public abstract class BsMWorkingDayDetailDeffBhv extends AbstractBehaviorWritabl
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MWorkingDayDeff'.
+     * @param mWorkingDayDetailDeffList The list of mWorkingDayDetailDeff. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MWorkingDayDeff> pulloutMWorkingDayDeff(List<MWorkingDayDetailDeff> mWorkingDayDetailDeffList)
+    { return helpPulloutInternally(mWorkingDayDetailDeffList, "mWorkingDayDeff"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

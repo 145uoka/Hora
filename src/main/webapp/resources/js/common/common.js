@@ -2,6 +2,11 @@
  * カレンダー表記
  */
 $(document).ready(function() {
+
+	$(function() {
+    	$('.clockpicker').clockpicker();
+      });
+
     // 表示するカレンダーを日本形式に変更
     $("div.date-ymd").datepicker({
         format : 'yyyy/mm/dd',

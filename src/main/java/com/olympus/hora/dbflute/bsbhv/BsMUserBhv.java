@@ -41,13 +41,13 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     t_reservation
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     tReservationList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -374,6 +374,70 @@ public abstract class BsMUserBhv extends AbstractBehaviorWritable<MUser, MUserCB
     public void load(MUser mUser, ReferrerLoaderHandler<LoaderOfMUser> loaderLambda) {
         xassLRArg(mUser, loaderLambda);
         loaderLambda.handle(new LoaderOfMUser().ready(xnewLRAryLs(mUser), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of TReservationList by the set-upper of referrer. <br>
+     * t_reservation by user_id, named 'TReservationList'.
+     * <pre>
+     * <span style="color: #0000C0">mUserBhv</span>.<span style="color: #CC4747">loadTReservation</span>(<span style="color: #553000">mUserList</span>, <span style="color: #553000">reservationCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">reservationCB</span>.setupSelect...
+     *     <span style="color: #553000">reservationCB</span>.query().set...
+     *     <span style="color: #553000">reservationCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MUser mUser : <span style="color: #553000">mUserList</span>) {
+     *     ... = mUser.<span style="color: #CC4747">getTReservationList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param mUserList The entity list of MUser. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservation> loadTReservation(List<MUser> mUserList, ReferrerConditionSetupper<TReservationCB> refCBLambda) {
+        xassLRArg(mUserList, refCBLambda);
+        return doLoadTReservation(mUserList, new LoadReferrerOption<TReservationCB, TReservation>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TReservationList by the set-upper of referrer. <br>
+     * t_reservation by user_id, named 'TReservationList'.
+     * <pre>
+     * <span style="color: #0000C0">mUserBhv</span>.<span style="color: #CC4747">loadTReservation</span>(<span style="color: #553000">mUser</span>, <span style="color: #553000">reservationCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">reservationCB</span>.setupSelect...
+     *     <span style="color: #553000">reservationCB</span>.query().set...
+     *     <span style="color: #553000">reservationCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mUser</span>.<span style="color: #CC4747">getTReservationList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param mUser The entity of MUser. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservation> loadTReservation(MUser mUser, ReferrerConditionSetupper<TReservationCB> refCBLambda) {
+        xassLRArg(mUser, refCBLambda);
+        return doLoadTReservation(xnewLRLs(mUser), new LoadReferrerOption<TReservationCB, TReservation>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TReservation> doLoadTReservation(List<MUser> mUserList, LoadReferrerOption<TReservationCB, TReservation> option) {
+        return helpLoadReferrerInternally(mUserList, option, "tReservationList");
     }
 
     // ===================================================================================

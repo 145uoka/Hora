@@ -158,6 +158,79 @@ public abstract class AbstractBsMCompanyCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select company_id from m_shop where ...)} <br>
+     * m_shop by company_id, named 'MShopAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMShop</span>(shopCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shopCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MShopList for 'exists'. (NotNull)
+     */
+    public void existsMShop(SubQuery<MShopCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MShopCB cb = new MShopCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepCompanyId_ExistsReferrer_MShopList(cb.query());
+        registerExistsReferrer(cb.query(), "company_id", "company_id", pp, "mShopList");
+    }
+    public abstract String keepCompanyId_ExistsReferrer_MShopList(MShopCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select company_id from m_shop where ...)} <br>
+     * m_shop by company_id, named 'MShopAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMShop</span>(shopCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shopCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of CompanyId_NotExistsReferrer_MShopList for 'not exists'. (NotNull)
+     */
+    public void notExistsMShop(SubQuery<MShopCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MShopCB cb = new MShopCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepCompanyId_NotExistsReferrer_MShopList(cb.query());
+        registerNotExistsReferrer(cb.query(), "company_id", "company_id", pp, "mShopList");
+    }
+    public abstract String keepCompanyId_NotExistsReferrer_MShopList(MShopCQ sq);
+
+    public void xsderiveMShopList(String fn, SubQuery<MShopCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MShopCB cb = new MShopCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepCompanyId_SpecifyDerivedReferrer_MShopList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "company_id", "company_id", pp, "mShopList", al, op);
+    }
+    public abstract String keepCompanyId_SpecifyDerivedReferrer_MShopList(MShopCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from m_shop where ...)} <br>
+     * m_shop by company_id, named 'MShopAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMShop()</span>.<span style="color: #CC4747">max</span>(shopCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     shopCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     shopCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MShopCB> derivedMShop() {
+        return xcreateQDRFunctionMShopList();
+    }
+    protected HpQDRFunction<MShopCB> xcreateQDRFunctionMShopList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMShopList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMShopList(String fn, SubQuery<MShopCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MShopCB cb = new MShopCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepCompanyId_QueryDerivedReferrer_MShopList(cb.query()); String prpp = keepCompanyId_QueryDerivedReferrer_MShopListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "company_id", "company_id", sqpp, "mShopList", rd, vl, prpp, op);
+    }
+    public abstract String keepCompanyId_QueryDerivedReferrer_MShopList(MShopCQ sq);
+    public abstract String keepCompanyId_QueryDerivedReferrer_MShopListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * company_id: {PK, ID, NotNull, serial(10)}
      */

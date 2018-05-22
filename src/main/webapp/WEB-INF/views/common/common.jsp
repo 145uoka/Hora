@@ -23,6 +23,8 @@
 <link href='<c:url value="/resources/css/vendor/fontawesome/font-awesome.css"/>' rel="stylesheet">
 <link href='<c:url value="/resources/css/vendor/sticky_footer/sticky-footer.css"/>' rel="stylesheet">
 <link href='<c:url value="/resources/css/vendor/bootstrap_datepicker/datepicker.css"/>' rel="stylesheet">
+<link href='<c:url value="/resources/css/vendor/clockpicker/clockpicker.css"/>' rel="stylesheet">
+<link href='<c:url value="/resources/css/vendor/clockpicker/standalone.css"/>'rel="stylesheet">
 
 <!-- CSS Glue-net -->
 <link href='<c:url value="/resources/css/color/templateColor.css"/>' rel="stylesheet">
@@ -31,6 +33,7 @@
 <!-- JS vendor -->
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/jquery/jquery-1.11.1.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/jquery/jquery-ui.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/vendor/jquery/clockpicker.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/bootstrap/bootstrap.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/bootstrap/bootstrap-datepicker.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/bootstrap/bootstrap-datepicker.ja.min.js"/>'></script>

@@ -101,14 +101,14 @@ public class BsMWorkingDayDetailDeffCQ extends AbstractBsMWorkingDayDetailDeffCQ
 
     /**
      * Add order-by as ascend. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @return this. (NotNull)
      */
     public BsMWorkingDayDetailDeffCQ addOrderBy_MWorkingDayDeffId_Asc() { regOBA("m_working_day_deff_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * m_working_day_deff_id: {NotNull, int4(10)}
+     * m_working_day_deff_id: {NotNull, int4(10), FK to m_working_day_deff}
      * @return this. (NotNull)
      */
     public BsMWorkingDayDetailDeffCQ addOrderBy_MWorkingDayDeffId_Desc() { regOBD("m_working_day_deff_id"); return this; }
@@ -592,11 +592,36 @@ public class BsMWorkingDayDetailDeffCQ extends AbstractBsMWorkingDayDetailDeffCQ
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MWorkingDayDetailDeffCQ bq = (MWorkingDayDetailDeffCQ)bqs;
+        MWorkingDayDetailDeffCQ uq = (MWorkingDayDetailDeffCQ)uqs;
+        if (bq.hasConditionQueryMWorkingDayDeff()) {
+            uq.queryMWorkingDayDeff().reflectRelationOnUnionQuery(bq.queryMWorkingDayDeff(), uq.queryMWorkingDayDeff());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * m_working_day_deff by my m_working_day_deff_id, named 'MWorkingDayDeff'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public MWorkingDayDeffCQ queryMWorkingDayDeff() {
+        return xdfgetConditionQueryMWorkingDayDeff();
+    }
+    public MWorkingDayDeffCQ xdfgetConditionQueryMWorkingDayDeff() {
+        String prop = "mWorkingDayDeff";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMWorkingDayDeff()); xsetupOuterJoinMWorkingDayDeff(); }
+        return xgetQueRlMap(prop);
+    }
+    protected MWorkingDayDeffCQ xcreateQueryMWorkingDayDeff() {
+        String nrp = xresolveNRP("m_working_day_detail_deff", "mWorkingDayDeff"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MWorkingDayDeffCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "mWorkingDayDeff", nrp);
+    }
+    protected void xsetupOuterJoinMWorkingDayDeff() { xregOutJo("mWorkingDayDeff"); }
+    public boolean hasConditionQueryMWorkingDayDeff() { return xhasQueRlMap("mWorkingDayDeff"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

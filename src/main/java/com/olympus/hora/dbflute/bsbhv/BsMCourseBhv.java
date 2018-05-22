@@ -38,16 +38,16 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_course_group
  *
  * [referrer table]
- *     
+ *     t_reservation_detail
  *
  * [foreign property]
- *     
+ *     mCourseGroup
  *
  * [referrer property]
- *     
+ *     tReservationDetailList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -359,9 +359,81 @@ public abstract class BsMCourseBhv extends AbstractBehaviorWritable<MCourse, MCo
         loaderLambda.handle(new LoaderOfMCourse().ready(xnewLRAryLs(mCourse), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of TReservationDetailList by the set-upper of referrer. <br>
+     * t_reservation_detail by course_id, named 'TReservationDetailList'.
+     * <pre>
+     * <span style="color: #0000C0">mCourseBhv</span>.<span style="color: #CC4747">loadTReservationDetail</span>(<span style="color: #553000">mCourseList</span>, <span style="color: #553000">detailCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">detailCB</span>.setupSelect...
+     *     <span style="color: #553000">detailCB</span>.query().set...
+     *     <span style="color: #553000">detailCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (MCourse mCourse : <span style="color: #553000">mCourseList</span>) {
+     *     ... = mCourse.<span style="color: #CC4747">getTReservationDetailList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCourseId_InScope(pkList);
+     * cb.query().addOrderBy_CourseId_Asc();
+     * </pre>
+     * @param mCourseList The entity list of MCourse. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservationDetail> loadTReservationDetail(List<MCourse> mCourseList, ReferrerConditionSetupper<TReservationDetailCB> refCBLambda) {
+        xassLRArg(mCourseList, refCBLambda);
+        return doLoadTReservationDetail(mCourseList, new LoadReferrerOption<TReservationDetailCB, TReservationDetail>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TReservationDetailList by the set-upper of referrer. <br>
+     * t_reservation_detail by course_id, named 'TReservationDetailList'.
+     * <pre>
+     * <span style="color: #0000C0">mCourseBhv</span>.<span style="color: #CC4747">loadTReservationDetail</span>(<span style="color: #553000">mCourse</span>, <span style="color: #553000">detailCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">detailCB</span>.setupSelect...
+     *     <span style="color: #553000">detailCB</span>.query().set...
+     *     <span style="color: #553000">detailCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">mCourse</span>.<span style="color: #CC4747">getTReservationDetailList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCourseId_InScope(pkList);
+     * cb.query().addOrderBy_CourseId_Asc();
+     * </pre>
+     * @param mCourse The entity of MCourse. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservationDetail> loadTReservationDetail(MCourse mCourse, ReferrerConditionSetupper<TReservationDetailCB> refCBLambda) {
+        xassLRArg(mCourse, refCBLambda);
+        return doLoadTReservationDetail(xnewLRLs(mCourse), new LoadReferrerOption<TReservationDetailCB, TReservationDetail>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TReservationDetail> doLoadTReservationDetail(List<MCourse> mCourseList, LoadReferrerOption<TReservationDetailCB, TReservationDetail> option) {
+        return helpLoadReferrerInternally(mCourseList, option, "tReservationDetailList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MCourseGroup'.
+     * @param mCourseList The list of mCourse. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MCourseGroup> pulloutMCourseGroup(List<MCourse> mCourseList)
+    { return helpPulloutInternally(mCourseList, "mCourseGroup"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

@@ -174,7 +174,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_Equal(Integer shopId) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_NotEqual(Integer shopId) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterThan(Integer shopId) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessThan(Integer shopId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_GreaterEqual(Integer shopId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopId The value of shopId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setShopId_LessEqual(Integer shopId) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param minNumber The min number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of shopId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_InScope(Collection<Integer> shopIdList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @param shopIdList The collection of shopId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setShopId_NotInScope(Collection<Integer> shopIdList) {
@@ -288,13 +288,13 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNull() { regShopId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      */
     public void setShopId_IsNotNull() { regShopId(CK_ISNN, DOBJ); }
 
@@ -303,7 +303,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_Equal(Integer staffId) {
@@ -316,7 +316,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_NotEqual(Integer staffId) {
@@ -329,7 +329,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_GreaterThan(Integer staffId) {
@@ -338,7 +338,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_LessThan(Integer staffId) {
@@ -347,7 +347,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_GreaterEqual(Integer staffId) {
@@ -356,7 +356,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffId The value of staffId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setStaffId_LessEqual(Integer staffId) {
@@ -367,7 +367,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param minNumber The min number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -380,7 +380,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param minNumber The min number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of staffId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -391,7 +391,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffIdList The collection of staffId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setStaffId_InScope(Collection<Integer> staffIdList) {
@@ -404,7 +404,7 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      * @param staffIdList The collection of staffId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setStaffId_NotInScope(Collection<Integer> staffIdList) {
@@ -417,13 +417,13 @@ public abstract class AbstractBsMWorkingStaffCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      */
     public void setStaffId_IsNull() { regStaffId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * staff_id: {int4(10)}
+     * staff_id: {int4(10), FK to m_staff}
      */
     public void setStaffId_IsNotNull() { regStaffId(CK_ISNN, DOBJ); }
 

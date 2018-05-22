@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -54,6 +55,18 @@ public class MCourseGroupDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MCourseGroup)et).getMShop(), (et, vl) -> ((MCourseGroup)et).setMShop((OptionalEntity<MShop>)vl), "MShop");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -70,8 +83,8 @@ public class MCourseGroupDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnCourseGroupId = cci("course_group_id", "course_group_id", null, null, Integer.class, "courseGroupId", null, true, true, true, "serial", 10, 0, null, "nextval('m_course_group_course_group_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnCourseGroupId = cci("course_group_id", "course_group_id", null, null, Integer.class, "courseGroupId", null, true, true, true, "serial", 10, 0, null, "nextval('m_course_group_course_group_id_seq'::regclass)", false, null, null, null, "MCourseList", null, false);
+    protected final ColumnInfo _columnShopId = cci("shop_id", "shop_id", null, null, Integer.class, "shopId", null, false, false, false, "int4", 10, 0, null, null, false, null, null, "MShop", null, null, false);
     protected final ColumnInfo _columnGroupName = cci("group_name", "group_name", null, null, String.class, "groupName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRequiredFlg = cci("required_flg", "required_flg", null, null, Integer.class, "requiredFlg", null, false, false, false, "int2", 5, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnReamarks = cci("reamarks", "reamarks", null, null, String.class, "reamarks", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
@@ -85,7 +98,7 @@ public class MCourseGroupDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnCourseGroupId() { return _columnCourseGroupId; }
     /**
-     * shop_id: {int4(10)}
+     * shop_id: {int4(10), FK to m_shop}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnShopId() { return _columnShopId; }
@@ -153,10 +166,26 @@ public class MCourseGroupDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * m_shop by my shop_id, named 'MShop'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignMShop() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnShopId(), MShopDbm.getInstance().columnShopId());
+        return cfi("idx_m_course_group_fk0", "MShop", this, MShopDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "MCourseGroupList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * m_course by course_group_id, named 'MCourseList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMCourseList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCourseGroupId(), MCourseDbm.getInstance().columnCourseGroupId());
+        return cri("idx_m_course_fk0", "MCourseList", this, MCourseDbm.getInstance(), mp, false, "MCourseGroup");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

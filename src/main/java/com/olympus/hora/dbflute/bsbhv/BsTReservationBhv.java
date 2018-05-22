@@ -38,16 +38,16 @@ import com.olympus.hora.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     m_shop, m_staff, m_user
  *
  * [referrer table]
- *     
+ *     t_reservation_detail
  *
  * [foreign property]
- *     
+ *     mShop, mStaff, mUser
  *
  * [referrer property]
- *     
+ *     tReservationDetailList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,97 @@ public abstract class BsTReservationBhv extends AbstractBehaviorWritable<TReserv
         loaderLambda.handle(new LoaderOfTReservation().ready(xnewLRAryLs(tReservation), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of TReservationDetailList by the set-upper of referrer. <br>
+     * t_reservation_detail by reservation_id, named 'TReservationDetailList'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationBhv</span>.<span style="color: #CC4747">loadTReservationDetail</span>(<span style="color: #553000">tReservationList</span>, <span style="color: #553000">detailCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">detailCB</span>.setupSelect...
+     *     <span style="color: #553000">detailCB</span>.query().set...
+     *     <span style="color: #553000">detailCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (TReservation tReservation : <span style="color: #553000">tReservationList</span>) {
+     *     ... = tReservation.<span style="color: #CC4747">getTReservationDetailList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setReservationId_InScope(pkList);
+     * cb.query().addOrderBy_ReservationId_Asc();
+     * </pre>
+     * @param tReservationList The entity list of TReservation. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservationDetail> loadTReservationDetail(List<TReservation> tReservationList, ReferrerConditionSetupper<TReservationDetailCB> refCBLambda) {
+        xassLRArg(tReservationList, refCBLambda);
+        return doLoadTReservationDetail(tReservationList, new LoadReferrerOption<TReservationDetailCB, TReservationDetail>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of TReservationDetailList by the set-upper of referrer. <br>
+     * t_reservation_detail by reservation_id, named 'TReservationDetailList'.
+     * <pre>
+     * <span style="color: #0000C0">tReservationBhv</span>.<span style="color: #CC4747">loadTReservationDetail</span>(<span style="color: #553000">tReservation</span>, <span style="color: #553000">detailCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">detailCB</span>.setupSelect...
+     *     <span style="color: #553000">detailCB</span>.query().set...
+     *     <span style="color: #553000">detailCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">tReservation</span>.<span style="color: #CC4747">getTReservationDetailList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setReservationId_InScope(pkList);
+     * cb.query().addOrderBy_ReservationId_Asc();
+     * </pre>
+     * @param tReservation The entity of TReservation. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<TReservationDetail> loadTReservationDetail(TReservation tReservation, ReferrerConditionSetupper<TReservationDetailCB> refCBLambda) {
+        xassLRArg(tReservation, refCBLambda);
+        return doLoadTReservationDetail(xnewLRLs(tReservation), new LoadReferrerOption<TReservationDetailCB, TReservationDetail>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<TReservationDetail> doLoadTReservationDetail(List<TReservation> tReservationList, LoadReferrerOption<TReservationDetailCB, TReservationDetail> option) {
+        return helpLoadReferrerInternally(tReservationList, option, "tReservationDetailList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'MShop'.
+     * @param tReservationList The list of tReservation. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MShop> pulloutMShop(List<TReservation> tReservationList)
+    { return helpPulloutInternally(tReservationList, "mShop"); }
+
+    /**
+     * Pull out the list of foreign table 'MStaff'.
+     * @param tReservationList The list of tReservation. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MStaff> pulloutMStaff(List<TReservation> tReservationList)
+    { return helpPulloutInternally(tReservationList, "mStaff"); }
+
+    /**
+     * Pull out the list of foreign table 'MUser'.
+     * @param tReservationList The list of tReservation. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<MUser> pulloutMUser(List<TReservation> tReservationList)
+    { return helpPulloutInternally(tReservationList, "mUser"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

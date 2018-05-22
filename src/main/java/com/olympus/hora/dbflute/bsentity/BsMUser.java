@@ -32,13 +32,13 @@ import com.olympus.hora.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     t_reservation
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     tReservationList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -205,6 +205,26 @@ public abstract class BsMUser extends AbstractEntity implements DomainEntity, En
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** t_reservation by user_id, named 'TReservationList'. */
+    protected List<TReservation> _tReservationList;
+
+    /**
+     * [get] t_reservation by user_id, named 'TReservationList'.
+     * @return The entity list of referrer property 'TReservationList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<TReservation> getTReservationList() {
+        if (_tReservationList == null) { _tReservationList = newReferrerList(); }
+        return _tReservationList;
+    }
+
+    /**
+     * [set] t_reservation by user_id, named 'TReservationList'.
+     * @param tReservationList The entity list of referrer property 'TReservationList'. (NullAllowed)
+     */
+    public void setTReservationList(List<TReservation> tReservationList) {
+        _tReservationList = tReservationList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -233,7 +253,10 @@ public abstract class BsMUser extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_tReservationList != null) { for (TReservation et : _tReservationList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "tReservationList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -272,7 +295,13 @@ public abstract class BsMUser extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_tReservationList != null && !_tReservationList.isEmpty())
+        { sb.append(dm).append("tReservationList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
