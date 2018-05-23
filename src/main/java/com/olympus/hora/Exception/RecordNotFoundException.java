@@ -17,6 +17,8 @@ public class RecordNotFoundException extends Exception {
 
     private Object key;
 
+    String exceptionMessage = null;
+
     public RecordNotFoundException(String tableName, Object key) {
         super("対象のレコードが検出されませんでした。 テーブル名 - [" + tableName + "], Key - [" + key + "]");
         this.tableName = tableName;
@@ -37,6 +39,17 @@ public class RecordNotFoundException extends Exception {
      */
     public Object getKey() {
         return key;
+    }
+
+    public RecordNotFoundException() {
+    }
+
+    public RecordNotFoundException(String key) {
+        this.exceptionMessage = key;
+    }
+
+    public String getExceptionMessage() {
+        return exceptionMessage;
     }
 
     public static String createKeyInfoMessage(Map<String, Object> conditionMap) {

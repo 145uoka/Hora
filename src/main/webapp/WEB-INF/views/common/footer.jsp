@@ -2,6 +2,6 @@
 <div id="footer">
   <div style="margin-bottom: 20px"></div>
   <div class="container">
-    <p class="help-block">(C) 2018 Aiolos.</p>
+    <p class="help-block">(C) 2018 Hora.</p>
   </div>
 </div>

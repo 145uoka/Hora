@@ -18,23 +18,33 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object object,
 			Exception ex) {
+
+	    logger.error("例外をキャッチしました。", ex);
+	    ModelAndView mav = new ModelAndView();
+
 		if (ex instanceof MultipartException) {
-			ModelAndView mav = new ModelAndView();
 			// JSPに表示するメッセージをセットします。
 			mav.addObject("message", "アップロードファイルが大きすぎます。");
-			// 遷移先のJSPを指定します。(error.jspに遷移します。)
-			mav.setViewName("error");
-			return mav;
-		} else {
-			logger.error("例外をキャッチしました。", ex);
-			ModelAndView mav = new ModelAndView();
 
+		} else if(ex instanceof RecordNotFoundException){
+
+            RecordNotFoundException recordNotEx = (RecordNotFoundException) ex;
+
+            // JSPに表示するメッセージをセットします。
+            if(recordNotEx.getExceptionMessage() != null){
+                String exceptionMessage = recordNotEx.getExceptionMessage();
+                mav.addObject(MessageType.ERROR, exceptionMessage);
+            }else{
+                mav.addObject(MessageType.ERROR, "対象のレコードが検出されませんでした。");
+            }
+
+		} else {
 			// JSPに表示するメッセージをセットします。
 			mav.addObject(MessageType.ERROR, "予期せぬエラーが発生しました。");
-
-			// 遷移先のJSPを指定します。(error.jspに遷移します。)
-			mav.setViewName("error");
-			return mav;
 		}
+
+		// 遷移先のJSPを指定します。(error.jspに遷移します。)
+		mav.setViewName("./error");
+        return mav;
 	}
 }

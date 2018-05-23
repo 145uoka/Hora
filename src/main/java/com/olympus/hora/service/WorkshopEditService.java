@@ -60,6 +60,34 @@ public class WorkshopEditService {
 
 
     /**
+     * 店舗マスタからショップIDで検索をする．
+     *
+     * @param shopId ショップID
+     * @return mShopEntity
+     */
+    public OptionalEntity<MShop> findMShopEntity(Integer shopId) {
+        OptionalEntity<MShop> mShopEntity = mShopBhv.selectEntity(cb ->{
+            cb.query().setShopId_Equal(shopId);
+            cb.query().setDeleteFlag_Equal(false);
+        });
+        return mShopEntity;
+    }
+
+    /**
+     * 祝日マスタから一致する日付を検索をする．
+     *
+     * @param date 日付
+     * @return mHolidayEntity
+     */
+    public OptionalEntity<MHoliday> findHoliday(LocalDate date) {
+        OptionalEntity<MHoliday> mHolidayEntity = mHolidayBhv.selectEntity(cb ->{
+            cb.query().setHoliday_Equal(date);
+            cb.query().setDeleteFlag_Equal(false);
+        });
+        return mHolidayEntity;
+    }
+
+    /**
      * 営業日の設定を行う．
      *
      * @param mWorkingDayDeffDto dto
@@ -94,10 +122,7 @@ public class WorkshopEditService {
     private MWorkingDayDeff storeMWorkingDayDeff(MWorkingDayDeffDto dto) throws RecordNotFoundException {
 
         //対象の店舗IDが店舗マスタに存在するかチェック。
-        OptionalEntity<MShop> mShopEntity = mShopBhv.selectEntity(cb ->{
-            cb.query().setShopId_Equal(dto.getShopId());
-            cb.query().setDeleteFlag_Equal(false);
-        });
+        OptionalEntity<MShop> mShopEntity = findMShopEntity(dto.getShopId());
 
         if(!mShopEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
@@ -188,11 +213,8 @@ public class WorkshopEditService {
     @Transactional(propagation = Propagation.REQUIRED)
     private List<MWorkingDay> storeMWorkingDay(MWorkingDayDeffDto dto) throws RecordNotFoundException {
 
-        //対象の店舗IDが店舗マスタに存在するかチェック。
-        OptionalEntity<MShop> mShopEntity = mShopBhv.selectEntity(cb ->{
-            cb.query().setShopId_Equal(dto.getShopId());
-            cb.query().setDeleteFlag_Equal(false);
-        });
+      //対象の店舗IDが店舗マスタに存在するかチェック。
+        OptionalEntity<MShop> mShopEntity = findMShopEntity(dto.getShopId());
 
         if(!mShopEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
@@ -427,16 +449,6 @@ public class WorkshopEditService {
 
         return mWorkingDayStoreList;
     }
-
-
-    private OptionalEntity<MHoliday> findHoliday(LocalDate date) {
-        OptionalEntity<MHoliday> mHolidayEntity = mHolidayBhv.selectEntity(cb ->{
-            cb.query().setHoliday_Equal(date);
-            cb.query().setDeleteFlag_Equal(false);
-        });
-        return mHolidayEntity;
-    }
-
 
     /**
      * 第x週目の指定曜日と一致すれば、entityにdateをセットする。

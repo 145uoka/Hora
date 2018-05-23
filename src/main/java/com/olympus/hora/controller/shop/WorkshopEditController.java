@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -23,17 +24,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.olympus.hora.Exception.RecordNotFoundException;
 import com.olympus.hora.common.util.DateUtil;
 import com.olympus.hora.common.util.MessageKeyUtil;
 import com.olympus.hora.common.util.TimeUtils;
+import com.olympus.hora.constants.LogMessageKeyConstants;
 import com.olympus.hora.constants.MessageKeyConstants;
 import com.olympus.hora.constants.SystemCodeConstants;
 import com.olympus.hora.constants.SystemCodeConstants.Flag;
 import com.olympus.hora.constants.SystemCodeConstants.MessageType;
+import com.olympus.hora.dbflute.exentity.MShop;
 import com.olympus.hora.dto.LabelValueDto;
 import com.olympus.hora.dto.shop.MWorkingDayDeffDto;
 import com.olympus.hora.dto.shop.MWorkingDayDetailDeffDto;
 import com.olympus.hora.form.WorkshopEditFrom;
+import com.olympus.hora.service.LoggerService;
 import com.olympus.hora.service.WorkshopEditService;
 
 /**
@@ -50,6 +55,9 @@ public class WorkshopEditController {
     @Autowired
     WorkshopEditService workshopEditService;
 
+    @Autowired
+    LoggerService loggerService;
+
     //private static final Logger logger = LoggerFactory.getLogger(WorkshopEditController.class);
 
     /**
@@ -58,9 +66,20 @@ public class WorkshopEditController {
      * @param form WorkshopEditFrom
      * @param model Model
      * @return "challenge/workshopEdit"
+     * @throws RecordNotFoundException
      */
     @RequestMapping(value = "shop/{paramShopId}/workshopEdit", method = RequestMethod.GET)
-    public String shop(@PathVariable String paramShopId, @ModelAttribute("form") WorkshopEditFrom form, Model model) {
+    public String shop(@PathVariable String paramShopId, @ModelAttribute("form") WorkshopEditFrom form, Model model) throws RecordNotFoundException {
+
+        Integer shopId = Integer.parseInt(paramShopId);
+
+        OptionalEntity<MShop> mShopEntity = workshopEditService.findMShopEntity(shopId);
+
+        if(!mShopEntity.isPresent()){
+            // 該当するテーブル情報がなければ、レコード取得エラー。
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"店舗マスタ", shopId});
+            throw new RecordNotFoundException();
+        }
 
         form.setShopId(paramShopId);
         model.addAttribute("form", form);
@@ -91,7 +110,10 @@ public class WorkshopEditController {
         //boolean isNotValidStartDay = false;
         if(StringUtils.isNotEmpty(form.getStartDay())){
             if(!DateUtil.isValidDateFormat(form.getStartDay(), DateUtil.DATE_TIME_FORMAT_YYYYMMDD)){
-                bindingResult.rejectValue("startDay",null, null, MessageKeyConstants.GlueNetValidator.NOTDATE);
+                String message = messageSource.getMessage(
+                        MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTDATE),
+                        null, Locale.getDefault());
+                bindingResult.rejectValue("startDay",null, null, message);
             }
         }
 
@@ -104,7 +126,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("specifiedDay["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTDATEPATTERN),
-                            new Object[]{i,"指定日"}, Locale.getDefault());
+                            new Object[]{(i+1),"指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }
@@ -120,21 +142,21 @@ public class WorkshopEditController {
                             bindingResult.rejectValue("endTime["+i+"]",null, null, null);
                             String message = messageSource.getMessage(
                                     MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTTIMETERM),
-                                    new Object[]{i}, Locale.getDefault());
+                                    new Object[]{(i+1)}, Locale.getDefault());
                             errorMsgList.add(message);
                         }
                     }else{
                         bindingResult.rejectValue("endTime["+i+"]",null, null, null);
                         String message = messageSource.getMessage(
                                 MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTTIMEPATTERN),
-                                new Object[]{i, "終了時刻"}, Locale.getDefault());
+                                new Object[]{(i+1), "終了時刻"}, Locale.getDefault());
                         errorMsgList.add(message);
                     }
                 }else{
                     bindingResult.rejectValue("startTime["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTTIMEPATTERN),
-                            new Object[]{i, "開始時刻"}, Locale.getDefault());
+                            new Object[]{(i+1), "開始時刻"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }
@@ -191,7 +213,7 @@ public class WorkshopEditController {
                             bindingResult.rejectValue("specifiedDay["+i+"]",null, null, null);
                             String message = messageSource.getMessage(
                                     MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTEMPTY_WORKDAY),
-                                    new Object[]{i}, Locale.getDefault());
+                                    new Object[]{(i+1)}, Locale.getDefault());
                             errorMsgList.add(message);
                         }
                     }
@@ -206,7 +228,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("startTime["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTEMPTY_WITH_ITEM),
-                            new Object[]{i, "開始時刻"}, Locale.getDefault());
+                            new Object[]{(i+1), "開始時刻"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isEmpty(form.getEndTime()[i])){
@@ -214,7 +236,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("endTime["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTEMPTY_WITH_ITEM),
-                            new Object[]{i, "終了時刻"}, Locale.getDefault());
+                            new Object[]{(i+1), "終了時刻"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }else if (StringUtils.isEmpty(form.getWorkingDayFlg()[i])){
@@ -224,7 +246,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("startTime["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "開始時刻"}, Locale.getDefault());
+                            new Object[]{(i+1), "開始時刻"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isNotEmpty(form.getEndTime()[i])){
@@ -232,7 +254,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("endTime["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "終了時刻"}, Locale.getDefault());
+                            new Object[]{(i+1), "終了時刻"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }
@@ -252,7 +274,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("holidayFlg["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTEMPTY_WITH_ITEM),
-                            new Object[]{i, "曜日Flag"}, Locale.getDefault());
+                            new Object[]{(i+1), "曜日Flag"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isNotEmpty(form.getDayOfMonth()[i])){
@@ -260,7 +282,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("dayOfMonth["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "毎月指定日"}, Locale.getDefault());
+                            new Object[]{(i+1), "毎月指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isNotEmpty(form.getSpecifiedDay()[i])){
@@ -268,7 +290,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("specifiedDay["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "指定日"}, Locale.getDefault());
+                            new Object[]{(i+1), "指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }
@@ -281,7 +303,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("dayOfMonth["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "毎月指定日"}, Locale.getDefault());
+                            new Object[]{(i+1), "毎月指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isNotEmpty(form.getSpecifiedDay()[i])){
@@ -289,7 +311,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("specifiedDay["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "指定日"}, Locale.getDefault());
+                            new Object[]{(i+1), "指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }
@@ -309,7 +331,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("holidayFlg["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "曜日Flag"}, Locale.getDefault());
+                            new Object[]{(i+1), "曜日Flag"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(isWeekNumberInput){
@@ -321,7 +343,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("week5Flag["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "第ｘ週Flag"}, Locale.getDefault());
+                            new Object[]{(i+1), "第ｘ週Flag"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isNotEmpty(form.getDayOfMonth()[i])){
@@ -329,7 +351,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("dayOfMonth["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "毎月指定日"}, Locale.getDefault());
+                            new Object[]{(i+1), "毎月指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }
@@ -349,7 +371,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("holidayFlg["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "曜日Flag"}, Locale.getDefault());
+                            new Object[]{(i+1), "曜日Flag"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(isWeekNumberInput){
@@ -361,7 +383,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("week5Flag["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "第ｘ週Flag"}, Locale.getDefault());
+                            new Object[]{(i+1), "第ｘ週Flag"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
                 if(StringUtils.isNotEmpty(form.getSpecifiedDay()[i])){
@@ -369,7 +391,7 @@ public class WorkshopEditController {
                     bindingResult.rejectValue("specifiedDay["+i+"]",null, null, null);
                     String message = messageSource.getMessage(
                             MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTINPUT),
-                            new Object[]{i, "指定日"}, Locale.getDefault());
+                            new Object[]{(i+1), "指定日"}, Locale.getDefault());
                     errorMsgList.add(message);
                 }
             }

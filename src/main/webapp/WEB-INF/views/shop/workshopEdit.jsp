@@ -49,7 +49,7 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 										<form:input path="startDay" class="form-control" placeholder="yyyy/MM/dd" />
 									</div>
 									<div style="clear: both;">
-										<span class="col-md-4"></span>
+										<span class="col-md-5"></span>
 										<div class="col-md-3">
 											<form:errors path="startDay" element="div" cssClass="text-danger" />
 										</div>
@@ -91,9 +91,9 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 										</tr>
 									</thead>
 									<tbody>
-									  <c:forEach begin="0" end="10" varStatus="status">
+									  <c:forEach begin="0" end="9" varStatus="status">
 									  <tr>
-									    <td><c:out value="${status.index}"/></td>
+									    <td><c:out value="${status.count}"/></td>
 									    <td><form:checkbox path="effectiveFlag[${status.index}]" class="form-control th-checkbox-s-size" value="1" /></td>
 									    <td><form:checkbox path="workingDayFlg[${status.index}]" class="form-control th-checkbox-s-size" value="1" onClick="switchDisabled(${status.index})"/></td>
 									    <td><form:checkbox path="week1Flag[${status.index}]" class="form-control" value="1" disabled=""/></td>
