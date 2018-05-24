@@ -38,6 +38,8 @@ public class LogMessageKeyConstants {
      * ERRORログのメッセージID。
      */
     public static class Error {
+        /** 同日の時間帯重複エラー 日付：[{0}] */
+        public static final String E_99_0001 = "E_99_0001";
     }
 
 }

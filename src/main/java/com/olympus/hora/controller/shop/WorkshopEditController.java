@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.olympus.hora.Exception.OverlapTimeIntervalException;
 import com.olympus.hora.Exception.RecordNotFoundException;
 import com.olympus.hora.common.util.DateUtil;
 import com.olympus.hora.common.util.MessageKeyUtil;
@@ -415,7 +416,25 @@ public class WorkshopEditController {
         // DB登録
         MWorkingDayDeffDto mWorkingDayDeffDto = convaertToMWorkingDayDeffDto(form);
         List<MWorkingDayDetailDeffDto> mWorkingDayDetailDeffDtoList = convertTomWorkingDayDetailDeffDtoList(form);
-        workshopEditService.store(mWorkingDayDeffDto, mWorkingDayDetailDeffDtoList);
+
+        try{
+            workshopEditService.store(mWorkingDayDeffDto, mWorkingDayDetailDeffDtoList);
+
+        }catch(OverlapTimeIntervalException e){
+
+            model.addAttribute("form", form);
+            model.addAttribute("errors", bindingResult);
+            // エラーメッセージをメッセージ表示領域に格納。
+            String message = messageSource.getMessage(
+                    MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.OVERLAPTIMEINTERVAL),
+                    null, Locale.getDefault());
+            model.addAttribute(MessageType.ERROR, message);
+
+            List<LabelValueDto> dateList = workshopEditService.datePullDown(true);
+            model.addAttribute("dateList", dateList);
+
+            return "shop/workshopEdit";
+        }
 
         // 完了メッセージを設定
         String message = messageSource.getMessage(

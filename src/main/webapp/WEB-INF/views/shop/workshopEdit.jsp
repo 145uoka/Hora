@@ -95,8 +95,8 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 									  <tr>
 									    <td><c:out value="${status.count}"/></td>
 									    <td><form:checkbox path="effectiveFlag[${status.index}]" class="form-control th-checkbox-s-size" value="1" /></td>
-									    <td><form:checkbox path="workingDayFlg[${status.index}]" class="form-control th-checkbox-s-size" value="1" onClick="switchDisabled(${status.index})"/></td>
-									    <td><form:checkbox path="week1Flag[${status.index}]" class="form-control" value="1" disabled=""/></td>
+									    <td><form:checkbox path="workingDayFlg[${status.index}]" class="form-control th-checkbox-s-size" value="1"/></td>
+									    <td><form:checkbox path="week1Flag[${status.index}]" class="form-control" value="1" /></td>
 									    <td><form:checkbox path="week2Flag[${status.index}]" class="form-control" value="1" /></td>
 									    <td><form:checkbox path="week3Flag[${status.index}]" class="form-control" value="1" /></td>
 									    <td><form:checkbox path="week4Flag[${status.index}]" class="form-control" value="1" /></td>
@@ -109,11 +109,15 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 									    <td><form:checkbox path="satFlg[${status.index}]" class="form-control" value="1" /></td>
 									    <td><form:checkbox path="sunFlg[${status.index}]" class="form-control" value="1" /></td>
 									    <td><form:checkbox path="holidayFlg[${status.index}]" class="form-control" value="1" /></td>
-									    <td><form:select path="dayOfMonth[${status.index}]" class="form-control" items="${dateList}" itemLabel="label" itemValue="value" /></td>
+									    <td>
+									    	<div class="<ext:isErrors path='dayOfMonth[${status.index}]' value='has-error'/> ">
+									    		<form:select path="dayOfMonth[${status.index}]" class="form-control" items="${dateList}" itemLabel="label" itemValue="value" />
+									    	</div>
+									    </td>
 									    <td>日</td>
 										<td>
-											<div class="input-group date date-ymd">
-												<form:input class="form-control" path="specifiedDay[${status.index}]" placeholder="yyyy/MM/dd" />
+											<div class="input-group date date-ymd <ext:isErrors path='specifiedDay[${status.index}]' value='has-error'/>">
+												<form:input class="form-control" path="specifiedDay[${status.index}]" placeholder="yyyy/MM/dd"/>
 												<div class="input-group-addon">
 													<i class='glyphicon glyphicon-calendar'></i>
 												</div>
@@ -121,7 +125,7 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 										</td>
 
 										<td>
-											<div class="input-group clockpicker">
+											<div class="input-group clockpicker <ext:isErrors path='startTime[${status.index}]' value='has-error'/>">
 												<form:input path="startTime[${status.index}]" class="form-control" placeholder="HH:mm" disabled=""/>
 												<div class="input-group-addon">
 													<i class='glyphicon glyphicon-time'></i>
@@ -130,7 +134,7 @@ file="/WEB-INF/fragment/taglib-includes.jspf"%>
 										</td>
 
 										<td>
-											<div class="input-group clockpicker">
+											<div class="input-group clockpicker <ext:isErrors path='endTime[${status.index}]' value='has-error'/>">
 												<form:input path="endTime[${status.index}]" class="form-control" placeholder="HH:mm" disabled=""/>
 												<div class="input-group-addon">
 													<i class='glyphicon glyphicon-time'></i>

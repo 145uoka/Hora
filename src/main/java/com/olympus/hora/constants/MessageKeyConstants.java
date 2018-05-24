@@ -86,6 +86,8 @@ public class MessageKeyConstants {
         public static final String NOTEMPTY_WITH_ITEM = "{glue-net.validator.NotEmpty.with.item}";
         /** No{0}の{1}の入力は無効です。 */
         public static final String NOTINPUT = "{glue-net.validator.NotInput}";
+        /** 同営業日で時間帯が重複しています。 */
+        public static final String OVERLAPTIMEINTERVAL = "{glue-net.validator.overlapTimeInterval}";
     }
 
     /**
