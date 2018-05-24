@@ -12,7 +12,7 @@
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 
-<title><c:out value="Aiolos" /></title>
+<title><c:out value="Hora" /></title>
 
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/static/favicon.ico" />
 <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/resources/static/safari_favicon.png" />
